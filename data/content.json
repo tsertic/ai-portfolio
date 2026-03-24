@@ -3,12 +3,18 @@
   "name": "Tomislav Sertic",
   "title": "Full-Stack Software Developer",
   "location": "Zagreb, Croatia",
-  "about": "Driven Software Developer specializing in high-performance web applications, robust backend systems, and effective digital solutions. With 5 years of experience, I focus on building scalable, efficient, and user-friendly software solutions.",
+  "about": "Full-stack developer based in Zagreb, Croatia, with hands-on experience delivering enterprise-grade solutions for major international clients including Saudi Aramco, ESA, and THT. My professional work centers on customizing and extending Archibus platforms — from SQL optimization and Java backend development to HTML/JS frontend interfaces. I've worked extensively on modernizing legacy codebases by integrating React into existing enterprise systems. On the side, I design, develop, and maintain websites for clients using Next.js and TypeScript, handling everything from initial build to server deployment and ongoing maintenance. I'm driven by solving complex technical challenges, whether that means breathing new life into legacy systems or building modern applications from the ground up.",
+  "personal": {
+    "daughter": "Anđela Anja",
+    "dog": "Eevee — a mixed breed I absolutely adore",
+    "note": "New dad and dog dad. Life is full."
+  },
+  "projects_context": "By day I build enterprise software solutions for international clients. The projects shown here are my hobby work — client websites for friends and acquaintances, various utility scripts that help me day-to-day, and pure experiments I build just for the fun of it.",
   "experience": [
     {
       "company": "Arctis d.o.o",
       "role": "Software Developer",
-      "description": "Working as an Archibus IWMS representative — server setup, database integration, custom features and integrations, full-lifecycle development. Notable project: data analysis and React development for Saudi Aramco within the Archibus ecosystem."
+      "description": "Archibus IWMS platform development for enterprise clients including Saudi Aramco, ESA, and THT. SQL optimization, Java backend, HTML/JS frontend, React integration into legacy systems, full-lifecycle development and deployment."
     }
   ],
   "skills": {
