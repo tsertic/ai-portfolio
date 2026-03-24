@@ -18,10 +18,24 @@ const { fetchProjects }              = require("./fetch-projects");
 const CONFIG = {
   outputPath:  path.join(__dirname, "..", "docs", "index.html"),
   contentPath: path.join(__dirname, "..", "data", "content.json"),
+
+  // Add more models to any array — all are eligible for random pick
   models: {
-    claude: "claude-sonnet-4-6",
-    openai: "gpt-4o",
-    gemini: "gemini-2.0-flash",
+    claude: [
+      "claude-sonnet-4-6",
+      "claude-opus-4-6",
+      "claude-haiku-4-5-20251001",
+    ],
+    openai: [
+      "gpt-4o",
+      "gpt-4o-mini",
+      "gpt-4-turbo",
+    ],
+    gemini: [
+      "gemini-3-flash-preview",
+      "gemini-2.5-pro-preview-03-25",
+      "gemini-2.0-flash-lite",
+    ],
   },
 };
 
@@ -43,25 +57,34 @@ function loadEnv() {
 
 // ─── Provider / LLM picker ───────────────────────────────────────────────────
 
+function pickRandom(arr) {
+  return arr[Math.floor(Math.random() * arr.length)];
+}
+
 function resolveProvider() {
   const useRandom = (process.env.USE_RANDOM_LLM || "false").toLowerCase() === "true";
 
   if (useRandom) {
-    // Collect all providers that have an API key configured
     const available = [];
     if (process.env.ANTHROPIC_API_KEY) available.push("claude");
     if (process.env.OPENAI_API_KEY)    available.push("openai");
     if (process.env.GEMINI_API_KEY)    available.push("gemini");
 
     if (available.length > 1) {
-      const chosen = available[Math.floor(Math.random() * available.length)];
-      console.log(`   LLM:      ${chosen} (randomly picked from ${available.join(", ")})`);
+      const chosen = pickRandom(available);
+      console.log(`   LLM:      ${chosen} (random from: ${available.join(", ")})`);
       return chosen;
     }
   }
 
-  const provider = process.env.AI_PROVIDER || "claude";
-  return provider;
+  return process.env.AI_PROVIDER || "claude";
+}
+
+function resolveModel(provider) {
+  // AI_MODEL env overrides everything
+  if (process.env.AI_MODEL) return process.env.AI_MODEL;
+  const list = CONFIG.models[provider];
+  return Array.isArray(list) ? pickRandom(list) : list;
 }
 
 function getApiKey(provider) {
@@ -244,7 +267,7 @@ async function callGemini(prompt, apiKey, model) {
   console.log(`  Model: ${model}`);
   const res = await httpsPost(
     "generativelanguage.googleapis.com",
-    `/v1beta/models/${model}:generateContent?key=${apiKey}`,
+    `/v1beta/models/gemini-3-flash-preview:generateContent?key=${apiKey}`,
     {},
     { contents: [{ parts: [{ text: prompt }] }], generationConfig: { maxOutputTokens: 16000 } }
   );
@@ -442,7 +465,7 @@ async function main() {
   loadEnv();
 
   const provider = resolveProvider();
-  const model    = process.env.AI_MODEL || CONFIG.models[provider];
+  const model    = resolveModel(provider);
   const apiKey   = getApiKey(provider);
 
   if (!apiKey) {
