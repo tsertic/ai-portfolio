@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tomislav Sertic — Full-Stack Developer</title>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#04111e;--bg2:#071a2e;--text:#c8e6f0;--muted:#5a8fa8;--accent:#1db8c8;--accent2:#0e7a8a;--rule:#1a3a4a}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:'JetBrains Mono',monospace;font-size:13px;line-height:1.6;cursor:none}
+a{color:var(--accent);text-decoration:underline;text-underline-offset:3px}
+a:hover{color:#fff}
+#cursor{position:fixed;width:18px;height:18px;border-radius:50%;background:rgba(29,184,200,0.35);box-shadow:0 0 12px 4px rgba(29,184,200,0.25);pointer-events:none;transform:translate(-50%,-50%);transition:width .15s,height .15s;z-index:9999}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(4,17,30,0.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--rule);padding:10px 28px;display:flex;align-items:center;justify-content:space-between}
+nav .logo{color:var(--accent);font-weight:700;font-size:13px;text-decoration:none}
+nav ul{list-style:none;display:flex;gap:20px}
+nav ul a{color:var(--muted);text-decoration:none;font-size:12px;transition:color .2s}
+nav ul a:hover{color:var(--accent)}
+
+/* HERO */
+#hero{position:relative;min-height:100vh;display:grid;place-items:center;overflow:hidden;padding:80px 20px 40px}
+.hero-geo{position:absolute;inset:0;z-index:0;overflow:hidden}
+.hero-geo svg{position:absolute;opacity:.07}
+.hero-geo .g1{top:-60px;left:-80px;width:420px}
+.hero-geo .g2{bottom:-40px;right:-60px;width:380px}
+.hero-geo .g3{top:40%;left:55%;width:180px;opacity:.04}
+.hero-inner{position:relative;z-index:1;width:100%;max-width:860px}
+.hero-scattered{position:relative;min-height:420px}
+.hero-portrait{position:absolute;top:0;left:50%;transform:translateX(-50%);width:90px;height:90px;border-radius:50%;border:2px solid var(--accent);overflow:hidden;background:var(--bg2);display:flex;align-items:center;justify-content:center}
+.hero-portrait img{width:100%;height:100%;object-fit:cover}
+.hero-portrait .initials{color:var(--accent);font-size:22px;font-weight:700}
+.hero-name{position:absolute;top:110px;left:50%;transform:translateX(-50%);text-align:center;white-space:nowrap}
+.hero-name h1{font-size:1.5rem;font-weight:700;color:#fff;letter-spacing:.04em}
+.hero-title{position:absolute;top:156px;left:50%;transform:translateX(-50%);color:var(--accent);font-size:12px;white-space:nowrap}
+.hero-tagline{position:absolute;top:200px;left:50%;transform:translateX(-50%);color:var(--muted);font-size:11px;max-width:360px;text-align:center;line-height:1.5}
+.hero-links{position:absolute;top:260px;left:50%;transform:translateX(-50%);display:flex;gap:24px;white-space:nowrap}
+.hero-links a{font-size:12px;color:var(--muted)}
+.hero-loc{position:absolute;top:16px;right:0;color:var(--muted);font-size:11px}
+.hero-loc::before{content:"// ";color:var(--rule)}
+.hero-scroll{position:absolute;bottom:0;left:50%;transform:translateX(-50%);color:var(--muted);font-size:10px;letter-spacing:.1em;text-decoration:none}
+
+/* DIVIDER */
+hr.divider{border:none;border-top:3px solid var(--accent2);margin:0;opacity:.6;position:relative}
+hr.divider::after{content:"";display:block;height:1px;background:var(--accent);margin-top:3px;opacity:.3}
+
+/* SECTIONS */
+section{padding:48px 20px;max-width:680px;margin:0 auto}
+.sec-label{color:var(--accent);font-size:10px;letter-spacing:.15em;text-transform:uppercase;margin-bottom:6px}
+.sec-label::before{content:"## "}
+h2{font-size:1rem;font-weight:700;color:#fff;margin-bottom:16px}
+p{color:var(--muted);margin-bottom:12px;font-size:12px}
+
+/* ABOUT / SKILLS */
+.skills-row{margin:6px 0;font-size:11px}
+.skills-row strong{color:var(--text);margin-right:8px}
+.skills-row span{color:var(--muted)}
+
+/* PROJECTS */
+.project-block{padding:18px 0;border-bottom:1px solid var(--rule)}
+.project-block:last-child{border-bottom:none}
+.project-block h3{font-size:.95rem;color:#fff;margin-bottom:4px}
+.project-block p{margin-bottom:8px}
+.tags{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:8px}
+.tag{background:rgba(29,184,200,.1);border:1px solid rgba(29,184,200,.25);color:var(--accent);font-size:10px;padding:2px 8px;border-radius:3px}
+.proj-links{display:flex;gap:16px;font-size:11px}
+
+/* EXPERIENCE */
+.exp-block{padding:14px 0;border-bottom:1px solid var(--rule)}
+.exp-block h3{color:#fff;font-size:.9rem}
+.exp-block .role{color:var(--accent);font-size:11px;margin-bottom:4px}
+
+/* CONTACT MAP */
+.contact-map{border:1px solid var(--rule);border-radius:4px;padding:20px;background:var(--bg2);position:relative;overflow:hidden;margin-bottom:20px}
+.map-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(29,184,200,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(29,184,200,.04) 1px,transparent 1px);background-size:28px 28px}
+.map-pin{position:relative;z-index:1;display:inline-flex;align-items:center;gap:8px;color:#fff;font-size:13px;font-weight:700;margin-bottom:12px}
+.pin-dot{width:14px;height:14px;border-radius:50%;background:var(--accent);box-shadow:0 0 10px rgba(29,184,200,.6);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{box-shadow:0 0 10px rgba(29,184,200,.6)}50%{box-shadow:0 0 20px rgba(29,184,200,.9)}}
+.map-coords{position:relative;z-index:1;color:var(--muted);font-size:10px;margin-bottom:14px}
+.contact-links{position:relative;z-index:1;display:flex;flex-direction:column;gap:6px;font-size:12px}
+.contact-links a{color:var(--muted)}
+.contact-links a::before{color:var(--accent);margin-right:6px}
+.contact-links .mail::before{content:"✉"}
+.contact-links .gh::before{content:"⌥"}
+.contact-links .li::before{content:"◈"}
+.contact-links .web::before{content:"◉"}
+
+/* INTERESTS */
+.interests{font-size:11px;color:var(--muted);margin-top:8px}
+
+/* REGEN BANNER */
+.regen-banner{max-width:680px;margin:0 auto 32px;padding:0 20px}
+.regen-note{background:rgba(255,252,230,.04);border:1px solid rgba(255,230,100,.15);border-radius:4px;padding:14px 18px;position:relative;font-family:'JetBrains Mono',monospace;transform:rotate(-0.4deg)}
+.regen-note::before{content:"✎";position:absolute;top:-10px;left:14px;background:var(--bg);padding:0 4px;color:rgba(255,230,100,.5);font-size:14px}
+.regen-note p{color:rgba(255,230,120,.7);font-size:11px;line-height:1.7;margin:0;font-style:italic}
+.regen-note a{color:rgba(255,230,100,.8);font-style:italic}
+
+/* FOOTER */
+footer{background:var(--bg2);border-top:1px solid var(--rule);padding:20px;text-align:center}
+.footer-inner{max-width:680px;margin:0 auto}
+.footer-links{display:flex;justify-content:center;flex-wrap:wrap;gap:16px;margin-bottom:8px;font-size:11px}
+.footer-links a{color:var(--muted);text-decoration:none}
+.footer-links a:hover{color:var(--accent)}
+footer p{color:var(--rule);font-size:10px}
+
+/* BG SHAPES */
+.bg-shape{position:fixed;pointer-events:none;z-index:-1;opacity:.06}
+
+/* SCROLL ANIM */
+.reveal{opacity:1;transform:none;transition:opacity .5s,transform .5s}
+
+@media(max-width:600px){
+nav ul{gap:12px}
+nav ul li:nth-child(n+4){display:none}
+.hero-scattered{min-height:380px}
+.hero-portrait{width:72px;height:72px}
+.hero-links{flex-direction:column;align-items:center;gap:10px;top:250px}
+.hero-tagline{font-size:10px;max-width:280px}
+section{padding:36px 16px}
+.hero-loc{display:none}
+}
+</style>
+<style id="safety-override">
+*[class*="fade"],*[class*="anim"],*[class*="hidden"],*[class*="reveal"],*[class*="slide"] {
+  opacity: 1 !important; transform: none !important;
+  visibility: visible !important; animation: none !important;
+}
+</style>
+</head>
+<body>
+
+<div id="cursor"></div>
+
+<!-- BG SHAPES -->
+<svg class="bg-shape" id="bs1" style="top:20%;left:5%;width:260px" viewBox="0 0 200 200"><polygon points="100,10 190,190 10,190" fill="none" stroke="#1db8c8" stroke-width="1.5"/></svg>
+<svg class="bg-shape" id="bs2" style="bottom:15%;right:8%;width:200px" viewBox="0 0 200 200"><rect x="20" y="20" width="160" height="160" fill="none" stroke="#0e7a8a" stroke-width="1.5" transform="rotate(15 100 100)"/></svg>
+
+<!-- NAV -->
+<nav>
+  <a href="#hero" class="logo">tsertic.dev</a>
+  <ul>
+    <li><a href="#about">about</a></li>
+    <li><a href="#experience">work</a></li>
+    <li><a href="#projects">projects</a></li>
+    <li><a href="#contact">contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero" style="padding:80px 20px 40px;max-width:100%;margin:0">
+  <div class="hero-geo">
+    <svg class="g1" viewBox="0 0 400 400"><polygon points="200,20 380,380 20,380" fill="none" stroke="#1db8c8" stroke-width="1"/><polygon points="200,60 350,350 50,350" fill="none" stroke="#1db8c8" stroke-width="0.5"/></svg>
+    <svg class="g2" viewBox="0 0 400 400"><circle cx="200" cy="200" r="180" fill="none" stroke="#0e7a8a" stroke-width="1"/><circle cx="200" cy="200" r="130" fill="none" stroke="#0e7a8a" stroke-width="0.5"/></svg>
+    <svg class="g3" viewBox="0 0 200 200"><rect x="10" y="10" width="180" height="180" fill="none" stroke="#1db8c8" stroke-width="1" transform="rotate(30 100 100)"/></svg>
+  </div>
+  <div class="hero-inner">
+    <div class="hero-scattered">
+      <div class="hero-portrait">
+        <img src="assets/images/portrait.webp" alt="Tomislav Sertic" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <span class="initials" style="display:none">TS</span>
+      </div>
+      <div class="hero-name"><h1>Tomislav Sertic</h1></div>
+      <div class="hero-title">// Full-Stack Software Developer</div>
+      <div class="hero-tagline">The sea does not ask the shore for permission to arrive. Neither does good software ask for complexity to be meaningful.</div>
+      <div class="hero-links">
+        <a href="https://github.com/tsertic" target="_blank">GitHub</a>
+        <a href="https://linkedin.com/in/tomislav-sertic" target="_blank">LinkedIn</a>
+        <a href="mailto:tsertic5@gmail.com">Email</a>
+        <a href="https://www.tsertic.dev" target="_blank">Website</a>
+      </div>
+      <div class="hero-loc">Zagreb, Croatia</div>
+      <a href="#about" class="hero-scroll">↓ scroll</a>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="sec-label">about</div>
+  <h2>Who I Am</h2>
+  <p>Driven Software Developer specializing in high-performance web applications, robust backend systems, and effective digital solutions. With 5 years of experience, I focus on building scalable, efficient, and user-friendly software solutions.</p>
+  <p style="color:var(--muted);font-size:11px;font-style:italic">Each system we build is a small philosophy — a set of beliefs about how things should flow, connect, and endure.</p>
+
+  <div style="margin-top:16px">
+    <div class="sec-label" style="margin-bottom:8px">skills</div>
+    <div class="skills-row"><strong>languages</strong><span>JavaScript, TypeScript, C#, Python</span></div>
+    <div class="skills-row"><strong>frontend&nbsp;</strong><span>React, Next.js, Tailwind CSS, SCSS</span></div>
+    <div class="skills-row"><strong>backend&nbsp;&nbsp;</strong><span>Node.js, Express, .NET Core, ASP.NET</span></div>
+    <div class="skills-row"><strong>databases</strong><span>SQL, MongoDB, Sanity, Firestore</span></div>
+    <div class="skills-row"><strong>other&nbsp;&nbsp;&nbsp;&nbsp;</strong><span>RESTful API design, AI integration, Figma, Adobe Creative Suite</span></div>
+  </div>
+
+  <div class="interests" style="margin-top:14px">
+    <strong style="color:var(--text)">beyond the screen —</strong> Basketball, Cycling, Hiking, Diving, Chess
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="sec-label">experience</div>
+  <h2>Where I've Worked</h2>
+  <div class="exp-block">
+    <h3>Arctis d.o.o</h3>
+    <div class="role">Software Developer</div>
+    <p>Working as an Archibus IWMS representative — server setup, database integration, custom features and integrations, full-lifecycle development. Notable project: data analysis and React development for Saudi Aramco within the Archibus ecosystem.</p>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="sec-label">projects</div>
+  <h2>Things I've Built</h2>
+  <div class="project-block">
+    <h3>3D Rotating Cube</h3>
+    <p>Interactive 3D rotating cube built with Three.js, demonstrating WebGL rendering and animation techniques. A meditation on dimension — how flat code gives birth to perceived depth.</p>
+    <div class="tags">
+      <span class="tag">Three.js</span>
+      <span class="tag">JavaScript</span>
+      <span class="tag">WebGL</span>
+    </div>
+    <div class="proj-links">
+      <a href="https://www.tsertic.dev" target="_blank">↗ live demo</a>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="sec-label">contact</div>
+  <h2>Find Me</h2>
+  <div class="contact-map">
+    <div class="map-grid"></div>
+    <div class="map-pin"><span class="pin-dot"></span>Zagreb, Croatia</div>
+    <div class="map-coords">45.8150° N, 15.9819° E — Central Europe, Adriatic coast nearby</div>
+    <div class="contact-links">
+      <a href="mailto:tsertic5@gmail.com" class="mail"> tsertic5@gmail.com</a>
+      <a href="https://github.com/tsertic" target="_blank" class="gh"> github.com/tsertic</a>
+      <a href="https://linkedin.com/in/tomislav-sertic" target="_blank" class="li"> linkedin.com/in/tomislav-sertic</a>
+      <a href="https://www.tsertic.dev" target="_blank" class="web"> tsertic.dev</a>
+    </div>
+  </div>
+  <p style="font-size:11px;font-style:italic">Open to collaborations, conversations, and the occasional philosophical tangent about software craft.</p>
+</section>
+
+<hr class="divider">
+
+<!-- DAILY REGEN BANNER -->
+<div class="regen-banner">
+  <div class="regen-note">
+    <p>✨ this portfolio is regenerated every day by AI with a completely new design &amp; layout — like the tide reshaping the shore, something new washes in each morning. &nbsp;<a href="/history/">browse past versions →</a></p>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-links">
+      <a href="#hero">home</a>
+      <a href="#about">about</a>
+      <a href="#experience">experience</a>
+      <a href="#projects">projects</a>
+      <a href="#contact">contact</a>
+      <a href="https://github.com/tsertic" target="_blank">github</a>
+      <a href="https://linkedin.com/in/tomislav-sertic" target="_blank">linkedin</a>
+      <a href="https://www.tsertic.dev" target="_blank">website</a>
+      <a href="/history/">design archive</a>
+    </div>
+    <p>© 2026 Tomislav Sertic — built with intent, regenerated with curiosity</p>
+  </div>
+</footer>
+
+<script>
+// Cursor glow
+const cur=document.getElementById('cursor');
+document.addEventListener('mousemove',e=>{cur.style.left=e.clientX+'px';cur.style.top=e.clientY+'px'});
+document.addEventListener('mousedown',()=>{cur.style.width='28px';cur.style.height='28px'});
+document.addEventListener('mouseup',()=>{cur.style.width='18px';cur.style.height='18px'});
+
+// Scroll shape drift
+const s1=document.getElementById('bs1'),s2=document.getElementById('bs2');
+let raf;function drift(){const y=window.scrollY;s1.style.transform='rotate('+(y*.02)+'deg)';s2.style.transform='rotate('+(-y*.015)+'deg)';raf=requestAnimationFrame(drift)}
+drift();
+</script>
+</body>
+</html>

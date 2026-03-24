@@ -1,0 +1,406 @@
+{
+  "portrait": "assets/images/portrait.webp",
+  "name": "Tomislav Sertic",
+  "title": "Full-Stack Software Developer",
+  "location": "Zagreb, Croatia",
+  "about": "Driven Software Developer specializing in high-performance web applications, robust backend systems, and effective digital solutions. With 5 years of experience, I focus on building scalable, efficient, and user-friendly software solutions.",
+  "experience": [
+    {
+      "company": "Arctis d.o.o",
+      "role": "Software Developer",
+      "description": "Working as an Archibus IWMS representative — server setup, database integration, custom features and integrations, full-lifecycle development. Notable project: data analysis and React development for Saudi Aramco within the Archibus ecosystem."
+    }
+  ],
+  "skills": {
+    "languages": [
+      "JavaScript",
+      "TypeScript",
+      "C#",
+      "Python"
+    ],
+    "frontend": [
+      "React",
+      "Next.js",
+      "Tailwind CSS",
+      "SCSS"
+    ],
+    "backend": [
+      "Node.js",
+      "Express",
+      ".NET Core",
+      "ASP.NET"
+    ],
+    "databases": [
+      "SQL",
+      "MongoDB",
+      "Sanity",
+      "Firestore"
+    ],
+    "other": [
+      "RESTful API design",
+      "AI integration",
+      "Figma",
+      "Adobe Creative Suite"
+    ]
+  },
+  "projects": [
+    {
+      "name": "Manage Landing Page",
+      "slug": "manage-landing-page",
+      "description": "Landing Page for imagine 'Manage' company. \nResponsive design.",
+      "image": "https://cdn.sanity.io/images/pf6wp37f/production/54a81664cc61e85990647d4a292a38355e272475-1856x936.png",
+      "imageAlt": "Manage landing page screenshot",
+      "tech": [
+        "Next.js",
+        "Typescript",
+        "TailwindCSS"
+      ],
+      "categories": [
+        "FrontEnd",
+        "Server"
+      ],
+      "live": "https://manage-landing-page-seven-theta.vercel.app/",
+      "repository": "https://github.com/tsertic/manage_landing_page/tree/master",
+      "createdAt": "2023-09-12T14:20:00.000Z",
+      "priority": 3
+    },
+    {
+      "name": "Hrvatska Esport Inicijativa",
+      "slug": "hrvatska-esport-inicijativa",
+      "description": "Website for the Croatian esports initiative association. Technologies used: Next.js with Javascript, Sanity for the database and CMS system, Modular SCSS.",
+      "image": "https://cdn.sanity.io/images/pf6wp37f/production/d7d8411c9ca5605e91516d8ca6da37f1a5a35d92-600x302.png",
+      "imageAlt": "hei screenshot",
+      "tech": [
+        "Next.js",
+        "SCSS",
+        "Sanity",
+        "Javascript"
+      ],
+      "categories": [
+        "FullStack"
+      ],
+      "live": "https://www.esportinicijativa.hr/",
+      "repository": "https://github.com/tsertic/hei_v2",
+      "createdAt": "2023-02-02T10:17:00.000Z",
+      "priority": 3
+    },
+    {
+      "name": "Body Mass Index Calculator",
+      "slug": "bmi-calculator",
+      "description": "Body mass index calculator.\nCalculate your BMI , you can use metric or imperial units. \nProject/challenge from frontend mentor website.",
+      "image": "https://cdn.sanity.io/images/pf6wp37f/production/c6106cbfccc9d9145333876373dff6fd3d3872bf-600x323.png",
+      "imageAlt": "bmi calculator screenshot",
+      "tech": [
+        "Next.js",
+        "TailwindCSS",
+        "Typescript"
+      ],
+      "categories": [
+        "FrontEnd"
+      ],
+      "live": "https://bmi-calculator-psi-ten.vercel.app/",
+      "repository": "https://github.com/tsertic/frontend_mentor_challenges/tree/main/bmi_calculator",
+      "createdAt": "2023-09-05T09:37:00.000Z",
+      "priority": 3
+    },
+    {
+      "name": "Pinky Delights Bakery",
+      "slug": "pinky-delights-bakery",
+      "description": "Pinky Delights Bakery - Interactive 3D Web Experience A fictional bakery website showcasing my skills in 3D web development. The centerpiece is an interactive, rotating 3D donut model built with Three.js that visitors can manipulate in real-time. Tech Stack: Next.js 15 (App Router) Three.js for 3D rendering and interaction TypeScript for type safety Tailwind CSS v4 with modern CSS features Respons",
+      "image": "https://cdn.sanity.io/images/pf6wp37f/production/9c3a623fc9e77bab5c2b31ebb307e059916d3835-1000x536.png",
+      "imageAlt": "Pinky Delights Bakery",
+      "tech": [
+        "Typescript",
+        "TailwindCSS",
+        "Three.js",
+        "Next.js"
+      ],
+      "categories": [
+        "FrontEnd"
+      ],
+      "live": null,
+      "repository": "https://github.com/tsertic/pinky-delights-bakery",
+      "createdAt": "2025-03-31T07:57:12.901Z",
+      "priority": 4
+    },
+    {
+      "name": "Where in the world",
+      "slug": "where-in-the-world",
+      "description": "Application/website that uses REST api provided by https://restcountries.com/ . \nYou should be able to filter all countries and see data about each individual country by clicking on it. Dark/light theme toggle. Infinite scroll.",
+      "image": "https://cdn.sanity.io/images/pf6wp37f/production/a40662bb7d8a672a19db9c1c7669a395941abc84-600x301.png",
+      "imageAlt": "where in the world screenshot",
+      "tech": [
+        "Typescript",
+        "Redux",
+        "Next.js",
+        "TailwindCSS"
+      ],
+      "categories": [
+        "FrontEnd"
+      ],
+      "live": "https://where-in-the-world-drab.vercel.app/",
+      "repository": "https://github.com/tsertic/where_in_the_world",
+      "createdAt": "2023-09-20T07:59:00.000Z",
+      "priority": 4
+    },
+    {
+      "name": "haiku AI streamer script",
+      "slug": "haiku-ai-streamer-script",
+      "description": "Haiku AI Streamer  is a simple console application written in Node.js that generates and saves haiku poems using AI models. It supports both  OpenAI API  and  Ollama  (local LLM models), automatically formatting the generated haiku in markdown and saving them in the haiku/ directory. Key Features: Real-time AI-generated haiku  using OpenAI or Ollama models. Automatic markdown formatting  for impro",
+      "image": "https://cdn.sanity.io/images/pf6wp37f/production/32f2e0268a9fe542d8047c8531c289762ab4dc01-1712x896.png",
+      "imageAlt": "haiku AI streamer script",
+      "tech": [
+        "Node.js",
+        "AI - Ollama",
+        "AI - ChatGpt"
+      ],
+      "categories": [
+        "AI",
+        "Script"
+      ],
+      "live": null,
+      "repository": "https://github.com/tsertic/haiku-ai-streamer-script",
+      "createdAt": "2025-03-18T07:03:00.000Z",
+      "priority": 5
+    },
+    {
+      "name": "Braniteljska zadruga Viribus Unitis",
+      "slug": "braniteljska-zadruga-viribus-unitis",
+      "description": "This project is a website for  Viribus Unitis , a cooperative founded by Croatian war veterans. The website serves as an information hub, presenting the cooperative’s mission, activities, and upcoming events. It also provides news updates and highlights sponsors who support its initiatives. The site is built using  Next.js  for a fast and modern frontend, with  Sanity  serving as a headless CMS fo",
+      "image": "https://cdn.sanity.io/images/pf6wp37f/production/78374d76f6c801577c98fb5d3507158140c42ee1-800x477.png",
+      "imageAlt": "Braniteljska zadruga Viribus Unitis",
+      "tech": [
+        "Typescript",
+        "Next.js",
+        "Sanity",
+        "TailwindCSS"
+      ],
+      "categories": [
+        "FullStack",
+        "FrontEnd",
+        "Designed"
+      ],
+      "live": "https://www.bzvu.hr/",
+      "repository": "https://github.com/tsertic/website_viribus_unitis",
+      "createdAt": "2024-11-20T08:39:00.000Z",
+      "priority": 5
+    },
+    {
+      "name": "The Vixa Website",
+      "slug": "the-vixa-website",
+      "description": "The Vixa – Modern Web Platform for Vacation Rental The Vixa  is a modern web platform designed to provide a seamless experience for users looking to rent a vacation home for various occasions. Built with  Next.js  for optimal performance and SEO benefits, and styled with  Tailwind CSS  for a sleek and flexible design.  Technologies & Integrations ✅  Next.js  – Fast, scalable, and SEO-friendly web ",
+      "image": "https://cdn.sanity.io/images/pf6wp37f/production/dd745de3166bd404a304ced44431b3807438e951-1200x603.png",
+      "imageAlt": "The Vixa Website",
+      "tech": [
+        "Typescript",
+        "TailwindCSS",
+        "Next.js",
+        "Sanity"
+      ],
+      "categories": [
+        "FullStack",
+        "Designed"
+      ],
+      "live": "https://www.the-vixa.com/hr",
+      "repository": "https://github.com/tsertic/TheViksaWebsite",
+      "createdAt": "2024-03-20T08:11:00.000Z",
+      "priority": 5
+    },
+    {
+      "name": "Plesni Studio Ventus",
+      "slug": "plesni-studio-ventus",
+      "description": "Webpage of Dance Studio Ventus , dance studio in Zagreb.\n\nBuild with Nextjs with Sanity database and CMS for adding posts,instructor data,dance classes.  Designed: Myself",
+      "image": "https://cdn.sanity.io/images/pf6wp37f/production/22d037550976b8e15b051b183b2af6206f648030-600x377.png",
+      "imageAlt": "plesni studio ventus screenshot",
+      "tech": [
+        "Next.js",
+        "Sanity",
+        "SCSS"
+      ],
+      "categories": [
+        "FullStack"
+      ],
+      "live": "https://www.plesni-studio-ventus.hr/",
+      "repository": "https://github.com/TomislavSertic/plesni_studio_ventus",
+      "createdAt": "2023-02-02T09:18:00.000Z",
+      "priority": 5
+    },
+    {
+      "name": "Bridge-SMS",
+      "slug": "bridge-sms",
+      "description": "The website for the Bridge SMS project at the Faculty of Civil Engineering in Zagreb, the design already existed, and my task was to migrate it from WordPress to a more modern technology stack, make it responsive and host to a server that wouldn't incur costs. That's why I chose Next.js and hosted it on Netlify. The project, as well as the domain bridge-sms.eu, are no longer active, but there is a",
+      "image": "https://cdn.sanity.io/images/pf6wp37f/production/9fbb244bfcf2f8ee8893ad0f3ab41507ad7325ed-600x421.png",
+      "imageAlt": "bridge-sms homepage screenshot",
+      "tech": [
+        "Typescript",
+        "SCSS",
+        "Next.js"
+      ],
+      "categories": [
+        "FrontEnd"
+      ],
+      "live": "https://bridge-sms.netlify.app/",
+      "repository": "https://github.com/ArctisZagreb/Bridge-SMS",
+      "createdAt": "2022-07-05T08:37:00.000Z",
+      "priority": 5
+    },
+    {
+      "name": "Arctis d.o.o.",
+      "slug": "arctis-doo",
+      "description": "Website of the company Arctis Ltd. Apart from coding I also made design. Technologies used: Next.js, TypeScript, Modular SCSS, and Sanity for the database and CMS.",
+      "image": "https://cdn.sanity.io/images/pf6wp37f/production/41259c66ca9f3472f31d65dfa58beedcdc4fd977-600x301.png",
+      "imageAlt": "arctis d.o.o. webpage screenshot",
+      "tech": [
+        "Typescript",
+        "SCSS",
+        "Next.js",
+        "Sanity"
+      ],
+      "categories": [
+        "FullStack"
+      ],
+      "live": "https://www.arctis.hr/",
+      "repository": "https://github.com/ArctisZagreb/arctis_webpage_nextjs",
+      "createdAt": "2023-02-22T10:24:00.000Z",
+      "priority": 5
+    },
+    {
+      "name": "Directory Structure Scanner",
+      "slug": "directory-structure-scanner",
+      "description": "Directory Structure Scanner Overview The Directory Structure Scanner is a lightweight Python application with a web-based user interface that enables users to easily visualize and document folder hierarchies. Built to solve the common challenge of mapping complex project structures, this tool generates a clean, tree-like representation similar to the classic 'tree' command but with an intuitive UI",
+      "image": "https://cdn.sanity.io/images/pf6wp37f/production/41b2577b2c7b14ba62b8f24747fce95eb2dca141-1200x542.png",
+      "imageAlt": "Directory Structure Scanner",
+      "tech": [
+        "Python",
+        "Gradio"
+      ],
+      "categories": [
+        "Script",
+        "Application"
+      ],
+      "live": null,
+      "repository": "https://github.com/tsertic/directory-structure-scanner",
+      "createdAt": "2025-03-30T13:01:28.304Z",
+      "priority": 5
+    },
+    {
+      "name": "My Portfolio Website",
+      "slug": "portfolio-website",
+      "description": "My portfolio website writen with Typescript. \nFor frontend I used Next.js and for handling data I used Sanity.  Design : Myself 😅",
+      "image": "https://cdn.sanity.io/images/pf6wp37f/production/e55bb98f4c03a1910920081c3a37fa5b7feec56e-600x360.png",
+      "imageAlt": "Tomislav Sertic portfolio website screenshot",
+      "tech": [
+        "Typescript",
+        "Redux",
+        "Next.js",
+        "Sanity",
+        "TailwindCSS"
+      ],
+      "categories": [
+        "FullStack",
+        "Designed"
+      ],
+      "live": "https://www.tsertic.dev/",
+      "repository": "https://github.com/tsertic/ts_portfolio_2023",
+      "createdAt": "2023-09-27T13:32:00.000Z",
+      "priority": 5
+    },
+    {
+      "name": "pokepal ai",
+      "slug": "pokepal-ai",
+      "description": "PokéPal AI: Interactive Pokémon Chatbot with Dynamic Stat Visualization \n Short Description: Developed PokéPal AI, an advanced conversational AI assistant providing users with detailed Pokémon information and comparisons. This application integrates OpenAI's Large Language Model (LLM) with the public PokeAPI, dynamically generates stat visualizations using Matplotlib, and is presented through an i",
+      "image": "https://cdn.sanity.io/images/pf6wp37f/production/4199641036ba4f5166cd6594b898ada6facaff31-1200x706.png",
+      "imageAlt": "pokepal ai",
+      "tech": [
+        "Python",
+        "AI",
+        "Gradio"
+      ],
+      "categories": [
+        "AI",
+        "Application"
+      ],
+      "live": null,
+      "repository": "https://github.com/tsertic/pokeapi-gradio-ai-chatbot",
+      "createdAt": "2025-03-27T11:33:40.879Z",
+      "priority": 6
+    },
+    {
+      "name": "Pokémon AI Debate",
+      "slug": "pokemon-ai-debate",
+      "description": "Pokémon AI Debate Project Overview Pokémon AI Debate is a web application that demonstrates the capabilities of modern AI language models by having them engage in debates about which Pokémon is superior. The application orchestrates interactions between three leading AI models: OpenAI's GPT-4o-mini : Argues for the first selected Pokémon Anthropic's Claude : Argues for the second selected Pokémon ",
+      "image": "https://cdn.sanity.io/images/pf6wp37f/production/cc01144c22251187e40bc42bb3408413a6c8c141-1200x645.png",
+      "imageAlt": "Pokémon AI Debate",
+      "tech": [
+        "Express.js",
+        "React",
+        "AI",
+        "Node.js",
+        "Typescript"
+      ],
+      "categories": [
+        "FullStack",
+        "Server",
+        "AI",
+        "REST API"
+      ],
+      "live": null,
+      "repository": "https://github.com/tsertic/pokemon-ai-debate",
+      "createdAt": "2025-03-24T10:12:13.715Z",
+      "priority": 6
+    },
+    {
+      "name": "Portfolio Scraper & Brochure Generator CA",
+      "slug": "portfolio-scraper-and-brochure-generator-ca",
+      "description": "This application automates the generation of brochures and reports about companies, portfolios, and websites. The user inputs a URL, and the application scrapes the webpage using BeautifulSoup, extracts key links, and utilizes the OpenAI API to analyze and summarize the information. The processed content is then formatted and saved as a PDF document. The application automatically checks whether th",
+      "image": "https://cdn.sanity.io/images/pf6wp37f/production/9411063eaa22123470ae960babab885a23b36764-1200x500.png",
+      "imageAlt": "Portfolio Scraper & Brochure Generator CA",
+      "tech": [
+        "AI - ChatGpt",
+        "Python"
+      ],
+      "categories": [
+        "Script",
+        "AI"
+      ],
+      "live": null,
+      "repository": "https://github.com/tsertic/Portfolio-Scraper-Brochure-Generator",
+      "createdAt": "2025-03-20T12:10:00.000Z",
+      "priority": 6
+    },
+    {
+      "name": "LLaVA Image Analyzer",
+      "slug": "llava-image-analyzer",
+      "description": "LLaVA Image Analyzer – AI-Powered Image Recognition LLaVA Image Analyzer is a  React-based web application  that leverages AI to analyze image content. The application integrates  Ollama’s LLaVA model , a  multimodal AI system , to generate textual descriptions of uploaded images.  Technologies Used: Frontend:  React (with TypeScript) for a modular and scalable UI. Backend:  Local AI model executi",
+      "image": "https://cdn.sanity.io/images/pf6wp37f/production/23234234d818f39a265c9a56d425f4aa569c1c1b-1344x832.png",
+      "imageAlt": "LLaVA Image Analyzer",
+      "tech": [
+        "React",
+        "Typescript",
+        "AI - Ollama"
+      ],
+      "categories": [
+        "AI",
+        "FullStack"
+      ],
+      "live": null,
+      "repository": "https://github.com/tsertic/llava-image-analyzer-react",
+      "createdAt": "2025-03-21T13:11:00.000Z",
+      "priority": 6
+    }
+  ],
+  "contact": {
+    "email": "tsertic5@gmail.com",
+    "github": "https://github.com/tsertic",
+    "linkedin": "https://linkedin.com/in/tomislav-sertic",
+    "instagram": "https://instagram.com/tsertic5",
+    "website": "https://www.tsertic.dev"
+  },
+  "interests": [
+    "Basketball",
+    "Cycling",
+    "Hiking",
+    "Diving",
+    "Chess"
+  ]
+}

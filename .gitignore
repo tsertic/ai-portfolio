@@ -1,0 +1,15 @@
+# Environment variables — NEVER commit these
+.env
+
+# Node
+node_modules/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Debug output
+docs/debug.txt
+
+# Claude Code local settings (machine-specific)
+.claude/settings.local.json

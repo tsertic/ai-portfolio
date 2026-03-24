@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tomislav Sertic — Full-Stack Developer</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --tc:#c8622a;--tc2:#e07a45;--tc3:#f2a06a;
+  --bg:#0e0b09;--bg2:#15100c;--bg3:#1e1510;
+  --card:#12100e;--card2:#1a1410;
+  --txt:#e8d5c4;--txt2:#b8a090;--txt3:#d4b89a;
+  --gold:#d4a54a;
+  --font:'Playfair Display',Georgia,serif;
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--txt);font-family:var(--font);overflow-x:hidden;cursor:none}
+
+/* CURSOR */
+#cursor{position:fixed;width:18px;height:18px;border-radius:50%;background:radial-gradient(circle,rgba(200,98,42,0.8),transparent 70%);pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:transform .1s;box-shadow:0 0 12px 4px rgba(200,98,42,0.4)}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;width:100%;z-index:100;padding:1.2rem 2rem;display:flex;justify-content:flex-end;align-items:center}
+#hamburger{background:none;border:2px solid var(--tc);border-radius:50px;padding:.5rem .9rem;cursor:pointer;display:flex;flex-direction:column;gap:5px;z-index:101}
+#hamburger span{display:block;width:24px;height:2px;background:var(--tc3);border-radius:2px;transition:.3s}
+#nav-menu{position:fixed;top:0;right:-320px;width:300px;height:100vh;background:var(--bg3);border-left:1px solid rgba(200,98,42,0.3);padding:5rem 2rem 2rem;transition:right .4s cubic-bezier(.77,0,.18,1);z-index:99;display:flex;flex-direction:column;gap:2rem}
+#nav-menu.open{right:0}
+#nav-menu a{color:var(--txt);text-decoration:none;font-size:1.4rem;font-style:italic;border-bottom:1px solid rgba(200,98,42,0.2);padding-bottom:.8rem;transition:color .2s}
+#nav-menu a:focus,nav a:focus{color:var(--tc2)}
+#overlay{position:fixed;inset:0;background:rgba(0,0,0,0);z-index:98;pointer-events:none;transition:background .4s}
+#overlay.open{background:rgba(0,0,0,0.6);pointer-events:all}
+
+/* HERO */
+#hero{position:relative;height:100vh;overflow:hidden;display:block}
+.hero-watermark{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:clamp(80px,18vw,220px);font-weight:900;color:rgba(200,98,42,0.06);white-space:nowrap;user-select:none;letter-spacing:-0.05em;z-index:0;pointer-events:none;line-height:1}
+.hero-name{position:absolute;top:18%;left:6%;font-size:clamp(2.8rem,6vw,5.5rem);font-weight:900;line-height:1;z-index:2;color:var(--txt)}
+.hero-name span{color:var(--tc)}
+.hero-title{position:absolute;top:42%;right:5%;font-size:clamp(1rem,2vw,1.4rem);font-style:italic;color:var(--tc3);z-index:2;text-align:right;max-width:300px}
+.hero-loc{position:absolute;bottom:32%;left:6%;font-size:.9rem;color:var(--txt2);z-index:2;letter-spacing:.15em;text-transform:uppercase}
+.hero-links{position:absolute;bottom:20%;right:5%;z-index:2;display:flex;flex-direction:column;gap:.6rem;align-items:flex-end}
+.hero-links a{color:var(--tc3);text-decoration:underline;text-underline-offset:4px;font-size:1rem;font-style:italic}
+.hero-portrait{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%) rotate(45deg);width:clamp(160px,22vw,260px);height:clamp(160px,22vw,260px);overflow:hidden;z-index:1;border:2px solid rgba(200,98,42,0.5);box-shadow:0 0 60px rgba(200,98,42,0.15)}
+.hero-portrait img{width:141.4%;height:141.4%;object-fit:cover;transform:rotate(-45deg) translate(-21%,21%)}
+.hero-fallback{width:100%;height:100%;background:var(--tc);display:flex;align-items:center;justify-content:center;font-size:3rem;font-weight:900;color:var(--bg);transform:rotate(-45deg)}
+.scroll-cue{position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);z-index:2;display:flex;flex-direction:column;align-items:center;gap:.4rem;color:var(--txt2);font-size:.75rem;letter-spacing:.2em;text-transform:uppercase}
+.scroll-cue::after{content:'';display:block;width:1px;height:40px;background:linear-gradient(var(--tc),transparent)}
+
+/* DECORATIVE SVG BLOBS */
+.blob{position:fixed;z-index:-1;opacity:.07;pointer-events:none}
+
+/* SECTIONS */
+section{max-width:1100px;margin:0 auto;padding:6rem 2rem}
+.section-label{font-size:.75rem;letter-spacing:.3em;text-transform:uppercase;color:var(--tc);margin-bottom:1rem;display:block}
+.section-title{font-size:clamp(2rem,4vw,3rem);font-weight:900;line-height:1.1;margin-bottom:2.5rem}
+
+/* ABOUT */
+#about{position:relative}
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:start}
+.about-bio{position:relative;padding-left:1rem}
+.big-quote{position:absolute;top:-2rem;left:-1.5rem;font-size:10rem;line-height:1;color:var(--tc);opacity:.18;font-family:Georgia,serif;pointer-events:none;z-index:0}
+.bio-text{font-size:1.05rem;line-height:1.8;color:var(--txt2);position:relative;z-index:1}
+.exp-block{margin-top:2rem;padding:1.5rem;background:var(--card);border:1px solid rgba(200,98,42,0.2);border-radius:4px}
+.exp-company{font-size:1.1rem;font-weight:700;color:var(--tc2)}
+.exp-role{font-size:.85rem;color:var(--txt2);margin-bottom:.6rem;font-style:italic}
+.exp-desc{font-size:.88rem;color:var(--txt2);line-height:1.6}
+
+/* RADAR CHART */
+.radar-wrap{display:flex;flex-direction:column;gap:1.5rem}
+.radar-title{font-size:.8rem;letter-spacing:.2em;text-transform:uppercase;color:var(--tc);margin-bottom:.8rem}
+.radar-svg-wrap{display:flex;justify-content:center}
+svg.radar{overflow:visible}
+.skill-tags{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:.8rem}
+.skill-tag{background:rgba(200,98,42,0.12);border:1px solid rgba(200,98,42,0.3);color:var(--tc3);padding:.25rem .8rem;border-radius:50px;font-size:.75rem}
+
+/* PROJECTS */
+#projects .section-title{margin-bottom:1rem}
+.proj-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1.5rem}
+.proj-card{background:var(--card);border:1px solid rgba(200,98,42,0.15);border-radius:8px;overflow:hidden;box-shadow:inset 0 2px 12px rgba(0,0,0,0.6),inset 0 0 40px rgba(0,0,0,0.4);position:relative}
+.proj-img{width:100%;height:160px;object-fit:cover;opacity:.75;display:block}
+.proj-img-placeholder{width:100%;height:160px;background:linear-gradient(135deg,var(--bg3),var(--card2));display:flex;align-items:center;justify-content:center;color:var(--tc);font-size:2rem;opacity:.5}
+.proj-body{padding:1.2rem}
+.proj-cats{display:flex;flex-wrap:wrap;gap:.3rem;margin-bottom:.6rem}
+.proj-cat{font-size:.65rem;letter-spacing:.15em;text-transform:uppercase;color:var(--txt2)}
+.proj-name{font-size:1.15rem;font-weight:700;color:var(--txt);margin-bottom:.5rem;line-height:1.2}
+.proj-desc{font-size:.82rem;color:var(--txt2);line-height:1.5;margin-bottom:.8rem;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.proj-tech{display:flex;flex-wrap:wrap;gap:.3rem;margin-bottom:.8rem}
+.proj-tech span{background:rgba(200,98,42,0.1);border:1px solid rgba(200,98,42,0.25);color:var(--tc3);padding:.15rem .6rem;border-radius:50px;font-size:.7rem}
+.proj-links{display:flex;gap:1rem}
+.proj-links a{color:var(--tc3);text-decoration:underline;text-underline-offset:3px;font-size:.82rem;font-style:italic}
+.proj-ribbon{position:absolute;top:.8rem;right:.8rem;background:var(--tc);color:var(--bg);font-size:.6rem;padding:.15rem .5rem;border-radius:50px;font-weight:700;letter-spacing:.1em}
+
+/* CONTACT */
+#contact .contact-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:1rem;margin-top:2rem}
+.contact-card{background:var(--card);border:1px solid rgba(200,98,42,0.2);border-radius:8px;padding:1.5rem;display:flex;flex-direction:column;gap:.5rem;box-shadow:inset 0 2px 8px rgba(0,0,0,0.5)}
+.contact-card .c-icon{font-size:1.8rem}
+.contact-card .c-label{font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(--txt2)}
+.contact-card a{color:var(--tc3);text-decoration:underline;text-underline-offset:3px;font-size:.9rem;word-break:break-all}
+
+/* AI REGEN SECTION */
+#regen{background:linear-gradient(135deg,rgba(200,98,42,0.08),rgba(212,165,74,0.05));border-top:1px solid rgba(200,98,42,0.2);border-bottom:1px solid rgba(200,98,42,0.2);padding:4rem 2rem;text-align:center;position:relative;overflow:hidden}
+#regen::before{content:'"';position:absolute;top:-1rem;left:2rem;font-size:14rem;color:rgba(200,98,42,0.06);font-family:Georgia;line-height:1;pointer-events:none}
+.regen-inner{max-width:700px;margin:0 auto;position:relative;z-index:1}
+.regen-badge{display:inline-block;background:var(--tc);color:var(--bg);font-size:.7rem;letter-spacing:.25em;text-transform:uppercase;padding:.35rem 1rem;border-radius:50px;font-weight:700;margin-bottom:1.5rem}
+.regen-headline{font-size:clamp(1.5rem,3vw,2.4rem);font-weight:900;line-height:1.2;margin-bottom:1rem;color:var(--txt)}
+.regen-sub{font-size:.95rem;color:var(--txt2);font-style:italic;line-height:1.7;margin-bottom:.6rem}
+.regen-date{font-size:.8rem;color:var(--tc3);letter-spacing:.15em;margin-bottom:2rem}
+.regen-link{color:var(--tc);font-size:1rem;text-decoration:underline;text-underline-offset:5px;font-weight:700;letter-spacing:.05em}
+
+/* FOOTER */
+footer{text-align:center;padding:2rem;font-size:.8rem;color:var(--txt2);border-top:1px solid rgba(200,98,42,0.1);font-style:italic}
+
+/* INTERESTS */
+.interests-row{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:1rem}
+.interest-pill{background:rgba(200,98,42,0.08);border:1px solid rgba(200,98,42,0.2);color:var(--txt2);padding:.3rem 1rem;border-radius:50px;font-size:.82rem}
+
+@media(max-width:768px){
+  .about-grid{grid-template-columns:1fr}
+  .hero-portrait{width:140px;height:140px}
+  .hero-name{font-size:2.2rem;top:12%}
+  .hero-title{top:36%;right:3%;font-size:.9rem;max-width:200px}
+  .hero-links{bottom:25%;right:3%}
+  .hero-loc{bottom:38%;left:3%}
+  section{padding:4rem 1.2rem}
+  .big-quote{font-size:7rem;top:-1rem;left:-0.5rem}
+}
+@media(max-width:480px){
+  .proj-grid{grid-template-columns:1fr}
+  #contact .contact-grid{grid-template-columns:1fr 1fr}
+}
+</style>
+<style id="safety-override">
+*[class*="fade"],*[class*="anim"],*[class*="hidden"],*[class*="reveal"],*[class*="slide"] {
+  opacity: 1 !important; transform: none !important;
+  visibility: visible !important; animation: none !important;
+}
+</style>
+</head>
+<body>
+
+<!-- CURSOR -->
+<div id="cursor"></div>
+
+<!-- DECORATIVE BLOBS -->
+<svg class="blob" id="b1" style="top:-10%;left:-5%;width:500px;height:500px" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><path fill="#c8622a" d="M46,-63.3C59.1,-55.2,68.8,-41.5,73.4,-26.5C78,-11.5,77.5,4.8,71.2,18.5C64.9,32.3,52.8,43.5,39.5,52.7C26.2,61.9,11.6,69.1,-4.5,74.2C-20.6,79.3,-38.2,82.2,-50.8,74.3C-63.4,66.5,-71,48,-73.1,29.6C-75.3,11.2,-72,-7.2,-65,-22.8C-58,-38.5,-47.2,-51.5,-34.4,-59.6C-21.5,-67.7,-6.6,-70.9,8.3,-71.1C23.1,-71.3,33.1,-71.4,46,-63.3Z" transform="translate(100 100)"/></svg>
+<svg class="blob" id="b2" style="bottom:-15%;right:-8%;width:600px;height:600px" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><path fill="#d4a54a" d="M39.7,-52.4C52.7,-44.1,65.2,-33.4,69.8,-19.7C74.4,-6,71.2,10.7,64.4,25.4C57.7,40.1,47.5,52.7,34.8,59.7C22.1,66.7,6.8,68,-8.7,66.4C-24.3,64.7,-40,60.2,-50.5,50.2C-61,40.2,-66.3,24.7,-67.8,8.7C-69.3,-7.2,-67,-23.5,-59.2,-36.1C-51.4,-48.7,-38.2,-57.5,-24.6,-62.1C-11,-66.8,3,-67.3,16.7,-64.3C30.4,-61.3,26.7,-60.7,39.7,-52.4Z" transform="translate(100 100)"/></svg>
+<svg class="blob" id="b3" style="top:40%;left:20%;width:300px;height:300px;opacity:.04" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><path fill="#c8622a" d="M44.5,-60.8C58.4,-52.5,70.7,-39.9,75.2,-25C79.7,-10.1,76.5,7.1,69.7,22.3C63,37.5,52.7,50.7,39.7,58.2C26.7,65.7,11,67.5,-3.8,65.6C-18.6,63.8,-32.4,58.2,-44.2,49.3C-56,40.4,-65.8,28.2,-69.2,14.1C-72.6,0,-69.5,-15.9,-63.3,-29.8C-57,-43.7,-47.5,-55.6,-35.5,-63.8C-23.5,-72,-8.8,-76.6,4.8,-75.7C18.4,-74.8,30.6,-69.2,44.5,-60.8Z" transform="translate(100 100)"/></svg>
+
+<!-- NAV -->
+<nav>
+  <button id="hamburger" aria-label="Menu" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+<div id="overlay" onclick="toggleMenu()"></div>
+<div id="nav-menu">
+  <a href="#hero" onclick="toggleMenu()">Home</a>
+  <a href="#about" onclick="toggleMenu()">About</a>
+  <a href="#projects" onclick="toggleMenu()">Work</a>
+  <a href="#contact" onclick="toggleMenu()">Contact</a>
+  <a href="../history/" onclick="toggleMenu()">Archive →</a>
+</div>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-watermark">SERTIC</div>
+
+  <h1 class="hero-name">Tomislav<br><span>Sertic</span></h1>
+
+  <div class="hero-title">Full-Stack<br>Software Developer<br><em style="font-size:.8em;color:var(--txt2)">Zagreb, Croatia</em></div>
+
+  <div class="hero-portrait">
+    <img src="../assets/images/portrait.webp" alt="Tomislav Sertic"
+      onerror="this.parentElement.innerHTML='<div class=hero-fallback>TS</div>'">
+  </div>
+
+  <div class="hero-loc">5 years experience · open to work</div>
+
+  <div class="hero-links">
+    <a href="https://github.com/tsertic" target="_blank">GitHub ↗</a>
+    <a href="https://linkedin.com/in/tomislav-sertic" target="_blank">LinkedIn ↗</a>
+    <a href="mailto:tsertic5@gmail.com">tsertic5@gmail.com</a>
+    <a href="https://www.tsertic.dev" target="_blank">tsertic.dev ↗</a>
+  </div>
+
+  <div class="scroll-cue">scroll</div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <span class="section-label">// who I am</span>
+  <h2 class="section-title">Built different.<br>Ships fast.</h2>
+  <div class="about-grid">
+    <div class="about-bio">
+      <div class="big-quote">&ldquo;</div>
+      <p class="bio-text">Driven Software Developer specializing in high-performance web applications, robust backend systems, and effective digital solutions. With 5 years of experience, I focus on building scalable, efficient, and user-friendly software solutions.</p>
+      <div class="exp-block" style="margin-top:2rem">
+        <div class="exp-company">Arctis d.o.o.</div>
+        <div class="exp-role">Software Developer</div>
+        <div class="exp-desc">Archibus IWMS representative — server setup, database integration, custom features &amp; integrations, full-lifecycle development. Notable: data analysis and React dev for Saudi Aramco.</div>
+      </div>
+      <div style="margin-top:2rem">
+        <div class="radar-title">When I'm not coding</div>
+        <div class="interests-row">
+          <span class="interest-pill">🏀 Basketball</span>
+          <span class="interest-pill">🚴 Cycling</span>
+          <span class="interest-pill">🥾 Hiking</span>
+          <span class="interest-pill">🤿 Diving</span>
+          <span class="interest-pill">♟ Chess</span>
+        </div>
+      </div>
+    </div>
+    <div class="radar-wrap">
+      <div class="radar-title">Skills Radar</div>
+      <div class="radar-svg-wrap">
+        <!-- CSS-only Radar Chart via SVG with inline calculations -->
+        <svg class="radar" width="280" height="280" viewBox="-140 -140 280 280">
+          <!-- Grid rings -->
+          <polygon points="0,-80 69.3,-40 69.3,40 0,80 -69.3,40 -69.3,-40" fill="none" stroke="rgba(200,98,42,0.12)" stroke-width="1"/>
+          <polygon points="0,-60 52,-30 52,30 0,60 -52,30 -52,-30" fill="none" stroke="rgba(200,98,42,0.12)" stroke-width="1"/>
+          <polygon points="0,-40 34.6,-20 34.6,20 0,40 -34.6,20 -34.6,-20" fill="none" stroke="rgba(200,98,42,0.12)" stroke-width="1"/>
+          <polygon points="0,-20 17.3,-10 17.3,10 0,20 -17.3,10 -17.3,-10" fill="none" stroke="rgba(200,98,42,0.1)" stroke-width="1"/>
+          <!-- Axis lines -->
+          <line x1="0" y1="0" x2="0" y2="-80" stroke="rgba(200,98,42,0.15)" stroke-width="1"/>
+          <line x1="0" y1="0" x2="69.3" y2="-40" stroke="rgba(200,98,42,0.15)" stroke-width="1"/>
+          <line x1="0" y1="0" x2="69.3" y2="40" stroke="rgba(200,98,42,0.15)" stroke-width="1"/>
+          <line x1="0" y1="0" x2="0" y2="80" stroke="rgba(200,98,42,0.15)" stroke-width="1"/>
+          <line x1="0" y1="0" x2="-69.3" y2="40" stroke="rgba(200,98,42,0.15)" stroke-width="1"/>
+          <line x1="0" y1="0" x2="-69.3" y2="-40" stroke="rgba(200,98,42,0.15)" stroke-width="1"/>
+          <!-- Data: Frontend=90%=72, Backend=85%=68, Languages=88%=70.4, Databases=80%=64, AI=75%=60, Design=70%=56 -->
+          <polygon points="0,-72 58.9,-34 55.4,32 0,64 -55.4,32 -55.4,-32"
+            fill="rgba(200,98,42,0.25)" stroke="var(--tc)" stroke-width="2" stroke-linejoin="round"/>
+          <!-- Dots -->
+          <circle cx="0" cy="-72" r="4" fill="var(--tc2)"/>
+          <circle cx="58.9" cy="-34" r="4" fill="var(--tc2)"/>
+          <circle cx="55.4" cy="32" r="4" fill="var(--tc2)"/>
+          <circle cx="0" cy="64" r="4" fill="var(--tc2)"/>
+          <circle cx="-55.4" cy="32" r="4" fill="var(--tc2)"/>
+          <circle cx="-55.4" cy="-32" r="4" fill="var(--tc2)"/>
+          <!-- Labels -->
+          <text x="0" y="-88" text-anchor="middle" fill="var(--tc3)" font-size="9" font-family="'Playfair Display',serif">Frontend</text>
+          <text x="78" y="-38" text-anchor="start" fill="var(--tc3)" font-size="9" font-family="'Playfair Display',serif">Languages</text>
+          <text x="78" y="44" text-anchor="start" fill="var(--tc3)" font-size="9" font-family="'Playfair Display',serif">Backend</text>
+          <text x="0" y="100" text-anchor="middle" fill="var(--tc3)" font-size="9" font-family="'Playfair Display',serif">Databases</text>
+          <text x="-78" y="44" text-anchor="end" fill="var(--tc3)" font-size="9" font-family="'Playfair Display',serif">AI/Tools</text>
+          <text x="-78" y="-38" text-anchor="end" fill="var(--tc3)" font-size="9" font-family="'Playfair Display',serif">Design</text>
+        </svg>
+      </div>
+      <div>
+        <div class="radar-title" style="margin-top:1rem">Tech Stack</div>
+        <div class="skill-tags">
+          <span class="skill-tag">JavaScript</span><span class="skill-tag">TypeScript</span>
+          <span class="skill-tag">C#</span><span class="skill-tag">Python</span>
+          <span class="skill-tag">React</span><span class="skill-tag">Next.js</span>
+          <span class="skill-tag">Tailwind</span><span class="skill-tag">SCSS</span>
+          <span class="skill-tag">Node.js</span><span class="skill-tag">.NET Core</span>
+          <span class="skill-tag">SQL</span><span class="skill-tag">MongoDB</span>
+          <span class="skill-tag">Sanity</span><span class="skill-tag">Figma</span>
+          <span class="skill-tag">AI Integration</span><span class="skill-tag">REST API</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <span class="section-label">// selected work</span>
+  <h2 class="section-title">What I've shipped.</h2>
+  <div class="proj-grid">
+
+    <div class="proj-card">
+      <img class="proj-img" src="https://cdn.sanity.io/images/pf6wp37f/production/dd745de3166bd404a304ced44431b3807438e951-1200x603.png" alt="The Vixa Website" onerror="this.style.display='none'">
+      <div class="proj-ribbon">★ Top</div>
+      <div class="proj-body">
+        <div class="proj-cats"><span class="proj-cat">FullStack · Designed</span></div>
+        <div class="proj-name">The Vixa Website</div>
+        <div class="proj-desc">Modern web platform for vacation rental. Built with Next.js for performance and SEO, Tailwind CSS for sleek design, Sanity CMS integration.</div>
+        <div class="proj-tech"><span>TypeScript</span><span>Next.js</span><span>TailwindCSS</span><span>Sanity</span></div>
+        <div class="proj-links">
+          <a href="https://www.the-vixa.com/hr" target="_blank">Live ↗</a>
+          <a href="https://github.com/tsertic/TheViksaWebsite" target="_blank">GitHub</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="proj-card">
+      <img class="proj-img" src="https://cdn.sanity.io/images/pf6wp37f/production/9c3a623fc9e77bab5c2b31ebb307e059916d3835-1000x536.png" alt="Pinky Delights" onerror="this.style.display='none'">
+      <div class="proj-ribbon">★ Top</div>
+      <div class="proj-body">
+        <div class="proj-cats"><span class="proj-cat">FrontEnd · 3D</span></div>
+        <div class="proj-name">Pinky Delights Bakery</div>
+        <div class="proj-desc">Interactive 3D web experience — a fictional bakery with a rotating Three.js donut that visitors can manipulate in real-time.</div>
+        <div class="proj-tech"><span>TypeScript</span><span>Three.js</span><span>Next.js</span><span>Tailwind</span></div>
+        <div class="proj-links">
+          <a href="https://github.com/tsertic/pinky-delights-bakery" target="_blank">GitHub</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="proj-card">
+      <img class="proj-img" src="https://cdn.sanity.io/images/pf6wp37f/production/cc01144c22251187e40bc42bb3408413a6c8c141-1200x645.png" alt="Pokémon AI Debate" onerror="this.style.display='none'">
+      <div class="proj-body">
+        <div class="proj-cats"><span class="proj-cat">FullStack · AI</span></div>
+        <div class="proj-name">Pokémon AI Debate</div>
+        <div class="proj-desc">Three AI models (GPT-4o-mini, Claude, Gemini) debate Pokémon superiority. Full REST API backend orchestrating multi-model conversations.</div>
+        <div class="proj-tech"><span>React</span><span>Express.js</span><span>Node.js</span><span>AI</span><span>TypeScript</span></div>
+        <div class="proj-links">
+          <a href="https://github.com/tsertic/pokemon-ai-debate" target="_blank">GitHub</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="proj-card">
+      <img class="proj-img" src="https://cdn.sanity.io/images/pf6wp37f/production/d7d8411c9ca5605e91516d8ca6da37f1a5a35d92-600x302.png" alt="HEI" onerror="this.style.display='none'">
+      <div class="proj-body">
+        <div class="proj-cats"><span class="proj-cat">FullStack</span></div>
+        <div class="proj-name">Hrvatska Esport Inicijativa</div>
+        <div class="proj-desc">Website for Croatia's esports initiative association. Next.js with Sanity CMS and modular SCSS architecture.</div>
+        <div class="proj-tech"><span>Next.js</span><span>SCSS</span><span>Sanity</span><span>JavaScript</span></div>
+        <div class="proj-links">
+          <a href="https://www.esportinicijativa.hr/" target="_blank">Live ↗</a>
+          <a href="https://github.com/tsertic/hei_v2" target="_blank">GitHub</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="proj-card">
+      <img class="proj-img" src="https://cdn.sanity.io/images/pf6wp37f/production/78374d76f6c801577c98fb5d3507158140c42ee1-800x477.png" alt="Viribus Unitis" onerror="this.style.display='none'">
+      <div class="proj-body">
+        <div class="proj-cats"><span class="proj-cat">FullStack · Designed</span></div>
+        <div class="proj-name">Braniteljska Zadruga Viribus Unitis</div>
+        <div class="proj-desc">Website for Croatian war veterans' cooperative. Info hub with news, events, and sponsor highlights. Headless CMS with Sanity.</div>
+        <div class="proj-tech"><span>TypeScript</span><span>Next.js</span><span>Sanity</span><span>Tailwind</span></div>
+        <div class="proj-links">
+          <a href="https://www.bzvu.hr/" target="_blank">Live ↗</a>
+          <a href="https://github.com/tsertic/website_viribus_unitis" target="_blank">GitHub</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="proj-card">
+      <img class="proj-img" src="https://cdn.sanity.io/images/pf6wp37f/production/54a81664cc61e85990647d4a292a38355e272475-1856x936.png" alt="Manage Landing" onerror="this.style.display='none'">
+      <div class="proj-body">
+        <div class="proj-cats"><span class="proj-cat">FrontEnd</span></div>
+        <div class="proj-name">Manage Landing Page</div>
+        <div class="proj-desc">Fully responsive landing page for 'Manage'. Pixel-perfect, mobile-first design built with modern Next.js and TypeScript.</div>
+        <div class="proj-tech"><span>Next.js</span><span>TypeScript</span><span>TailwindCSS</span></div>
+        <div class="proj-links">
+          <a href="https://manage-landing-page-seven-theta.vercel.app/" target="_blank">Live ↗</a>
+          <a href="https://github.com/tsertic/manage_landing_page/tree/master" target="_blank">GitHub</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <span class="section-label">// hit me up</span>
+  <h2 class="section-title">Let's build<br>something real.</h2>
+  <p style="color:var(--txt2);font-style:italic;margin-bottom:.5rem">No fluff. If you've got a project, say so.</p>
+  <div class="contact-grid">
+    <div class="contact-card">
+      <div class="c-icon">✉</div>
+      <div class="c-label">Email</div>
+      <a href="mailto:tsertic5@gmail.com">tsertic5@gmail.com</a>
+    </div>
+    <div class="contact-card">
+      <div class="c-icon">⌥</div>
+      <div class="c-label">GitHub</div>
+      <a href="https://github.com/tsertic" target="_blank">github.com/tsertic</a>
+    </div>
+    <div class="contact-card">
+      <div class="c-icon">in</div>
+      <div class="c-label">LinkedIn</div>
+      <a href="https://linkedin.com/in/tomislav-sertic" target="_blank">tomislav-sertic</a>
+    </div>
+    <div class="contact-card">
+      <div class="c-icon">◈</div>
+      <div class="c-label">Instagram</div>
+      <a href="https://instagram.com/tsertic5" target="_blank">@tsertic5</a>
+    </div>
+    <div class="contact-card">
+      <div class="c-icon">↗</div>
+      <div class="c-label">Portfolio</div>
+      <a href="https://www.tsertic.dev" target="_blank">tsertic.dev</a>
+    </div>
+  </div>
+</section>
+
+<!-- AI REGEN SECTION -->
+<section id="regen" style="max-width:100%">
+  <div class="regen-inner">
+    <div class="regen-badge">⟳ AI-Regenerated Daily</div>
+    <h2 class="regen-headline">Built by a developer.<br>Redesigned every morning by AI.</h2>
+    <p class="regen-sub">No two days look the same. Every 24 hours, an AI wakes up, picks a new visual theme, a new layout, a new mood — and rebuilds this portfolio from zero. What you're seeing right now is today's version. Tomorrow it's gone.</p>
+    <div class="regen-date">Last generated: 2026-03-24 · Mediterranean Terracotta / Dark Mode</div>
+    <a href="../history/" class="regen-link">Browse all past versions →</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <span style="color:var(--tc)">Tomislav Sertic</span> · Zagreb, Croatia · Handcrafted code, AI-refreshed design · <a href="mailto:tsertic5@gmail.com" style="color:var(--tc3);text-decoration:underline">tsertic5@gmail.com</a>
+</footer>
+
+<script>
+// Cursor glow
+const cur=document.getElementById('cursor');
+document.addEventListener('mousemove',e=>{cur.style.left=e.clientX+'px';cur.style.top=e.clientY+'px'});
+document.addEventListener('mouseleave',()=>{cur.style.opacity='0'});
+document.addEventListener('mouseenter',()=>{cur.style.opacity='1'});
+
+// Nav toggle
+function toggleMenu(){
+  document.getElementById('nav-menu').classList.toggle('open');
+  document.getElementById('overlay').classList.toggle('open');
+}
+
+// Blob drift on scroll
+const b1=document.getElementById('b1'),b2=document.getElementById('b2'),b3=document.getElementById('b3');
+let ticking=false;
+window.addEventListener('scroll',()=>{if(!ticking){requestAnimationFrame(()=>{
+  const s=window.scrollY;
+  b1.style.transform=`rotate(${s*0.03}deg) translateY(${s*0.08}px)`;
+  b2.style.transform=`rotate(${-s*0.02}deg) translateY(${-s*0.06}px)`;
+  b3.style.transform=`rotate(${s*0.05}deg)`;
+  ticking=false;
+});ticking=true;}});
+</script>
+</body>
+</html>

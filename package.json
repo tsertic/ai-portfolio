@@ -1,0 +1,14 @@
+{
+  "name": "ai-portfolio-generator",
+  "version": "1.0.0",
+  "description": "Daily AI-regenerated portfolio website",
+  "scripts": {
+    "generate": "node scripts/generate.js",
+    "generate:claude": "AI_PROVIDER=claude node scripts/generate.js",
+    "generate:openai": "AI_PROVIDER=openai node scripts/generate.js",
+    "generate:gemini": "AI_PROVIDER=gemini node scripts/generate.js"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

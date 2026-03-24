@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tomislav Sertic — Full-Stack Developer</title>
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --gold:#c9a84c;--gold-lt:#e8d5a0;--gold-dk:#8b6914;
+  --cream:#f5f0e8;--parchment:#ede6d6;--sand:#d4c9b0;
+  --dark:#1a1612;--mid:#2d2419;--ink:#3d3020;
+  --text:#4a3c28;--muted:#7a6a52;
+  --card:#1e1a14;--card-border:#3a3020;
+}
+html{scroll-behavior:smooth;font-size:16px}
+body{
+  font-family:'Share Tech Mono',monospace;
+  background:var(--parchment);color:var(--text);
+  overflow-x:hidden;
+}
+/* Grain texture overlay */
+body::after{
+  content:'';position:fixed;inset:0;z-index:9999;pointer-events:none;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.08'/%3E%3C/svg%3E");
+  opacity:0.45;mix-blend-mode:multiply;
+}
+/* Nav */
+nav{
+  position:fixed;top:0;right:0;z-index:1000;padding:1.5rem 2rem;
+}
+.hamburger{
+  background:none;border:none;cursor:pointer;
+  display:flex;flex-direction:column;gap:5px;padding:8px;
+}
+.hamburger span{
+  display:block;width:26px;height:2px;background:var(--gold);
+  transition:all 0.3s;
+}
+.nav-menu{
+  display:none;position:fixed;inset:0;background:rgba(26,22,18,0.97);
+  z-index:999;flex-direction:column;align-items:center;justify-content:center;gap:2.5rem;
+}
+.nav-menu.open{display:flex}
+.nav-menu a{
+  color:var(--gold-lt);font-size:1.4rem;text-decoration:none;letter-spacing:0.15em;
+  text-transform:uppercase;transition:color 0.2s;
+}
+.nav-menu a:hover{color:var(--gold)}
+.nav-close{
+  position:absolute;top:2rem;right:2rem;background:none;border:none;
+  color:var(--gold);font-size:2rem;cursor:pointer;font-family:inherit;
+}
+/* BG decorations */
+.bg-deco{position:fixed;pointer-events:none;z-index:0;opacity:0.07}
+/* Hero */
+#hero{
+  min-height:50vh;display:grid;place-items:center;
+  position:relative;overflow:hidden;
+  padding:6rem 2rem 4rem;
+  background:var(--cream);
+}
+.hero-geo{position:absolute;inset:0;z-index:0;overflow:hidden}
+.hero-geo svg{width:100%;height:100%;opacity:0.13}
+.hero-inner{position:relative;z-index:1;text-align:center}
+.hero-portrait-wrap{
+  width:160px;height:160px;margin:0 auto 2rem;
+  clip-path:polygon(50% 0%, 85% 15%, 100% 50%, 85% 85%, 50% 100%, 15% 85%, 0% 50%, 15% 15%);
+  overflow:hidden;background:var(--gold);
+}
+.hero-portrait-wrap img{width:100%;height:100%;object-fit:cover;display:block}
+.initials-fallback{
+  width:100%;height:100%;display:flex;align-items:center;justify-content:center;
+  font-size:3rem;font-weight:700;color:var(--dark);letter-spacing:0.1em;
+}
+h1.hero-name{
+  font-size:clamp(2.8rem,8vw,6rem);line-height:1;
+  color:var(--dark);letter-spacing:-0.02em;
+  text-transform:uppercase;
+}
+h1.hero-name span{color:var(--gold)}
+.hero-title{
+  font-size:clamp(0.7rem,1.5vw,1rem);letter-spacing:0.35em;
+  color:var(--muted);text-transform:uppercase;margin-top:1rem;
+}
+.hero-links{
+  display:flex;gap:2.5rem;justify-content:center;margin-top:2rem;
+  flex-wrap:wrap;
+}
+.hero-links a{
+  color:var(--gold-dk);text-decoration:none;font-size:0.85rem;
+  letter-spacing:0.15em;border-bottom:1px solid var(--gold);
+  padding-bottom:2px;transition:color 0.2s,border-color 0.2s;
+}
+.hero-links a:hover{color:var(--gold);border-color:var(--gold-lt)}
+/* Diagonal divider */
+.diagonal-top{
+  width:100%;height:60px;
+  background:linear-gradient(to bottom right,var(--parchment) 50%,transparent 50%);
+}
+.diagonal-bottom{
+  width:100%;height:60px;
+  background:linear-gradient(to bottom left,var(--parchment) 50%,transparent 50%);
+}
+/* Sections */
+section{position:relative;z-index:1;padding:7rem 2rem}
+section:nth-child(even){background:var(--cream)}
+.section-label{
+  font-size:0.7rem;letter-spacing:0.4em;color:var(--gold);
+  text-transform:uppercase;margin-bottom:1rem;
+}
+h2.section-title{
+  font-size:clamp(1.8rem,4vw,3rem);color:var(--dark);
+  text-transform:uppercase;letter-spacing:0.05em;margin-bottom:3rem;
+}
+h2.section-title::after{
+  content:'';display:block;width:60px;height:2px;
+  background:var(--gold);margin-top:0.8rem;
+}
+.container{max-width:1100px;margin:0 auto}
+/* About */
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start}
+.about-bio{font-size:1rem;line-height:1.9;color:var(--text)}
+.exp-card{
+  background:var(--card);border:1px solid var(--card-border);
+  border-radius:4px;padding:1.5rem;margin-top:2rem;color:var(--gold-lt);
+}
+.exp-card h4{color:var(--gold);margin-bottom:0.4rem;font-size:0.85rem;letter-spacing:0.1em}
+.exp-card p{font-size:0.8rem;color:var(--muted);line-height:1.7;margin-top:0.5rem}
+/* Word cloud */
+.word-cloud{display:flex;flex-wrap:wrap;gap:0.8rem 1.2rem;align-items:center}
+.skill-word{color:var(--ink);transition:color 0.2s;cursor:default}
+.skill-word:hover{color:var(--gold)}
+.s1{font-size:0.75rem;opacity:0.7}
+.s2{font-size:0.9rem;opacity:0.8}
+.s3{font-size:1.1rem}
+.s4{font-size:1.35rem;font-weight:700}
+.s5{font-size:1.6rem;font-weight:700;color:var(--gold-dk)}
+/* Projects */
+#projects{background:var(--mid)}
+#projects .section-label,#projects h2.section-title{color:var(--gold-lt)}
+#projects h2.section-title::after{background:var(--gold)}
+.projects-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:2rem}
+.proj-card{
+  background:var(--card);border:1px solid var(--card-border);
+  border-radius:4px;overflow:hidden;
+  box-shadow:inset 0 2px 8px rgba(0,0,0,0.5);
+  transition:transform 0.25s,box-shadow 0.25s;
+}
+.proj-card:hover{
+  transform:translateY(-4px) scale(1.01);
+  box-shadow:inset 0 2px 8px rgba(0,0,0,0.5),0 12px 30px rgba(0,0,0,0.4);
+}
+.proj-img{width:100%;height:170px;object-fit:cover;opacity:0.85;display:block}
+.proj-body{padding:1.2rem}
+.proj-body h3{color:var(--gold-lt);font-size:0.95rem;margin-bottom:0.5rem;letter-spacing:0.05em}
+.proj-body p{color:var(--muted);font-size:0.75rem;line-height:1.7;margin-bottom:1rem}
+.tech-tags{display:flex;flex-wrap:wrap;gap:0.4rem;margin-bottom:1rem}
+.tech-tag{
+  font-size:0.65rem;padding:2px 8px;border:1px solid var(--card-border);
+  color:var(--gold);border-radius:2px;letter-spacing:0.1em;
+}
+.proj-links{display:flex;gap:1.5rem}
+.proj-links a{
+  font-size:0.72rem;color:var(--gold-dk);text-decoration:none;
+  border-bottom:1px solid var(--gold-dk);padding-bottom:1px;letter-spacing:0.1em;
+  transition:color 0.2s;
+}
+.proj-links a:hover{color:var(--gold)}
+/* AI section */
+#ai-daily{
+  background:var(--dark);padding:5rem 2rem;
+  text-align:center;position:relative;z-index:1;
+}
+.ai-badge{
+  display:inline-block;border:1px solid var(--gold);
+  padding:0.4rem 1.2rem;font-size:0.7rem;letter-spacing:0.3em;
+  color:var(--gold);text-transform:uppercase;margin-bottom:2rem;
+}
+#ai-daily h2{
+  font-size:clamp(1.4rem,3vw,2.2rem);color:var(--gold-lt);
+  max-width:700px;margin:0 auto 1rem;line-height:1.5;
+}
+#ai-daily p{color:var(--muted);font-size:0.85rem;margin-bottom:0.5rem;letter-spacing:0.05em}
+.ai-date{color:var(--gold);font-size:0.8rem;letter-spacing:0.2em;margin-bottom:2rem}
+.ai-link{
+  color:var(--gold-lt);border-bottom:1px solid var(--gold);
+  text-decoration:none;font-size:0.85rem;letter-spacing:0.15em;
+  padding-bottom:2px;transition:color 0.2s;
+}
+.ai-link:hover{color:var(--gold)}
+/* Contact */
+#contact{background:var(--cream)}
+.contact-inner{text-align:center;max-width:600px;margin:0 auto}
+.contact-cta{
+  font-size:clamp(1.5rem,4vw,2.8rem);color:var(--dark);
+  line-height:1.3;margin-bottom:1rem;
+}
+.contact-cta span{color:var(--gold)}
+.contact-sub{color:var(--muted);font-size:0.85rem;margin-bottom:3rem;line-height:1.8}
+.contact-links{display:flex;flex-wrap:wrap;gap:2rem;justify-content:center}
+.contact-links a{
+  color:var(--gold-dk);text-decoration:none;font-size:0.9rem;
+  letter-spacing:0.15em;border-bottom:1px solid var(--gold);
+  padding-bottom:3px;transition:color 0.2s,border-color 0.2s;
+}
+.contact-links a:hover{color:var(--gold);border-color:var(--gold-lt)}
+/* Footer */
+footer{
+  background:var(--dark);color:var(--muted);
+  text-align:center;padding:2rem;font-size:0.72rem;
+  letter-spacing:0.15em;z-index:1;position:relative;
+}
+footer span{color:var(--gold)}
+/* Slant helpers */
+.slant-dark-top{
+  height:50px;background:var(--mid);
+  clip-path:polygon(0 100%,100% 0,100% 100%);
+  margin-bottom:-1px;
+}
+.slant-light-bottom{
+  height:50px;background:var(--cream);
+  clip-path:polygon(0 0,100% 0,100% 100%);
+  margin-top:-1px;
+}
+.slant-dark-bottom{
+  height:50px;background:var(--dark);
+  clip-path:polygon(0 0,100% 100%,0 100%);
+  margin-top:-1px;
+}
+.slant-mid-top{
+  height:50px;background:var(--mid);
+  clip-path:polygon(0 0,100% 0,0 100%);
+  margin-bottom:-1px;
+}
+@media(max-width:768px){
+  .about-grid{grid-template-columns:1fr;gap:3rem}
+  .projects-grid{grid-template-columns:1fr}
+  h1.hero-name{font-size:clamp(2rem,12vw,4rem)}
+}
+@media(max-width:480px){
+  section{padding:5rem 1.2rem}
+  .hero-links{gap:1.2rem}
+}
+</style>
+<style id="safety-override">
+*[class*="fade"],*[class*="anim"],*[class*="hidden"],*[class*="reveal"],*[class*="slide"] {
+  opacity: 1 !important; transform: none !important;
+  visibility: visible !important; animation: none !important;
+}
+</style>
+</head>
+<body>
+
+<!-- BG Decorations -->
+<svg class="bg-deco" id="deco1" style="width:500px;height:500px;top:-100px;left:-150px" viewBox="0 0 500 500">
+  <polygon points="250,20 480,200 400,460 100,460 20,200" fill="none" stroke="#c9a84c" stroke-width="1.5"/>
+  <polygon points="250,60 440,210 370,430 130,430 60,210" fill="none" stroke="#c9a84c" stroke-width="0.8"/>
+</svg>
+<svg class="bg-deco" id="deco2" style="width:400px;height:400px;bottom:10%;right:-80px" viewBox="0 0 400 400">
+  <rect x="50" y="50" width="300" height="300" fill="none" stroke="#c9a84c" stroke-width="1.2" transform="rotate(15,200,200)"/>
+  <rect x="80" y="80" width="240" height="240" fill="none" stroke="#c9a84c" stroke-width="0.7" transform="rotate(30,200,200)"/>
+  <circle cx="200" cy="200" r="100" fill="none" stroke="#c9a84c" stroke-width="0.5"/>
+</svg>
+<svg class="bg-deco" id="deco3" style="width:300px;height:300px;top:45%;left:30px" viewBox="0 0 300 300">
+  <line x1="0" y1="0" x2="300" y2="300" stroke="#c9a84c" stroke-width="0.8"/>
+  <line x1="300" y1="0" x2="0" y2="300" stroke="#c9a84c" stroke-width="0.8"/>
+  <circle cx="150" cy="150" r="120" fill="none" stroke="#c9a84c" stroke-width="0.8"/>
+  <circle cx="150" cy="150" r="60" fill="none" stroke="#c9a84c" stroke-width="0.5"/>
+</svg>
+
+<!-- Nav -->
+<nav>
+  <button class="hamburger" id="menuBtn" aria-label="Open menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+<div class="nav-menu" id="navMenu">
+  <button class="nav-close" id="menuClose">✕</button>
+  <a href="#hero" onclick="closeMenu()">Home</a>
+  <a href="#about" onclick="closeMenu()">About</a>
+  <a href="#projects" onclick="closeMenu()">Projects</a>
+  <a href="#ai-daily" onclick="closeMenu()">AI Magic</a>
+  <a href="#contact" onclick="closeMenu()">Contact</a>
+</div>
+
+<!-- Hero -->
+<section id="hero">
+  <div class="hero-geo">
+    <svg viewBox="0 0 1200 600" preserveAspectRatio="xMidYMid slice">
+      <line x1="0" y1="0" x2="1200" y2="600" stroke="#c9a84c" stroke-width="0.8"/>
+      <line x1="1200" y1="0" x2="0" y2="600" stroke="#c9a84c" stroke-width="0.8"/>
+      <polygon points="600,50 1100,300 600,550 100,300" fill="none" stroke="#c9a84c" stroke-width="1.2"/>
+      <polygon points="600,120 980,300 600,480 220,300" fill="none" stroke="#c9a84c" stroke-width="0.6"/>
+      <circle cx="600" cy="300" r="200" fill="none" stroke="#c9a84c" stroke-width="0.5"/>
+      <circle cx="600" cy="300" r="280" fill="none" stroke="#c9a84c" stroke-width="0.3"/>
+      <rect x="100" y="80" width="1000" height="440" fill="none" stroke="#c9a84c" stroke-width="0.4"/>
+    </svg>
+  </div>
+  <div class="hero-inner">
+    <div class="hero-portrait-wrap">
+      <img src="../assets/images/portrait.webp" alt="Tomislav Sertic" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+      <div class="initials-fallback" style="display:none">TS</div>
+    </div>
+    <div class="section-label">Zagreb, Croatia</div>
+    <h1 class="hero-name">Tomislav<br><span>Sertic</span></h1>
+    <p class="hero-title">Full-Stack Software Developer</p>
+    <div class="hero-links">
+      <a href="https://github.com/tsertic" target="_blank">GitHub →</a>
+      <a href="https://linkedin.com/in/tomislav-sertic" target="_blank">LinkedIn →</a>
+      <a href="mailto:tsertic5@gmail.com">tsertic5@gmail.com</a>
+      <a href="https://www.tsertic.dev" target="_blank">tsertic.dev →</a>
+    </div>
+  </div>
+</section>
+
+<!-- Slant into About -->
+<div style="height:50px;background:var(--cream);clip-path:polygon(0 0,100% 100%,100% 0);position:relative;z-index:1;margin-top:-1px"></div>
+
+<!-- About -->
+<section id="about" style="background:var(--parchment)">
+  <div class="container">
+    <div class="section-label">// chapter one</div>
+    <h2 class="section-title">About</h2>
+    <div class="about-grid">
+      <div>
+        <p class="about-bio">Driven Software Developer specializing in high-performance web applications, robust backend systems, and effective digital solutions. With 5 years of experience, I focus on building scalable, efficient, and user-friendly software solutions.</p>
+        <div class="exp-card">
+          <h4>ARCTIS D.O.O. — Software Developer</h4>
+          <p>Archibus IWMS representative — server setup, database integration, custom features, full-lifecycle development. Notable: data analysis &amp; React dev for Saudi Aramco within the Archibus ecosystem.</p>
+        </div>
+        <div style="margin-top:1.5rem;font-size:0.75rem;color:var(--muted)">
+          <strong style="color:var(--gold)">interests /</strong> Basketball · Cycling · Hiking · Diving · Chess
+        </div>
+      </div>
+      <div>
+        <div class="section-label" style="margin-bottom:1.5rem">// skills &amp; tools</div>
+        <div class="word-cloud">
+          <span class="skill-word s5">JavaScript</span>
+          <span class="skill-word s4">React</span>
+          <span class="skill-word s4">Next.js</span>
+          <span class="skill-word s3">TypeScript</span>
+          <span class="skill-word s3">Node.js</span>
+          <span class="skill-word s4">C#</span>
+          <span class="skill-word s3">.NET Core</span>
+          <span class="skill-word s2">Python</span>
+          <span class="skill-word s3">Tailwind CSS</span>
+          <span class="skill-word s2">SCSS</span>
+          <span class="skill-word s3">SQL</span>
+          <span class="skill-word s2">MongoDB</span>
+          <span class="skill-word s2">Sanity</span>
+          <span class="skill-word s1">Firestore</span>
+          <span class="skill-word s3">ASP.NET</span>
+          <span class="skill-word s2">Express</span>
+          <span class="skill-word s3">RESTful API</span>
+          <span class="skill-word s2">AI integration</span>
+          <span class="skill-word s1">Figma</span>
+          <span class="skill-word s1">Adobe CC</span>
+          <span class="skill-word s2">Redux</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Slant into Projects -->
+<div style="height:50px;background:var(--mid);clip-path:polygon(0 100%,100% 0,100% 100%);position:relative;z-index:1;margin-top:-1px"></div>
+
+<!-- Projects -->
+<section id="projects">
+  <div class="container">
+    <div class="section-label" style="color:var(--gold)">// selected works</div>
+    <h2 class="section-title">Projects</h2>
+    <div class="projects-grid">
+
+      <div class="proj-card">
+        <img class="proj-img" src="https://cdn.sanity.io/images/pf6wp37f/production/9c3a623fc9e77bab5c2b31ebb307e059916d3835-1000x536.png" alt="Pinky Delights Bakery">
+        <div class="proj-body">
+          <h3>Pinky Delights Bakery</h3>
+          <p>Interactive 3D web experience. A fictional bakery with a real-time rotating 3D donut model built with Three.js that visitors can manipulate live.</p>
+          <div class="tech-tags">
+            <span class="tech-tag">Three.js</span><span class="tech-tag">Next.js</span><span class="tech-tag">TypeScript</span><span class="tech-tag">Tailwind</span>
+          </div>
+          <div class="proj-links">
+            <a href="https://github.com/tsertic/pinky-delights-bakery" target="_blank">GitHub →</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="proj-card">
+        <img class="proj-img" src="https://cdn.sanity.io/images/pf6wp37f/production/dd745de3166bd404a304ced44431b3807438e951-1200x603.png" alt="The Vixa Website">
+        <div class="proj-body">
+          <h3>The Vixa Website</h3>
+          <p>Modern web platform for vacation rental. Fast, SEO-friendly Next.js build with Sanity CMS, styled with Tailwind for a sleek, flexible experience.</p>
+          <div class="tech-tags">
+            <span class="tech-tag">Next.js</span><span class="tech-tag">Sanity</span><span class="tech-tag">TypeScript</span><span class="tech-tag">Tailwind</span>
+          </div>
+          <div class="proj-links">
+            <a href="https://www.the-vixa.com/hr" target="_blank">Live →</a>
+            <a href="https://github.com/tsertic/TheViksaWebsite" target="_blank">GitHub →</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="proj-card">
+        <img class="proj-img" src="https://cdn.sanity.io/images/pf6wp37f/production/cc01144c22251187e40bc42bb3408413a6c8c141-1200x645.png" alt="Pokémon AI Debate">
+        <div class="proj-body">
+          <h3>Pokémon AI Debate</h3>
+          <p>Three AI models — GPT-4o-mini, Claude, and a judge — debate which Pokémon reigns supreme. A fun showcase of multi-model AI orchestration.</p>
+          <div class="tech-tags">
+            <span class="tech-tag">React</span><span class="tech-tag">Express</span><span class="tech-tag">AI</span><span class="tech-tag">TypeScript</span>
+          </div>
+          <div class="proj-links">
+            <a href="https://github.com/tsertic/pokemon-ai-debate" target="_blank">GitHub →</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="proj-card">
+        <img class="proj-img" src="https://cdn.sanity.io/images/pf6wp37f/production/78374d76f6c801577c98fb5d3507158140c42ee1-800x477.png" alt="Viribus Unitis">
+        <div class="proj-body">
+          <h3>Braniteljska Zadruga Viribus Unitis</h3>
+          <p>Website for a cooperative of Croatian war veterans. Information hub for mission, activities, events, news updates, and sponsor highlights.</p>
+          <div class="tech-tags">
+            <span class="tech-tag">Next.js</span><span class="tech-tag">Sanity</span><span class="tech-tag">Tailwind</span>
+          </div>
+          <div class="proj-links">
+            <a href="https://www.bzvu.hr/" target="_blank">Live →</a>
+            <a href="https://github.com/tsertic/website_viribus_unitis" target="_blank">GitHub →</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="proj-card">
+        <img class="proj-img" src="https://cdn.sanity.io/images/pf6wp37f/production/d7d8411c9ca5605e91516d8ca6da37f1a5a35d92-600x302.png" alt="Hrvatska Esport Inicijativa">
+        <div class="proj-body">
+          <h3>Hrvatska Esport Inicijativa</h3>
+          <p>Website for the Croatian esports initiative association. Full CMS integration with Sanity, modular SCSS styling, and dynamic content management.</p>
+          <div class="tech-tags">
+            <span class="tech-tag">Next.js</span><span class="tech-tag">Sanity</span><span class="tech-tag">SCSS</span>
+          </div>
+          <div class="proj-links">
+            <a href="https://www.esportinicijativa.hr/" target="_blank">Live →</a>
+            <a href="https://github.com/tsertic/hei_v2" target="_blank">GitHub →</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="proj-card">
+        <img class="proj-img" src="https://cdn.sanity.io/images/pf6wp37f/production/4199641036ba4f5166cd6594b898ada6facaff31-1200x706.png" alt="PokéPal AI">
+        <div class="proj-body">
+          <h3>PokéPal AI</h3>
+          <p>Conversational AI assistant for Pokémon info and comparisons. Integrates OpenAI LLM with PokeAPI, dynamically generates stat visualizations via Matplotlib.</p>
+          <div class="tech-tags">
+            <span class="tech-tag">Python</span><span class="tech-tag">AI</span><span class="tech-tag">Gradio</span>
+          </div>
+          <div class="proj-links">
+            <a href="https://github.com/tsertic/pokeapi-gradio-ai-chatbot" target="_blank">GitHub →</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- Slant out of Projects -->
+<div style="height:50px;background:var(--parchment);clip-path:polygon(0 0,100% 0,0 100%);position:relative;z-index:1;margin-top:-1px"></div>
+
+<!-- AI Daily Section -->
+<section id="ai-daily">
+  <div class="container" style="text-align:center">
+    <div class="ai-badge">✦ Living Portfolio ✦</div>
+    <h2 style="font-size:clamp(1.4rem,3vw,2.2rem);color:var(--gold-lt);max-width:700px;margin:0 auto 1rem;line-height:1.6">
+      Every morning, AI wakes up,<br>stares at this page, and rebuilds it from scratch.
+    </h2>
+    <p style="color:var(--
