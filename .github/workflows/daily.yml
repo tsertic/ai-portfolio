@@ -1,18 +1,15 @@
 name: Daily Portfolio Regeneration
 
 on:
-  # Run every day at 07:00 UTC (09:00 Zagreb time)
   schedule:
     - cron: "0 7 * * *"
-
-  # Allow manual trigger from GitHub Actions tab
   workflow_dispatch:
 
 jobs:
   regenerate:
     runs-on: ubuntu-latest
     permissions:
-      contents: write   # needed to commit & push
+      contents: write
 
     steps:
       - name: Checkout repository
@@ -23,7 +20,20 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: "20"
+          node-version: "22"
+
+      - name: Verify API key is set
+        run: |
+          if [ -z "$ANTHROPIC_API_KEY" ] && [ -z "$OPENAI_API_KEY" ] && [ -z "$GEMINI_API_KEY" ]; then
+            echo "ERROR: No API keys found. Add ANTHROPIC_API_KEY, OPENAI_API_KEY, or GEMINI_API_KEY as repo secrets."
+            echo "Go to: Settings > Secrets and variables > Actions > New repository secret"
+            exit 1
+          fi
+          echo "API key check passed."
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          OPENAI_API_KEY:    ${{ secrets.OPENAI_API_KEY }}
+          GEMINI_API_KEY:    ${{ secrets.GEMINI_API_KEY }}
 
       - name: Generate portfolio
         env:
@@ -39,5 +49,5 @@ jobs:
           git config user.name  "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add docs/
-          git diff --staged --quiet || git commit -m "🤖 Daily regeneration $(date -u +'%Y-%m-%d %H:%M UTC')"
+          git diff --staged --quiet || git commit -m "Daily regeneration $(date -u +'%Y-%m-%d %H:%M UTC')"
           git push
