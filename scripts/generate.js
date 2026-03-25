@@ -143,7 +143,7 @@ ${JSON.stringify(content, null, 2)}
      "No two days look the same. This portfolio regenerates every 24 hours." or
      "Built by a developer. Redesigned daily by AI." — pick or invent something clever that fits the ${params.text_tone || "overall"} tone.
    - Include the generation date: ${date.toISOString().slice(0,10)}
-   - Include a clearly styled link/button to "/history/" with label like "Browse all past versions →" or "See the archive →"
+   - Include a clearly styled link/button to "history/" (relative path, NO leading slash) with label like "Browse all past versions →" or "See the archive →"
    - Style it to feel like a feature, not a footnote — use the theme's personality
 
 ═══ HERO SECTION DETAIL ═══
@@ -304,6 +304,10 @@ function processHTML(raw) {
 </style>`;
   html = html.replace("</head>", visibilityOverride + "\n</head>");
 
+  // Fix absolute /history/ links → relative history/ (needed for GitHub Pages subpath)
+  html = html.replace(/href="\/history\/"/g, 'href="history/"');
+  html = html.replace(/href='\/history\/'/g, "href='history/'");
+
   return html;
 }
 
@@ -424,7 +428,7 @@ function buildHistoryGallery(historyDir) {
 </head>
 <body>
 <div class="page-header">
-  <a class="back" href="/">← Back to current portfolio</a>
+  <a class="back" href="../">← Back to current portfolio</a>
   <h1>Portfolio <span>History</span></h1>
   <p class="subtitle">${files.length} version${files.length !== 1 ? "s" : ""} generated — a new AI design every day</p>
 </div>
