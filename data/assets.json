@@ -1,5 +1,23 @@
 [
   {
+    "file": "Black-and-white-halftone-pattern-texture-background.svg",
+    "path": "assets/backgrounds/Black-and-white-halftone-pattern-texture-background.svg",
+    "folder": "backgrounds",
+    "type": "vector-image",
+    "ext": "svg",
+    "size_kb": 503.7,
+    "description": "Background images / textures — Black And White Halftone Pattern Texture Background"
+  },
+  {
+    "file": "Black-and-white-wavy-halftone-background-vector.svg",
+    "path": "assets/backgrounds/Black-and-white-wavy-halftone-background-vector.svg",
+    "folder": "backgrounds",
+    "type": "vector-image",
+    "ext": "svg",
+    "size_kb": 657.6,
+    "description": "Background images / textures — Black And White Wavy Halftone Background Vector"
+  },
+  {
     "file": "portrait.webp",
     "path": "assets/images/portrait.webp",
     "folder": "images",
@@ -7,5 +25,14 @@
     "ext": "webp",
     "size_kb": 13.8,
     "description": "Portrait photo of Tomislav Sertic — the portfolio owner. Use for hero/about sections."
+  },
+  {
+    "file": "cog-svgrepo-com.svg",
+    "path": "assets/svg/cog-svgrepo-com.svg",
+    "folder": "svg",
+    "type": "vector-image",
+    "ext": "svg",
+    "size_kb": 6.6,
+    "description": "SVG illustrations or icons — Cog Svgrepo Com"
   }
 ]

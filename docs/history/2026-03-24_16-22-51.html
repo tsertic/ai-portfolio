@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tomislav Sertic | Portfolio 2026</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;700&family=Caveat:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #fdfcf8;
+            --text: #1a1a1a;
+            --emerald: #3d6350;
+            --ruby: #a24d4d;
+            --sapphire: #3a506b;
+            --gold: #b08d44;
+            --radius: 10px;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background-color: var(--bg); 
+            color: var(--text); 
+            line-height: 1.6; 
+            overflow-x: hidden;
+        }
+        h1, h2, h3 { font-family: 'Bebas Neue', sans-serif; text-transform: uppercase; line-height: 0.9; }
+        
+        /* Navigation Side Dots */
+        .nav-dots {
+            position: fixed; right: 2rem; top: 50%; transform: translateY(-50%);
+            display: flex; flex-direction: column; gap: 1rem; z-index: 100;
+        }
+        .nav-dots a {
+            width: 12px; height: 12px; border-radius: 50%; border: 2px solid var(--emerald);
+            transition: 0.3s;
+        }
+        .nav-dots a:hover { background: var(--ruby); transform: scale(1.2); }
+
+        /* Background Decorations */
+        .bg-shapes { position: fixed; inset: 0; z-index: -1; pointer-events: none; opacity: 0.08; }
+        .grid-lines { 
+            position: fixed; inset: 0; z-index: -1; 
+            background-size: 40px 40px;
+            background-image: linear-gradient(to right, #ccc 1px, transparent 1px), linear-gradient(to bottom, #ccc 1px, transparent 1px);
+            opacity: 0.2;
+        }
+
+        /* Hero Section */
+        #hero {
+            height: 100vh; display: flex; align-items: center; justify-content: center;
+            background: radial-gradient(circle at center, rgba(176, 141, 68, 0.1) 0%, transparent 70%);
+            padding: 2rem; position: relative;
+        }
+        .hero-card {
+            background: white; padding: 4rem 2rem; width: 100%; max-width: 1200px;
+            box-shadow: 20px 20px 0px rgba(0,0,0,0.05); border: 1px solid #eee;
+            border-radius: var(--radius); position: relative;
+        }
+        .hero-title { 
+            font-size: clamp(4rem, 16vw, 15rem); color: var(--text); 
+            letter-spacing: -2px; margin-bottom: 1rem;
+        }
+        .portrait-container {
+            width: 220px; height: 220px; position: absolute; top: -60px; right: 40px;
+            transform: rotate(45deg); border: 8px solid white; overflow: hidden;
+            box-shadow: 10px 10px 30px rgba(0,0,0,0.1); background: var(--gold);
+        }
+        .portrait-container img {
+            width: 140%; height: 140%; object-fit: cover; transform: rotate(-45deg) translate(-15%, -15%);
+        }
+        .hero-links { display: flex; gap: 2rem; margin-top: 2rem; }
+        .hero-links a { 
+            text-decoration: none; color: var(--emerald); font-weight: bold; 
+            border-bottom: 2px solid transparent; transition: 0.3s;
+        }
+        .hero-links a:hover { border-bottom: 2px solid var(--ruby); }
+
+        /* Zigzag Divider */
+        .divider {
+            height: 60px; background: var(--emerald);
+            clip-path: polygon(0 0, 5% 100%, 10% 0, 15% 100%, 20% 0, 25% 100%, 30% 0, 35% 100%, 40% 0, 45% 100%, 50% 0, 55% 100%, 60% 0, 65% 100%, 70% 0, 75% 100%, 80% 0, 85% 100%, 90% 0, 95% 100%, 100% 0);
+        }
+
+        /* Section Layouts */
+        section { padding: 6rem 10% 4rem; position: relative; }
+        .grid-magazine {
+            display: grid; grid-template-columns: repeat(12, 1fr); gap: 2rem;
+        }
+
+        /* About & Skills */
+        .bio-box { grid-column: span 7; }
+        .skills-timeline { grid-column: span 5; border-left: 2px solid var(--ruby); padding-left: 2rem; }
+        .skill-item { margin-bottom: 1.5rem; position: relative; }
+        .skill-item::before {
+            content: ''; position: absolute; left: -2.45rem; top: 0.5rem;
+            width: 12px; height: 12px; background: var(--ruby); border-radius: 50%;
+        }
+        .skill-item h4 { color: var(--ruby); font-size: 1.2rem; }
+
+        /* Projects */
+        .projects-intro { grid-column: span 12; margin-bottom: 3rem; }
+        .hobby-label { 
+            display: inline-block; padding: 0.5rem 1rem; background: var(--gold); 
+            color: white; font-weight: bold; transform: rotate(-2deg); margin-bottom: 1rem;
+        }
+        .project-card {
+            grid-column: span 4; background: white; border-radius: var(--radius);
+            overflow: hidden; border: 1px solid #eee; transition: transform 0.3s;
+        }
+        .project-card:hover { transform: translateY(-10px); }
+        .project-img { width: 100%; height: 200px; object-fit: cover; filter: grayscale(100%); transition: 0.5s; }
+        .project-card:hover .project-img { filter: grayscale(0%); }
+        .project-content { padding: 1.5rem; }
+        .tech-pill { font-size: 0.7rem; background: #f0f0f0; padding: 2px 8px; border-radius: 4px; margin-right: 4px; display: inline-block; }
+
+        /* Contact Cards */
+        .contact-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem; margin-top: 3rem; }
+        .contact-card { 
+            background: white; border: 1px solid #eee; padding: 2rem; border-radius: var(--radius);
+            text-align: center; color: var(--text); text-decoration: none; transition: 0.3s;
+        }
+        .contact-card:hover { border-color: var(--gold); box-shadow: 0 10px 20px rgba(0,0,0,0.05); }
+
+        /* Daily Regen Banner (Handwritten) */
+        .regen-banner {
+            max-width: 400px; margin: 4rem auto; background: #fff9c4; padding: 2rem;
+            transform: rotate(1deg); box-shadow: 5px 5px 15px rgba(0,0,0,0.1);
+            font-family: 'Caveat', cursive; font-size: 1.4rem; position: relative;
+        }
+        .regen-banner::after { content: '📌'; position: absolute; top: -10px; left: 50%; }
+        .regen-banner a { color: var(--ruby); text-decoration: underline; }
+
+        @media (max-width: 900px) {
+            .hero-title { font-size: 20vw; }
+            .bio-box, .skills-timeline, .project-card { grid-column: span 12; }
+            .portrait-container { position: relative; top: 0; right: 0; margin: 0 auto 2rem; }
+            .hero-card { padding: 2rem 1rem; text-align: center; }
+            .hero-links { justify-content: center; }
+        }
+    </style>
+<style id="safety-override">
+*[class*="fade"],*[class*="anim"],*[class*="hidden"],*[class*="reveal"],*[class*="slide"] {
+  opacity: 1 !important; transform: none !important;
+  visibility: visible !important; animation: none !important;
+}
+</style>
+</head>
+<body>
+
+    <nav class="nav-dots">
+        <a href="#hero" title="Home"></a>
+        <a href="#about" title="About"></a>
+        <a href="#projects" title="Work"></a>
+        <a href="#contact" title="Contact"></a>
+    </nav>
+
+    <div class="grid-lines"></div>
+    <div class="bg-shapes" id="shapes">
+        <svg width="400" height="400" style="position:absolute; top:10%; left:-5%"><circle cx="200" cy="200" r="180" fill="var(--emerald)"/></svg>
+        <svg width="300" height="300" style="position:absolute; bottom:20%; right:-5%"><rect width="250" height="250" fill="var(--ruby)" transform="rotate(15)"/></svg>
+    </div>
+
+    <section id="hero">
+        <div class="hero-card">
+            <div class="portrait-container">
+                <img src="../assets/images/portrait.webp" alt="Tomislav Sertic" onerror="this.style.display='none'; this.parentNode.innerHTML='<div style=\'transform:rotate(-45deg); font-family:Bebas Neue; font-size:4rem; display:flex; align-items:center; justify-content:center; height:100%\'>TS</div>'">
+            </div>
+            <h1 class="hero-title">TSERTIC</h1>
+            <p style="font-size: 1.5rem; font-weight: 300; max-width: 600px;">
+                Full-Stack Software Developer. <span style="color:var(--ruby); font-weight:700;">I don't just write code; I dismantle problems.</span> Based in Zagreb, building for the world.
+            </p>
+            <div class="hero-links">
+                <a href="https://github.com/tsertic">GITHUB</a>
+                <a href="https://linkedin.com/in/tomislav-sertic">LINKEDIN</a>
+                <a href="mailto:tsertic5@gmail.com">EMAIL</a>
+            </div>
+        </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <section id="about">
+        <div class="grid-magazine">
+            <div class="bio-box">
+                <h2 style="font-size: 4rem; margin-bottom: 2rem;">THE MAN BEHIND <br><span style="color:var(--emerald)">THE MACHINE</span></h2>
+                <p style="font-size: 1.1rem; margin-bottom: 1.5rem;">
+                    Full-stack developer with hands-on experience delivering enterprise-grade solutions for major international clients including Saudi Aramco, ESA, and THT. 
+                    I specialize in modernizing legacy systems and breathing React-infused life into old enterprise architectures.
+                </p>
+                <p style="font-size: 1.1rem; color: #666;">
+                    When the screen turns off, I'm a dad to Anja and Eevee (a mixed breed with more energy than a server farm). 
+                    I'm usually hiking, cycling, or losing at chess.
+                </p>
+            </div>
+            <div class="skills-timeline">
+                <h3 style="margin-bottom: 2rem; color: var(--ruby);">Evolution of Skill</h3>
+                <div class="skill-item">
+                    <h4>FOUNDATIONS</h4>
+                    <p>SQL Optimization & Java Backend Excellence.</p>
+                </div>
+                <div class="skill-item">
+                    <h4>MODERN STACK</h4>
+                    <p>React, Next.js, and TypeScript Mastery.</p>
+                </div>
+                <div class="skill-item">
+                    <h4>ARCHITECTURE</h4>
+                    <p>.NET Core, Node.js, and Cloud Orchestration.</p>
+                </div>
+                <div class="skill-item">
+                    <h4>FUTURE-PROOFING</h4>
+                    <p>AI Integration & Multimodal LLM Deployments.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects" style="background: #f4f4f4;">
+        <div class="grid-magazine">
+            <div class="projects-intro">
+                <span class="hobby-label">THE HOBBY ARCHIVE</span>
+                <h2 style="font-size: 4rem;">SIDE QUESTS</h2>
+                <p style="max-width: 700px; margin-top: 1rem;">
+                    By day, I'm building IWMS platforms for Saudi Aramco. These projects are my playground—client sites for friends, utility scripts, and AI experiments built just for the fun of it.
+                </p>
+            </div>
+
+            <!-- Project Card 1 -->
+            <div class="project-card">
+                <img src="https://cdn.sanity.io/images/pf6wp37f/production/cc01144c22251187e40bc42bb3408413a6c8c141-1200x645.png" class="project-img" alt="Project">
+                <div class="project-content">
+                    <h3>Pokémon AI Debate</h3>
+                    <p style="font-size: 0.9rem; margin: 10px 0;">Claude vs GPT-4. AI arguing about pocket monsters.</p>
+                    <div style="margin-bottom: 1rem;">
+                        <span class="tech-pill">React</span><span class="tech-pill">Node.js</span><span class="tech-pill">AI</span>
+                    </div>
+                    <a href="https://github.com/tsertic/pokemon-ai-debate" style="color:var(--ruby); font-weight:bold; text-decoration:none;">CODE →</a>
+                </div>
+            </div>
+
+            <!-- Project Card 2 -->
+            <div class="project-card">
+                <img src="https://cdn.sanity.io/images/pf6wp37f/production/9c3a623fc9e77bab5c2b31ebb307e059916d3835-1000x536.png" class="project-img" alt="Project">
+                <div class="project-content">
+                    <h3>Pinky Delights</h3>
+                    <p style="font-size: 0.9rem; margin: 10px 0;">3D Interactive Bakery experience built with Three.js.</p>
+                    <div style="margin-bottom: 1rem;">
+                        <span class="tech-pill">Three.js</span><span class="tech-pill">Next.js</span>
+                    </div>
+                    <a href="https://github.com/tsertic/pinky-delights-bakery" style="color:var(--ruby); font-weight:bold; text-decoration:none;">CODE →</a>
+                </div>
+            </div>
+
+            <!-- Project Card 3 -->
+            <div class="project-card">
+                <img src="https://cdn.sanity.io/images/pf6wp37f/production/dd745de3166bd404a304ced44431b3807438e951-1200x603.png" class="project-img" alt="Project">
+                <div class="project-content">
+                    <h3>The Vixa</h3>
+                    <p style="font-size: 0.9rem; margin: 10px 0;">Seamless vacation rental platform in Croatia.</p>
+                    <div style="margin-bottom: 1rem;">
+                        <span class="tech-pill">Next.js</span><span class="tech-pill">Tailwind</span><span class="tech-pill">Sanity</span>
+                    </div>
+                    <a href="https://www.the-vixa.com/hr" style="color:var(--ruby); font-weight:bold; text-decoration:none;">LIVE SITE →</a>
+                </div>
+            </div>
+
+            <!-- Project Card 4 -->
+            <div class="project-card">
+                <img src="https://cdn.sanity.io/images/pf6wp37f/production/32f2e0268a9fe542d8047c8531c289762ab4dc01-1712x896.png" class="project-img" alt="Project">
+                <div class="project-content">
+                    <h3>Haiku AI Streamer</h3>
+                    <p style="font-size: 0.9rem; margin: 10px 0;">Console app that forces AI to write poetry on demand.</p>
+                    <div style="margin-bottom: 1rem;">
+                        <span class="tech-pill">Node.js</span><span class="tech-pill">Ollama</span>
+                    </div>
+                    <a href="https://github.com/tsertic/haiku-ai-streamer-script" style="color:var(--ruby); font-weight:bold; text-decoration:none;">CODE →</a>
+                </div>
+            </div>
+
+            <!-- Project Card 5 -->
+            <div class="project-card">
+                <img src="https://cdn.sanity.io/images/pf6wp37f/production/41259c66ca9f3472f31d65dfa58beedcdc4fd977-600x301.png" class="project-img" alt="Project">
+                <div class="project-content">
+                    <h3>Arctis Web</h3>
+                    <p style="font-size: 0.9rem; margin: 10px 0;">Corporate presence for my primary workplace.</p>
+                    <div style="margin-bottom: 1rem;">
+                        <span class="tech-pill">Next.js</span><span class="tech-pill">TypeScript</span>
+                    </div>
+                    <a href="https://www.arctis.hr/" style="color:var(--ruby); font-weight:bold; text-decoration:none;">LIVE SITE →</a>
+                </div>
+            </div>
+
+            <!-- Project Card 6 -->
+            <div class="project-card">
+                <img src="https://cdn.sanity.io/images/pf6wp37f/production/9411063eaa22123470ae960babab885a23b36764-1200x500.png" class="project-img" alt="Project">
+                <div class="project-content">
+                    <h3>AI Brochure Gen</h3>
+                    <p style="font-size: 0.9rem; margin: 10px 0;">Scrapes URLs and generates PDF brochures using GPT-4.</p>
+                    <div style="margin-bottom: 1rem;">
+                        <span class="tech-pill">Python</span><span class="tech-pill">AI</span>
+                    </div>
+                    <a href="https://github.com/tsertic/Portfolio-Scraper-Brochure-Generator" style="color:var(--ruby); font-weight:bold; text-decoration:none;">CODE →</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact">
+        <h2 style="font-size: 4rem; text-align: center;">DON'T BE A STRANGER</h2>
+        <div class="contact-grid">
+            <a href="mailto:tsertic5@gmail.com" class="contact-card">
+                <h3 style="color:var(--ruby)">EMAIL</h3>
+                <p>tsertic5@gmail.com</p>
+            </a>
+            <a href="https://linkedin.com/in/tomislav-sertic" class="contact-card">
+                <h3 style="color:var(--emerald)">LINKEDIN</h3>
+                <p>Let's talk business.</p>
+            </a>
+            <a href="https://github.com/tsertic" class="contact-card">
+                <h3 style="color:var(--sapphire)">GITHUB</h3>
+                <p>See the messy drafts.</p>
+            </a>
+        </div>
+
+        <div class="regen-banner">
+            <p>Every morning, AI wakes up and redesigns this portfolio from scratch. No two days look the same. Built by me, reinvented daily by the ghost in the machine.</p>
+            <p style="margin-top: 1rem; font-weight: bold;">Generation Date: 2026-03-24</p>
+            <a href="../history/">Browse the archive →</a>
+        </div>
+    </section>
+
+    <footer style="padding: 4rem; text-align: center; border-top: 1px solid #eee;">
+        <p style="font-family: 'Bebas Neue'; font-size: 1.5rem; opacity: 0.5;">TOMISLAV SERTIC &copy; 2026 / CODED IN ZAGREB</p>
+    </footer>
+
+    <script>
+        const shapes = document.getElementById('shapes');
+        window.addEventListener('scroll', () => {
+            const y = window.scrollY;
+            const svgs = shapes.querySelectorAll('svg');
+            svgs[0].style.transform = `translateY(${y * 0.1}px) rotate(${y * 0.05}deg)`;
+            svgs[1].style.transform = `translateY(${-y * 0.15}px) rotate(${-y * 0.03}deg)`;
+        });
+    </script>
+</body>
+</html>

@@ -21,22 +21,21 @@ const CONFIG = {
 
   // Add more models to any array — all are eligible for random pick
   models: {
-    claude: [
-      "claude-sonnet-4-6",
-      "claude-opus-4-6",
-      "claude-haiku-4-5-20251001",
-    ],
-    openai: [
-      "gpt-4o",
-      "gpt-4o-mini",
-      "gpt-4-turbo",
-    ],
-    gemini: [
-      "gemini-3-flash-preview",
-      "gemini-2.5-pro-preview-03-25",
-      "gemini-2.0-flash-lite",
-    ],
-  },
+  claude: [
+    "claude-opus-4-6",
+    "claude-sonnet-4-6",
+    "claude-haiku-4-5-20251001",
+  ],
+  openai: [
+    "gpt-5.2",
+    "gpt-5-mini",
+    "gpt-5-nano",
+  ],
+  gemini: [
+    "gemini-3.1-pro-preview",
+    "gemini-3-flash-preview",
+    "gemini-2.5-flash",
+  ],}
 };
 
 // ─── Load .env ───────────────────────────────────────────────────────────────

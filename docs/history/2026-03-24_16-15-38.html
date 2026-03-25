@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tomislav Sertic - Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+<style>
+  body {margin:0;padding:0;font-family:'Bebas Neue',sans-serif;background-color:#111;color:#eee;overflow-x:hidden}
+  .nav {position:fixed;top:5vh;left:5vw;border-radius:20px;background:#222;padding:5px 10px;z-index:100}
+  .nav a {color:#fff;text-decoration:none;margin:5px;display:block}
+  .hero {height:80vh;background:radial-gradient(circle,#0d0d0d,#1a1a1a);position:relative;display:flex;align-items:center;justify-content:center;overflow:hidden}
+  .hero h1 {font-size:3rem}
+  .portrait {background:url('assets/images/portrait.webp') center/cover;width:150px;height:150px;border-radius:50%;filter:contrast(0.7);position:absolute;top:10%;left:10%}
+  .portrait img {display:none}
+  .cta-buttons {display:flex;gap:10px;position:absolute;top:70%;transform:translateX(-50%);left:50%}
+  .button {border:2px solid #666;padding:10px 20px;color:#ccc;text-decoration:none;transition:color .3s,background .3s}
+  .button:hover {background:#444;color:#fff}
+  .about {background:#222;padding:50px 20px}
+  .skills {margin-top:30px;display:flex;justify-content:center}
+  .radar-chart {width:200px;height:200px;background:#000;border-radius:50%;clip-path:polygon(50% 0%,66% 12%,85% 9%,92% 26%,76% 42%,70% 70%,50% 100%,25% 85%,8% 43%,30% 15%)}
+  .projects {padding:50px 20px;display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:20px}
+  .project-card {border-radius:12px;overflow:hidden;transition:transform .3s}
+  .project-card:hover {transform:scale(1.05)}
+  .project-card img {width:100%;height:auto;filter:contrast(0.9)}
+  .project-info {background:rgba(0,0,0,0.7);padding:15px;position:relative}
+  .project-info h3 {margin:5px 0;font-size:1.2rem}
+  .project-info p {margin:0 0 10px;font-size:0.9rem;color:#bbb}
+  .project-info a {color:#88f}
+  .contact {background:#111;padding:50px 20px;text-align:center}
+  .contact a {color:#ccc;text-decoration:none;margin:0 10px}
+  .footer {background:#333;padding:20px;text-align:center;font-weight:bold}
+  .divider {fill:#444;width:100%;transform:rotateX(180deg)}
+  .self-gen {background:#000;color:#f0f0f0;padding:50px 20px;text-align:center}
+  .self-gen h3 {margin-bottom:20px}
+  .self-gen a {color:#cd3;padding:10px 20px;margin-top:20px;border:2px solid #cd3;text-decoration:none;display:inline-block;transition:all .3s}
+  .self-gen a:hover {background:#444}
+  @media(max-width:768px){.hero h1{font-size:2rem}.cta-buttons{flex-direction:column}}
+</style>
+<style id="safety-override">
+*[class*="fade"],*[class*="anim"],*[class*="hidden"],*[class*="reveal"],*[class*="slide"] {
+  opacity: 1 !important; transform: none !important;
+  visibility: visible !important; animation: none !important;
+}
+</style>
+</head>
+<body>
+<div class="nav">
+  <a href="#hero">Home</a>
+  <a href="#about">About</a>
+  <a href="#projects">Projects</a>
+  <a href="#contact">Contact</a>
+</div>
+
+<section class="hero" id="hero">
+  <div class="portrait"><img src="../assets/images/portrait.webp" alt="Portrait of Tomislav Sertic"></div>
+  <h1>Tomislav Sertic</h1>
+  <p>Full-Stack Software Developer</p>
+  <div class="cta-buttons">
+    <a href="https://github.com/tsertic" class="button">GitHub</a>
+    <a href="https://linkedin.com/in/tomislav-sertic" class="button">LinkedIn</a>
+    <a href="mailto:tsertic5@gmail.com" class="button">Email</a>
+  </div>
+</section>
+
+<svg class="divider" viewBox="0 0 1440 320"><path fill-opacity="0.2" d="M0,128L1440,192L1440,320L0,320Z"></path></svg>
+
+<section class="about" id="about">
+  <p>Full-stack developer based in Zagreb, Croatia, with hands-on experience delivering enterprise-grade solutions for major international clients including Saudi Aramco, ESA, and THT. My professional work centers on customizing and extending Archibus platforms...</p>
+  <div class="skills">
+    <div class="radar-chart"></div>
+  </div>
+</section>
+
+<svg class="divider" viewBox="0 0 1440 320"><path fill-opacity="0.2" d="M0,224L1440,96L1440,320L0,320Z"></path></svg>
+
+<section class="projects" id="projects">
+  <p class="note" style="font-style:italic;color:#bbb;">By day I build enterprise software. These projects are my hobby work — client websites, utility scripts, and experiments.</p>
+  <div class="project-card">
+    <div class="project-info">
+      <h3>Manage Landing Page</h3>
+      <p>Landing Page for imagine "Manage" company. <br> Responsive design.</p>
+      <p>Tech Stack: Next.js, TypeScript, TailwindCSS</p>
+      <a href="https://manage-landing-page-seven-theta.vercel.app/">Live Site</a>
+      <a href="https://github.com/tsertic/manage_landing_page/tree/master">GitHub</a>
+    </div>
+    <img src="https://cdn.sanity.io/images/pf6wp37f/production/54a81664cc61e85990647d4a292a38355e272475-1856x936.png" alt="Manage Landing Page">
+  </div>
+  <div class="project-card">
+    <div class="project-info">
+      <h3>Hrvatska Esport Inicijativa</h3>
+      <p>Website for the Croatian esports initiative association. Technologies used: Next.js with Javascript, Sanity for the database and CMS system...</p>
+      <p>Tech Stack: Next.js, SCSS, Sanity, Javascript</p>
+      <a href="https://www.esportinicijativa.hr/">Live Site</a>
+      <a href="https://github.com/tsertic/hei_v2">GitHub</a>
+    </div>
+    <img src="https://cdn.sanity.io/images/pf6wp37f/production/d7d8411c9ca5605e91516d8ca6da37f1a5a35d92-600x302.png" alt="Hrvatska Esport Inicijativa">
+  </div>
+  <div class="project-card">
+    <div class="project-info">
+      <h3>Body Mass Index Calculator</h3>
+      <p>Body mass index calculator. Calculate your BMI, you can use metric or imperial units...</p>
+      <p>Tech Stack: Next.js, TailwindCSS, Typescript</p>
+      <a href="https://bmi-calculator-psi-ten.vercel.app/">Live Site</a>
+      <a href="https://github.com/tsertic/frontend_mentor_challenges/tree/main/bmi_calculator">GitHub</a>
+    </div>
+    <img src="https://cdn.sanity.io/images/pf6wp37f/production/c6106cbfccc9d9145333876373dff6fd3d3872bf-600x323.png" alt="BMI Calculator">
+  </div>
+  <div class="project-card">
+    <div class="project-info">
+      <h3>Pinky Delights Bakery</h3>
+      <p>Interactive 3D Web Experience. A fictional bakery website showcasing my skills in 3D web development...</p>
+      <p>Tech Stack: Typescript, TailwindCSS, Three.js, Next.js</p>
+      <a href="https://github.com/tsertic/pinky-delights-bakery">GitHub</a>
+    </div>
+    <img src="https://cdn.sanity.io/images/pf6wp37f/production/9c3a623fc9e77bab5c2b31ebb307e059916d3835-1000x536.png" alt="Pinky Delights Bakery">
+  </div>
+  <div class="project-card">
+    <div class="project-info">
+      <h3>Where in the world</h3>
+      <p>Application/website that uses REST API provided by restcountries.com. You should be able to filter all countries and see data...</p>
+      <p>Tech Stack: Typescript, Redux, Next.js, TailwindCSS</p>
+      <a href="https://where-in-the-world-drab.vercel.app/">Live Site</a>
+      <a href="https://github.com/tsertic/where_in_the_world">GitHub</a>
+    </div>
+    <img src="https://cdn.sanity.io/images/pf6wp37f/production/a40662bb7d8a672a19db9c1c7669a395941abc84-600x301.png" alt="Where in the world">
+  </div>
+  <div class="project-card">
+    <div class="project-info">
+      <h3>haiku AI streamer script</h3>
+      <p>A simple console application in Node.js that generates and saves haiku poems using AI models...</p>
+      <p>Tech Stack: Node.js, AI - Ollama, AI - ChatGpt</p>
+      <a href="https://github.com/tsertic/haiku-ai-streamer-script">GitHub</a>
+    </div>
+    <img src="https://cdn.sanity.io/images/pf6wp37f/production/32f2e0268a9fe542d8047c8531c289762ab4dc01-1712x896.png" alt="haiku AI streamer script">
+  </div>
+</section>
+
+<svg class="divider" viewBox="0 0 1440 320"><path fill-opacity="0.2" d="M0,96L1440,224L1440,320L0,320Z"></path></svg>
+
+<section class="contact" id="contact">
+  <a href="mailto:tsertic5@gmail.com">Email</a>
+  <a href="https://linkedin.com/in/tomislav-sertic">LinkedIn</a>
+  <a href="https://github.com/tsertic">GitHub</a>
+  <a href="https://www.tsertic.dev">Website</a>
+</section>
+
+<svg class="divider" viewBox="0 0 1440 320"><path fill-opacity="0.2" d="M0,192L1440,128L1440,320L0,320Z"></path></svg>
+
+<section class="self-gen">
+  <h3>No two days look the same. This portfolio regenerates every 24 hours.</h3>
+  <p>Generation date: 2026-03-24</p>
+  <a href="../history/">See the archive →</a>
+</section>
+
+<div class="footer">
+  Tomislav Sertic - Playing with pixels since forever - 2026
+</div>
+
+<script>
+  const shapes=document.querySelectorAll('.divider'),speed=0.05;window.onscroll=()=>{let y=window.scrollY;shapes.forEach((el,i)=>el.style.transform=`translateY(${y*speed*(i+1)}px) rotate(${y*speed*(i+1)}deg)`)}
+</script>
+</body>
+</html>
