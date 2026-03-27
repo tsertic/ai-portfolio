@@ -116,7 +116,16 @@ ${describeParams(params)}
 All paths below are relative to the HTML file (docs/). Use them directly in src="" or url().
 ${assetBlock}
 
-═══ PORTFOLIO CONTENT (do NOT alter any data) ═══
+═══ WRITING STYLE INSTRUCTION ═══
+You have a current text tone: "${params.text_tone || "your choice"}".
+The portfolio data below contains raw facts, not final copy.
+YOUR JOB: write all visible text in your own voice matching that tone.
+- About/bio section: write it fresh from the professional_facts — never copy-paste. Make it feel like a human wrote it today. Different length, different angle, different emphasis each time.
+- Projects section: you may rephrase project descriptions to be shorter and punchier — but keep all factual details accurate.
+- All other labels, section titles, CTAs, taglines: write them to match the tone. "Get in touch" might become "Let's talk." or "Drop me a line." or "I don't bite." — whatever fits.
+- The self-generating section tagline especially should feel freshly written, not templated.
+
+═══ PORTFOLIO CONTENT (raw data — rewrite text, keep facts) ═══
 ${JSON.stringify(content, null, 2)}
 
 ═══ OUTPUT RULES ═══

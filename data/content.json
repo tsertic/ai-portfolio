@@ -3,18 +3,49 @@
   "name": "Tomislav Sertic",
   "title": "Full-Stack Software Developer",
   "location": "Zagreb, Croatia",
-  "about": "Full-stack developer based in Zagreb, Croatia, with hands-on experience delivering enterprise-grade solutions for major international clients including Saudi Aramco, ESA, and THT. My professional work centers on customizing and extending Archibus platforms — from SQL optimization and Java backend development to HTML/JS frontend interfaces. I've worked extensively on modernizing legacy codebases by integrating React into existing enterprise systems. On the side, I design, develop, and maintain websites for clients using Next.js and TypeScript, handling everything from initial build to server deployment and ongoing maintenance. I'm driven by solving complex technical challenges, whether that means breathing new life into legacy systems or building modern applications from the ground up.",
+  "about_instruction": "DO NOT copy this data verbatim. Use it as raw facts to write a fresh, original bio in your current tone and voice. Every generation should feel different.",
+  "professional_facts": {
+    "base": "Full-stack developer based in Zagreb, Croatia",
+    "company": "Arctis d.o.o — builds software solutions for major international organizations",
+    "platform": "Primary platform: Archibus IWMS (Integrated Workplace Management System)",
+    "what_i_do_professionally": [
+      "Customizing and extending Archibus platform features for enterprise clients",
+      "SQL query optimization and database modifications",
+      "Java backend development for Archibus modules",
+      "HTML/JS/CSS frontend interfaces within Archibus",
+      "Integrating React into legacy enterprise systems — bridging old and new",
+      "Server setup and configuration: Archibus, Tomcat, databases — making it all run",
+      "Writing technical documentation for new features and system changes",
+      "Full-lifecycle: from requirements to deployment to maintenance"
+    ],
+    "enterprise_clients": [
+      "Saudi Aramco (Saudi Arabia)",
+      "ESA — European Space Agency",
+      "THT",
+      "University of Luxembourg",
+      "European Court of Justice",
+      "and other international organizations"
+    ],
+    "side_work": "Next.js + TypeScript websites for clients — from initial design and build to server deployment and ongoing maintenance",
+    "what_drives_me": "Solving complex technical problems — whether breathing life into legacy systems or building something from zero"
+  },
   "personal": {
     "daughter": "Anja",
-    "dog": "Eevee — a mixed breed",
-    "note": "Dad to a daughter named Anja and a dog named Eevee."
+    "dog": "Eevee, a mixed breed dog",
+    "note": "These are optional human details — use only if it fits naturally in the design. He has a daughter named Anja and a dog named Eevee."
   },
-  "projects_context": "By day I build enterprise software solutions for international clients. The projects shown here are my hobby work — client websites for friends and acquaintances, various utility scripts that help me day-to-day, and pure experiments I build just for the fun of it.",
+  "projects_context": "Day job: enterprise software for international organizations. Everything shown here is side work — websites for friends and clients, personal tools, utility scripts, AI experiments, and stuff built just for fun.",
   "experience": [
     {
       "company": "Arctis d.o.o",
       "role": "Software Developer",
-      "description": "Archibus IWMS platform development for enterprise clients including Saudi Aramco, ESA, and THT. SQL optimization, Java backend, HTML/JS frontend, React integration into legacy systems, full-lifecycle development and deployment."
+      "highlights": [
+        "Archibus platform development for Saudi Aramco, ESA, University of Luxembourg, European Court of Justice, and others",
+        "Java backend modules, SQL optimization, HTML/JS frontend",
+        "React integration into legacy Archibus codebase",
+        "Server setup: Archibus, Tomcat, database configuration and maintenance",
+        "Technical documentation for new and updated features"
+      ]
     }
   ],
   "skills": {
