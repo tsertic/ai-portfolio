@@ -381,7 +381,7 @@ function buildHistoryGallery(historyDir) {
         <div class="card-header">
           <div>
             <div class="date-label">${dateLabel}</div>
-            <div class="time-label">Generated at ${timeLabel}${params ? ` · via ${params.provider || "claude"}` : ""}</div>
+            <div class="time-label">Generated at ${timeLabel}${params ? ` · via ${params._provider || params.provider || "?"} ${params._model ? "(" + params._model + ")" : ""}` : ""}</div>
           </div>
           <div class="card-actions">
             ${isToday ? '<span class="badge">Latest</span>' : ''}
