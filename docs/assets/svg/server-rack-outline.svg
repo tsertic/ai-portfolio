@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 300" fill="none">
+  <!-- Cabinet frame -->
+  <rect x="20" y="10" width="160" height="280" rx="4" stroke="currentColor" stroke-width="2" opacity="0.3" fill="currentColor" fill-opacity="0.03"/>
+  <!-- Units -->
+  <g stroke="currentColor" stroke-width="1" opacity="0.35">
+    <rect x="30" y="25"  width="140" height="28" rx="3" fill="currentColor" fill-opacity="0.07"/>
+    <rect x="30" y="60"  width="140" height="28" rx="3" fill="currentColor" fill-opacity="0.07"/>
+    <rect x="30" y="95"  width="140" height="28" rx="3" fill="currentColor" fill-opacity="0.07"/>
+    <rect x="30" y="130" width="140" height="28" rx="3" fill="currentColor" fill-opacity="0.05"/>
+    <rect x="30" y="165" width="140" height="28" rx="3" fill="currentColor" fill-opacity="0.05"/>
+    <rect x="30" y="200" width="140" height="55" rx="3" fill="currentColor" fill-opacity="0.04"/>
+  </g>
+  <!-- Status LEDs -->
+  <circle cx="42" cy="39"  r="3" fill="currentColor" opacity="0.6"/>
+  <circle cx="42" cy="74"  r="3" fill="currentColor" opacity="0.5"/>
+  <circle cx="42" cy="109" r="3" fill="currentColor" opacity="0.6"/>
+  <circle cx="42" cy="144" r="3" fill="currentColor" opacity="0.3"/>
+  <circle cx="42" cy="179" r="3" fill="currentColor" opacity="0.3"/>
+  <!-- Vent lines on big unit -->
+  <line x1="40" y1="215" x2="160" y2="215" stroke="currentColor" stroke-width="0.8" opacity="0.2"/>
+  <line x1="40" y1="222" x2="160" y2="222" stroke="currentColor" stroke-width="0.8" opacity="0.2"/>
+  <line x1="40" y1="229" x2="160" y2="229" stroke="currentColor" stroke-width="0.8" opacity="0.2"/>
+  <line x1="40" y1="236" x2="160" y2="236" stroke="currentColor" stroke-width="0.8" opacity="0.2"/>
+  <line x1="40" y1="243" x2="160" y2="243" stroke="currentColor" stroke-width="0.8" opacity="0.2"/>
+  <!-- Port lines on server units -->
+  <line x1="58" y1="35" x2="155" y2="35" stroke="currentColor" stroke-width="1" opacity="0.15"/>
+  <line x1="58" y1="70" x2="155" y2="70" stroke="currentColor" stroke-width="1" opacity="0.15"/>
+  <line x1="58" y1="105" x2="155" y2="105" stroke="currentColor" stroke-width="1" opacity="0.15"/>
+</svg>

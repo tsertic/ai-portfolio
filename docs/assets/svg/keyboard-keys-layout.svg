@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 380 150" fill="none">
+  <defs>
+    <filter id="ks"><feDropShadow dx="0" dy="1" stdDeviation="1" flood-opacity="0.15"/></filter>
+  </defs>
+  <!-- Row 1 - numbers -->
+  <g stroke="currentColor" stroke-width="1" fill="currentColor" fill-opacity="0.06" opacity="0.4" filter="url(#ks)">
+    <rect x="10"  y="10" width="28" height="28" rx="4"/>
+    <rect x="44"  y="10" width="28" height="28" rx="4"/>
+    <rect x="78"  y="10" width="28" height="28" rx="4"/>
+    <rect x="112" y="10" width="28" height="28" rx="4"/>
+    <rect x="146" y="10" width="28" height="28" rx="4"/>
+    <rect x="180" y="10" width="28" height="28" rx="4"/>
+    <rect x="214" y="10" width="28" height="28" rx="4"/>
+    <rect x="248" y="10" width="28" height="28" rx="4"/>
+    <rect x="282" y="10" width="28" height="28" rx="4"/>
+    <rect x="316" y="10" width="28" height="28" rx="4"/>
+    <rect x="350" y="10" width="22" height="28" rx="4"/>
+  </g>
+  <!-- Row 2 - QWERTY -->
+  <g stroke="currentColor" stroke-width="1" fill="currentColor" fill-opacity="0.07" opacity="0.4" filter="url(#ks)">
+    <rect x="18"  y="46" width="28" height="28" rx="4"/>
+    <rect x="52"  y="46" width="28" height="28" rx="4"/>
+    <rect x="86"  y="46" width="28" height="28" rx="4"/>
+    <rect x="120" y="46" width="28" height="28" rx="4"/>
+    <rect x="154" y="46" width="28" height="28" rx="4"/>
+    <rect x="188" y="46" width="28" height="28" rx="4"/>
+    <rect x="222" y="46" width="28" height="28" rx="4"/>
+    <rect x="256" y="46" width="28" height="28" rx="4"/>
+    <rect x="290" y="46" width="28" height="28" rx="4"/>
+    <rect x="324" y="46" width="28" height="28" rx="4"/>
+  </g>
+  <!-- Row 3 - home row -->
+  <g stroke="currentColor" stroke-width="1" fill="currentColor" fill-opacity="0.08" opacity="0.45" filter="url(#ks)">
+    <rect x="26"  y="82" width="28" height="28" rx="4"/>
+    <rect x="60"  y="82" width="28" height="28" rx="4"/>
+    <rect x="94"  y="82" width="28" height="28" rx="4"/>
+    <rect x="128" y="82" width="28" height="28" rx="4"/>
+    <rect x="162" y="82" width="28" height="28" rx="4"/>
+    <rect x="196" y="82" width="28" height="28" rx="4"/>
+    <rect x="230" y="82" width="28" height="28" rx="4"/>
+    <rect x="264" y="82" width="28" height="28" rx="4"/>
+    <rect x="298" y="82" width="28" height="28" rx="4"/>
+  </g>
+  <!-- Spacebar -->
+  <rect x="90" y="118" width="200" height="24" rx="5" stroke="currentColor" stroke-width="1" fill="currentColor" fill-opacity="0.07" opacity="0.4" filter="url(#ks)"/>
+  <!-- Key labels -->
+  <g font-family="monospace" font-size="9" fill="currentColor" opacity="0.3" text-anchor="middle">
+    <text x="24"  y="29">Q</text><text x="58"  y="29">W</text><text x="92"  y="29">E</text>
+    <text x="126" y="29">R</text><text x="160" y="29">T</text><text x="194" y="29">Y</text>
+    <text x="228" y="29">U</text><text x="262" y="29">I</text><text x="296" y="29">O</text>
+    <text x="330" y="29">P</text>
+  </g>
+</svg>

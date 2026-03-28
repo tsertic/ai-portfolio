@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 200" fill="none">
+  <!-- Editor-like background lines -->
+  <g font-family="monospace" font-size="11" fill="currentColor">
+    <text x="50" y="50"  opacity="0.25">function processData(input) {'{}'}</text>
+    <text x="50" y="72"  opacity="0.25">  const result = transform(input);</text>
+    <text x="50" y="94"  opacity="0.5">  return validate(result);</text>
+    <text x="50" y="116" opacity="0.25">{'}'}</text>
+    <text x="50" y="138" opacity="0.2">// TODO: handle null case</text>
+  </g>
+  <!-- Active line highlight -->
+  <rect x="30" y="82" width="280" height="20" fill="currentColor" opacity="0.06" rx="2"/>
+  <!-- Breakpoint dot -->
+  <circle cx="18" cy="92" r="8" fill="currentColor" opacity="0.55"/>
+  <circle cx="18" cy="92" r="4" fill="currentColor" opacity="0.3"/>
+  <!-- Gutter -->
+  <line x1="35" y1="20" x2="35" y2="170" stroke="currentColor" stroke-width="1" opacity="0.15"/>
+  <!-- Debug arrow -->
+  <path d="M35 92 L46 92" stroke="currentColor" stroke-width="2" opacity="0.7" stroke-linecap="round"/>
+  <path d="M42 86 L48 92 L42 98" stroke="currentColor" stroke-width="2" fill="none" opacity="0.7" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- Line numbers -->
+  <g font-family="monospace" font-size="10" fill="currentColor" opacity="0.2" text-anchor="end">
+    <text x="32" y="54">12</text><text x="32" y="76">13</text>
+    <text x="32" y="96" opacity="0.5">14</text>
+    <text x="32" y="118">15</text><text x="32" y="140">16</text>
+  </g>
+</svg>
