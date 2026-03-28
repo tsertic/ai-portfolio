@@ -61,6 +61,19 @@ function pickRandom(arr) {
   return arr[Math.floor(Math.random() * arr.length)];
 }
 
+const LAST_PROVIDER_FILE = path.join(__dirname, "..", "data", "last-provider.json");
+
+function readLastProvider() {
+  try { return JSON.parse(fs.readFileSync(LAST_PROVIDER_FILE, "utf8")).provider || null; }
+  catch { return null; }
+}
+
+function saveLastProvider(provider) {
+  const dataDir = path.join(__dirname, "..", "data");
+  if (!fs.existsSync(dataDir)) fs.mkdirSync(dataDir, { recursive: true });
+  fs.writeFileSync(LAST_PROVIDER_FILE, JSON.stringify({ provider, ts: new Date().toISOString() }, null, 2));
+}
+
 function resolveProvider() {
   const useRandom = (process.env.USE_RANDOM_LLM || "false").toLowerCase() === "true";
 
@@ -71,8 +84,13 @@ function resolveProvider() {
     if (process.env.GEMINI_API_KEY)    available.push("gemini");
 
     if (available.length > 1) {
-      const chosen = pickRandom(available);
-      console.log(`   LLM:      ${chosen} (random from: ${available.join(", ")})`);
+      const last = readLastProvider();
+      // Exclude last used provider so the same LLM is never picked twice in a row
+      const pool = last ? available.filter(p => p !== last) : available;
+      const eligible = pool.length > 0 ? pool : available; // fallback if only one provider available
+      const chosen = pickRandom(eligible);
+      const skipped = last && available.includes(last) ? ` (skipped: ${last} — used last time)` : "";
+      console.log(`   LLM:      ${chosen} (random from: ${eligible.join(", ")}${skipped})`);
       return chosen;
     }
   }
@@ -598,6 +616,7 @@ async function main() {
   const provider = resolveProvider();
   const model    = resolveModel(provider);
   const apiKey   = getApiKey(provider);
+  saveLastProvider(provider); // persist so next random run excludes this provider
 
   if (!apiKey) {
     console.error(`\n❌ No API key for provider "${provider}".`);
