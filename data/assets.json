@@ -27,6 +27,168 @@
     "description": "Portrait photo of Tomislav Sertic — the portfolio owner. Use for hero/about sections."
   },
   {
+    "file": "abstract-polygon-mesh.svg",
+    "path": "assets/svg/abstract-polygon-mesh.svg",
+    "folder": "svg",
+    "type": "vector-image",
+    "ext": "svg",
+    "size_kb": 1,
+    "description": "SVG illustrations or icons — Abstract Polygon Mesh"
+  },
+  {
+    "file": "api-rest-arrows.svg",
+    "path": "assets/svg/api-rest-arrows.svg",
+    "folder": "svg",
+    "type": "vector-image",
+    "ext": "svg",
+    "size_kb": 2.3,
+    "description": "SVG illustrations or icons — Api Rest Arrows"
+  },
+  {
+    "file": "arrow-diagonal-right.svg",
+    "path": "assets/svg/arrow-diagonal-right.svg",
+    "folder": "svg",
+    "type": "vector-image",
+    "ext": "svg",
+    "size_kb": 0.3,
+    "description": "SVG illustrations or icons — Arrow Diagonal Right"
+  },
+  {
+    "file": "badge-skill-tag.svg",
+    "path": "assets/svg/badge-skill-tag.svg",
+    "folder": "svg",
+    "type": "vector-image",
+    "ext": "svg",
+    "size_kb": 0.5,
+    "description": "SVG illustrations or icons — Badge Skill Tag"
+  },
+  {
+    "file": "binary-stream-vertical.svg",
+    "path": "assets/svg/binary-stream-vertical.svg",
+    "folder": "svg",
+    "type": "vector-image",
+    "ext": "svg",
+    "size_kb": 0.9,
+    "description": "SVG illustrations or icons — Binary Stream Vertical"
+  },
+  {
+    "file": "blob-organic-coral.svg",
+    "path": "assets/svg/blob-organic-coral.svg",
+    "folder": "svg",
+    "type": "vector-image",
+    "ext": "svg",
+    "size_kb": 0.5,
+    "description": "SVG illustrations or icons — Blob Organic Coral"
+  },
+  {
+    "file": "blob-organic-purple.svg",
+    "path": "assets/svg/blob-organic-purple.svg",
+    "folder": "svg",
+    "type": "vector-image",
+    "ext": "svg",
+    "size_kb": 0.8,
+    "description": "SVG illustrations or icons — Blob Organic Purple"
+  },
+  {
+    "file": "blob-organic-teal.svg",
+    "path": "assets/svg/blob-organic-teal.svg",
+    "folder": "svg",
+    "type": "vector-image",
+    "ext": "svg",
+    "size_kb": 0.4,
+    "description": "SVG illustrations or icons — Blob Organic Teal"
+  },
+  {
+    "file": "bracket-curly-code.svg",
+    "path": "assets/svg/bracket-curly-code.svg",
+    "folder": "svg",
+    "type": "vector-image",
+    "ext": "svg",
+    "size_kb": 0.5,
+    "description": "SVG illustrations or icons — Bracket Curly Code"
+  },
+  {
+    "file": "browser-window-frame.svg",
+    "path": "assets/svg/browser-window-frame.svg",
+    "folder": "svg",
+    "type": "vector-image",
+    "ext": "svg",
+    "size_kb": 1.3,
+    "description": "SVG illustrations or icons — Browser Window Frame"
+  },
+  {
+    "file": "bug-ladybug-code.svg",
+    "path": "assets/svg/bug-ladybug-code.svg",
+    "folder": "svg",
+    "type": "vector-image",
+    "ext": "svg",
+    "size_kb": 2.2,
+    "description": "SVG illustrations or icons — Bug Ladybug Code"
+  },
+  {
+    "file": "bug-spider-web.svg",
+    "path": "assets/svg/bug-spider-web.svg",
+    "folder": "svg",
+    "type": "vector-image",
+    "ext": "svg",
+    "size_kb": 1.8,
+    "description": "SVG illustrations or icons — Bug Spider Web"
+  },
+  {
+    "file": "call-stack-layers.svg",
+    "path": "assets/svg/call-stack-layers.svg",
+    "folder": "svg",
+    "type": "vector-image",
+    "ext": "svg",
+    "size_kb": 1.8,
+    "description": "SVG illustrations or icons — Call Stack Layers"
+  },
+  {
+    "file": "circle-rings-concentric.svg",
+    "path": "assets/svg/circle-rings-concentric.svg",
+    "folder": "svg",
+    "type": "vector-image",
+    "ext": "svg",
+    "size_kb": 0.6,
+    "description": "SVG illustrations or icons — Circle Rings Concentric"
+  },
+  {
+    "file": "circuit-board-lines.svg",
+    "path": "assets/svg/circuit-board-lines.svg",
+    "folder": "svg",
+    "type": "vector-image",
+    "ext": "svg",
+    "size_kb": 1.5,
+    "description": "SVG illustrations or icons — Circuit Board Lines"
+  },
+  {
+    "file": "cloud-upload-sync.svg",
+    "path": "assets/svg/cloud-upload-sync.svg",
+    "folder": "svg",
+    "type": "vector-image",
+    "ext": "svg",
+    "size_kb": 1.1,
+    "description": "SVG illustrations or icons — Cloud Upload Sync"
+  },
+  {
+    "file": "code-angle-brackets.svg",
+    "path": "assets/svg/code-angle-brackets.svg",
+    "folder": "svg",
+    "type": "vector-image",
+    "ext": "svg",
+    "size_kb": 0.5,
+    "description": "SVG illustrations or icons — Code Angle Brackets"
+  },
+  {
+    "file": "code-editor-syntax.svg",
+    "path": "assets/svg/code-editor-syntax.svg",
+    "folder": "svg",
+    "type": "vector-image",
+    "ext": "svg",
+    "size_kb": 3,
+    "description": "SVG illustrations or icons — Code Editor Syntax"
+  },
+  {
     "file": "cog-svgrepo-com.svg",
     "path": "assets/svg/cog-svgrepo-com.svg",
     "folder": "svg",
@@ -34,5 +196,455 @@
     "ext": "svg",
     "size_kb": 6.6,
     "description": "SVG illustrations or icons — Cog Svgrepo Com"
+  },
+  {
+    "file": "commit-history-log.svg",
+    "path": "assets/svg/commit-history-log.svg",
+    "folder": "svg",
+    "type": "vector-image",
+    "ext": "svg",
+    "size_kb": 1.5,
+    "description": "SVG illustrations or icons — Commit History Log"
+  },
+  {
+    "file": "corner-bracket-rounded.svg",
+    "path": "assets/svg/corner-bracket-rounded.svg",
+    "folder": "svg",
+    "type": "vector-image",
+    "ext": "svg",
+    "size_kb": 0.3,
+    "description": "SVG illustrations or icons — Corner Bracket Rounded"
+  },
+  {
+    "file": "corner-bracket-sharp.svg",
+    "path": "assets/svg/corner-bracket-sharp.svg",
+    "folder": "svg",
+    "type": "vector-image",
+    "ext": "svg",
+    "size_kb": 0.3,
+    "description": "SVG illustrations or icons — Corner Bracket Sharp"
+  },
+  {
+    "file": "cpu-chip-grid.svg",
+    "path": "assets/svg/cpu-chip-grid.svg",
+    "folder": "svg",
+    "type": "vector-image",
+    "ext": "svg",
+    "size_kb": 2.5,
+    "description": "SVG illustrations or icons — Cpu Chip Grid"
+  },
+  {
+    "file": "cube-isometric-3d.svg",
+    "path": "assets/svg/cube-isometric-3d.svg",
+    "folder": "svg",
+    "type": "vector-image",
+    "ext": "svg",
+    "size_kb": 0.7,
+    "description": "SVG illustrations or icons — Cube Isometric 3d"
+  },
+  {
+    "file": "database-cylinders-stack.svg",
+    "path": "assets/svg/database-cylinders-stack.svg",
+    "folder": "svg",
+    "type": "vector-image",
+    "ext": "svg",
+    "size_kb": 1.9,
+    "description": "SVG illustrations or icons — Database Cylinders Stack"
+  },
+  {
+    "file": "debugger-breakpoint.svg",
+    "path": "assets/svg/debugger-breakpoint.svg",
+    "folder": "svg",
+    "type": "vector-image",
+    "ext": "svg",
+    "size_kb": 1.5,
+    "description": "SVG illustrations or icons — Debugger Breakpoint"
+  },
+  {
+    "file": "diamond-pattern-grid.svg",
+    "path": "assets/svg/diamond-pattern-grid.svg",
+    "folder": "svg",
+    "type": "vector-image",
+    "ext": "svg",
+    "size_kb": 0.4,
+    "description": "SVG illustrations or icons — Diamond Pattern Grid"
+  },
+  {
+    "file": "divider-dots-row.svg",
+    "path": "assets/svg/divider-dots-row.svg",
+    "folder": "svg",
+    "type": "vector-image",
+    "ext": "svg",
+    "size_kb": 0.6,
+    "description": "SVG illustrations or icons — Divider Dots Row"
+  },
+  {
+    "file": "divider-wave-soft.svg",
+    "path": "assets/svg/divider-wave-soft.svg",
+    "folder": "svg",
+    "type": "vector-image",
+    "ext": "svg",
+    "size_kb": 0.4,
+    "description": "SVG illustrations or icons — Divider Wave Soft"
+  },
+  {
+    "file": "divider-zigzag.svg",
+    "path": "assets/svg/divider-zigzag.svg",
+    "folder": "svg",
+    "type": "vector-image",
+    "ext": "svg",
+    "size_kb": 0.3,
+    "description": "SVG illustrations or icons — Divider Zigzag"
+  },
+  {
+    "file": "dot-grid-pattern.svg",
+    "path": "assets/svg/dot-grid-pattern.svg",
+    "folder": "svg",
+    "type": "vector-image",
+    "ext": "svg",
+    "size_kb": 0.3,
+    "description": "SVG illustrations or icons — Dot Grid Pattern"
+  },
+  {
+    "file": "error-404-glitch.svg",
+    "path": "assets/svg/error-404-glitch.svg",
+    "folder": "svg",
+    "type": "vector-image",
+    "ext": "svg",
+    "size_kb": 1.7,
+    "description": "SVG illustrations or icons — Error 404 Glitch"
+  },
+  {
+    "file": "floating-dots-cluster.svg",
+    "path": "assets/svg/floating-dots-cluster.svg",
+    "folder": "svg",
+    "type": "vector-image",
+    "ext": "svg",
+    "size_kb": 1.2,
+    "description": "SVG illustrations or icons — Floating Dots Cluster"
+  },
+  {
+    "file": "folder-file-tree.svg",
+    "path": "assets/svg/folder-file-tree.svg",
+    "folder": "svg",
+    "type": "vector-image",
+    "ext": "svg",
+    "size_kb": 2,
+    "description": "SVG illustrations or icons — Folder File Tree"
+  },
+  {
+    "file": "git-branch-diagram.svg",
+    "path": "assets/svg/git-branch-diagram.svg",
+    "folder": "svg",
+    "type": "vector-image",
+    "ext": "svg",
+    "size_kb": 2.1,
+    "description": "SVG illustrations or icons — Git Branch Diagram"
+  },
+  {
+    "file": "gradient-orb-blue.svg",
+    "path": "assets/svg/gradient-orb-blue.svg",
+    "folder": "svg",
+    "type": "vector-image",
+    "ext": "svg",
+    "size_kb": 0.7,
+    "description": "SVG illustrations or icons — Gradient Orb Blue"
+  },
+  {
+    "file": "gradient-orb-emerald.svg",
+    "path": "assets/svg/gradient-orb-emerald.svg",
+    "folder": "svg",
+    "type": "vector-image",
+    "ext": "svg",
+    "size_kb": 0.4,
+    "description": "SVG illustrations or icons — Gradient Orb Emerald"
+  },
+  {
+    "file": "gradient-orb-violet.svg",
+    "path": "assets/svg/gradient-orb-violet.svg",
+    "folder": "svg",
+    "type": "vector-image",
+    "ext": "svg",
+    "size_kb": 0.7,
+    "description": "SVG illustrations or icons — Gradient Orb Violet"
+  },
+  {
+    "file": "grid-lines-perspective.svg",
+    "path": "assets/svg/grid-lines-perspective.svg",
+    "folder": "svg",
+    "type": "vector-image",
+    "ext": "svg",
+    "size_kb": 0.9,
+    "description": "SVG illustrations or icons — Grid Lines Perspective"
+  },
+  {
+    "file": "hexagon-grid-pattern.svg",
+    "path": "assets/svg/hexagon-grid-pattern.svg",
+    "folder": "svg",
+    "type": "vector-image",
+    "ext": "svg",
+    "size_kb": 0.7,
+    "description": "SVG illustrations or icons — Hexagon Grid Pattern"
+  },
+  {
+    "file": "infinity-loop-outline.svg",
+    "path": "assets/svg/infinity-loop-outline.svg",
+    "folder": "svg",
+    "type": "vector-image",
+    "ext": "svg",
+    "size_kb": 0.5,
+    "description": "SVG illustrations or icons — Infinity Loop Outline"
+  },
+  {
+    "file": "keyboard-keys-layout.svg",
+    "path": "assets/svg/keyboard-keys-layout.svg",
+    "folder": "svg",
+    "type": "vector-image",
+    "ext": "svg",
+    "size_kb": 2.9,
+    "description": "SVG illustrations or icons — Keyboard Keys Layout"
+  },
+  {
+    "file": "line-art-mountain-peaks.svg",
+    "path": "assets/svg/line-art-mountain-peaks.svg",
+    "folder": "svg",
+    "type": "vector-image",
+    "ext": "svg",
+    "size_kb": 0.6,
+    "description": "SVG illustrations or icons — Line Art Mountain Peaks"
+  },
+  {
+    "file": "loading-spinner-code.svg",
+    "path": "assets/svg/loading-spinner-code.svg",
+    "folder": "svg",
+    "type": "vector-image",
+    "ext": "svg",
+    "size_kb": 1,
+    "description": "SVG illustrations or icons — Loading Spinner Code"
+  },
+  {
+    "file": "memory-ram-sticks.svg",
+    "path": "assets/svg/memory-ram-sticks.svg",
+    "folder": "svg",
+    "type": "vector-image",
+    "ext": "svg",
+    "size_kb": 3,
+    "description": "SVG illustrations or icons — Memory Ram Sticks"
+  },
+  {
+    "file": "mesh-blob-layered.svg",
+    "path": "assets/svg/mesh-blob-layered.svg",
+    "folder": "svg",
+    "type": "vector-image",
+    "ext": "svg",
+    "size_kb": 1.1,
+    "description": "SVG illustrations or icons — Mesh Blob Layered"
+  },
+  {
+    "file": "monitor-desktop-screen.svg",
+    "path": "assets/svg/monitor-desktop-screen.svg",
+    "folder": "svg",
+    "type": "vector-image",
+    "ext": "svg",
+    "size_kb": 1.9,
+    "description": "SVG illustrations or icons — Monitor Desktop Screen"
+  },
+  {
+    "file": "mouse-cursor-pointer.svg",
+    "path": "assets/svg/mouse-cursor-pointer.svg",
+    "folder": "svg",
+    "type": "vector-image",
+    "ext": "svg",
+    "size_kb": 0.7,
+    "description": "SVG illustrations or icons — Mouse Cursor Pointer"
+  },
+  {
+    "file": "network-nodes-graph.svg",
+    "path": "assets/svg/network-nodes-graph.svg",
+    "folder": "svg",
+    "type": "vector-image",
+    "ext": "svg",
+    "size_kb": 2.2,
+    "description": "SVG illustrations or icons — Network Nodes Graph"
+  },
+  {
+    "file": "noise-grain-texture.svg",
+    "path": "assets/svg/noise-grain-texture.svg",
+    "folder": "svg",
+    "type": "vector-image",
+    "ext": "svg",
+    "size_kb": 0.5,
+    "description": "SVG illustrations or icons — Noise Grain Texture"
+  },
+  {
+    "file": "package-dependency-graph.svg",
+    "path": "assets/svg/package-dependency-graph.svg",
+    "folder": "svg",
+    "type": "vector-image",
+    "ext": "svg",
+    "size_kb": 1.8,
+    "description": "SVG illustrations or icons — Package Dependency Graph"
+  },
+  {
+    "file": "particle-burst-radial.svg",
+    "path": "assets/svg/particle-burst-radial.svg",
+    "folder": "svg",
+    "type": "vector-image",
+    "ext": "svg",
+    "size_kb": 1.3,
+    "description": "SVG illustrations or icons — Particle Burst Radial"
+  },
+  {
+    "file": "plus-cross-grid.svg",
+    "path": "assets/svg/plus-cross-grid.svg",
+    "folder": "svg",
+    "type": "vector-image",
+    "ext": "svg",
+    "size_kb": 0.5,
+    "description": "SVG illustrations or icons — Plus Cross Grid"
+  },
+  {
+    "file": "progress-bar-loading.svg",
+    "path": "assets/svg/progress-bar-loading.svg",
+    "folder": "svg",
+    "type": "vector-image",
+    "ext": "svg",
+    "size_kb": 1.4,
+    "description": "SVG illustrations or icons — Progress Bar Loading"
+  },
+  {
+    "file": "section-divider-angled.svg",
+    "path": "assets/svg/section-divider-angled.svg",
+    "folder": "svg",
+    "type": "vector-image",
+    "ext": "svg",
+    "size_kb": 0.2,
+    "description": "SVG illustrations or icons — Section Divider Angled"
+  },
+  {
+    "file": "section-divider-curve.svg",
+    "path": "assets/svg/section-divider-curve.svg",
+    "folder": "svg",
+    "type": "vector-image",
+    "ext": "svg",
+    "size_kb": 0.2,
+    "description": "SVG illustrations or icons — Section Divider Curve"
+  },
+  {
+    "file": "server-rack-outline.svg",
+    "path": "assets/svg/server-rack-outline.svg",
+    "folder": "svg",
+    "type": "vector-image",
+    "ext": "svg",
+    "size_kb": 2.1,
+    "description": "SVG illustrations or icons — Server Rack Outline"
+  },
+  {
+    "file": "spiral-fibonacci.svg",
+    "path": "assets/svg/spiral-fibonacci.svg",
+    "folder": "svg",
+    "type": "vector-image",
+    "ext": "svg",
+    "size_kb": 0.4,
+    "description": "SVG illustrations or icons — Spiral Fibonacci"
+  },
+  {
+    "file": "squiggle-abstract-lines.svg",
+    "path": "assets/svg/squiggle-abstract-lines.svg",
+    "folder": "svg",
+    "type": "vector-image",
+    "ext": "svg",
+    "size_kb": 0.6,
+    "description": "SVG illustrations or icons — Squiggle Abstract Lines"
+  },
+  {
+    "file": "starburst-radial.svg",
+    "path": "assets/svg/starburst-radial.svg",
+    "folder": "svg",
+    "type": "vector-image",
+    "ext": "svg",
+    "size_kb": 1.3,
+    "description": "SVG illustrations or icons — Starburst Radial"
+  },
+  {
+    "file": "status-indicator-ring.svg",
+    "path": "assets/svg/status-indicator-ring.svg",
+    "folder": "svg",
+    "type": "vector-image",
+    "ext": "svg",
+    "size_kb": 0.5,
+    "description": "SVG illustrations or icons — Status Indicator Ring"
+  },
+  {
+    "file": "terminal-prompt-typing.svg",
+    "path": "assets/svg/terminal-prompt-typing.svg",
+    "folder": "svg",
+    "type": "vector-image",
+    "ext": "svg",
+    "size_kb": 1.3,
+    "description": "SVG illustrations or icons — Terminal Prompt Typing"
+  },
+  {
+    "file": "terminal-window-frame.svg",
+    "path": "assets/svg/terminal-window-frame.svg",
+    "folder": "svg",
+    "type": "vector-image",
+    "ext": "svg",
+    "size_kb": 0.9,
+    "description": "SVG illustrations or icons — Terminal Window Frame"
+  },
+  {
+    "file": "timeline-vertical-line.svg",
+    "path": "assets/svg/timeline-vertical-line.svg",
+    "folder": "svg",
+    "type": "vector-image",
+    "ext": "svg",
+    "size_kb": 0.8,
+    "description": "SVG illustrations or icons — Timeline Vertical Line"
+  },
+  {
+    "file": "topography-contour-lines.svg",
+    "path": "assets/svg/topography-contour-lines.svg",
+    "folder": "svg",
+    "type": "vector-image",
+    "ext": "svg",
+    "size_kb": 1,
+    "description": "SVG illustrations or icons — Topography Contour Lines"
+  },
+  {
+    "file": "triangle-geometric-mountain.svg",
+    "path": "assets/svg/triangle-geometric-mountain.svg",
+    "folder": "svg",
+    "type": "vector-image",
+    "ext": "svg",
+    "size_kb": 0.8,
+    "description": "SVG illustrations or icons — Triangle Geometric Mountain"
+  },
+  {
+    "file": "wave-double-layer.svg",
+    "path": "assets/svg/wave-double-layer.svg",
+    "folder": "svg",
+    "type": "vector-image",
+    "ext": "svg",
+    "size_kb": 0.7,
+    "description": "SVG illustrations or icons — Wave Double Layer"
+  },
+  {
+    "file": "wave-lines-horizontal.svg",
+    "path": "assets/svg/wave-lines-horizontal.svg",
+    "folder": "svg",
+    "type": "vector-image",
+    "ext": "svg",
+    "size_kb": 0.6,
+    "description": "SVG illustrations or icons — Wave Lines Horizontal"
+  },
+  {
+    "file": "wifi-signal-waves.svg",
+    "path": "assets/svg/wifi-signal-waves.svg",
+    "folder": "svg",
+    "type": "vector-image",
+    "ext": "svg",
+    "size_kb": 1.2,
+    "description": "SVG illustrations or icons — Wifi Signal Waves"
   }
 ]

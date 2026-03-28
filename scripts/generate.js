@@ -100,27 +100,96 @@ function getApiKey(provider) {
 function buildPrompt(content, date, params, assets) {
   const seed = date.toISOString().slice(0, 10);
 
-  // Format asset list for the prompt — compact, one line each
-  const assetBlock = assets && assets.length > 0
-    ? assets.map(a =>
-        `  • "${a.path}"  [${a.type}${a.size_kb ? ", " + a.size_kb + " KB" : ""}]  — ${a.description}`
+  // ── Assets grouped by folder — fully dynamic, auto-expands as new files are added ──
+  const allAssets = assets || [];
+  const assetsByFolder = {};
+  for (const a of allAssets) {
+    const folder = a.folder === "(root)" ? "root" : a.folder;
+    if (!assetsByFolder[folder]) assetsByFolder[folder] = [];
+    assetsByFolder[folder].push(a);
+  }
+  const assetBlock = Object.entries(assetsByFolder)
+    .map(([folder, items]) =>
+      `  📁 ${folder}/\n` +
+      items.map(a =>
+        `     • "${a.path}"  [${a.type}]  — ${a.description}`
       ).join("\n")
-    : "  (no assets found)";
+    ).join("\n") || "  (no assets found)";
 
-  // ── SVG catalog: group by category prefix for explicit AI guidance ──────────
-  const svgAssets = (assets || []).filter(a => a.ext === "svg" && a.path.includes("assets/svg/"));
-  const svgGroups = {
-    "Blobs & Orbs (background accent shapes)": svgAssets.filter(a => /blob|orb|mesh/.test(a.file)),
-    "Patterns & Grids (repeating backgrounds)": svgAssets.filter(a => /grid|pattern|dot|plus|diamond|hexagon|circuit|topography|noise/.test(a.file)),
-    "Waves & Dividers (section separators)": svgAssets.filter(a => /wave|divider|section/.test(a.file)),
-    "Code & Dev tools (thematic illustrations)": svgAssets.filter(a => /code|terminal|browser|debug|editor|binary|call.stack|commit|progress|package|folder|api|monitor|keyboard|mouse|loading|error/.test(a.file)),
-    "Bugs & Nature (fun accent elements)": svgAssets.filter(a => /bug|spider/.test(a.file)),
-    "Hardware & Network (tech decoration)": svgAssets.filter(a => /cpu|memory|server|cloud|wifi|network|database|ram/.test(a.file)),
-    "Git & Version control": svgAssets.filter(a => /git|branch/.test(a.file)),
-    "Geometric & Abstract (structural accents)": svgAssets.filter(a => /triangle|cube|starburst|circle.ring|polygon|spiral|particle|squiggle|float|arrow|corner|bracket|infinity|timeline|status|line.art/.test(a.file)),
+  // ── SVG catalog: auto-grouped by filename prefix (future-proof — new SVGs auto-appear) ──
+  const svgAssets = allAssets.filter(a => a.ext === "svg" && a.path.includes("assets/svg/"));
+
+  // Derive group from first word of filename (before first "-")
+  // Predefined display labels for known prefixes; unknown prefixes use capitalised prefix as label
+  const PREFIX_LABELS = {
+    blob:         "Blobs — organic background accent shapes",
+    gradient:     "Gradient Orbs — glowing circular accents",
+    mesh:         "Mesh Blobs — layered gradient shapes",
+    hexagon:      "Patterns — hexagon grid",
+    dot:          "Patterns — dot grid",
+    diamond:      "Patterns — diamond grid",
+    plus:         "Patterns — plus/cross grid",
+    circuit:      "Patterns — circuit board lines",
+    topography:   "Patterns — topographic contour lines",
+    noise:        "Patterns — noise/grain texture",
+    grid:         "Patterns — perspective grid",
+    wave:         "Waves & Dividers",
+    divider:      "Waves & Dividers",
+    section:      "Waves & Dividers",
+    code:         "Code & Dev — thematic illustrations",
+    terminal:     "Code & Dev — thematic illustrations",
+    browser:      "Code & Dev — thematic illustrations",
+    debugger:     "Code & Dev — thematic illustrations",
+    binary:       "Code & Dev — thematic illustrations",
+    call:         "Code & Dev — thematic illustrations",
+    commit:       "Code & Dev — thematic illustrations",
+    progress:     "Code & Dev — thematic illustrations",
+    package:      "Code & Dev — thematic illustrations",
+    folder:       "Code & Dev — thematic illustrations",
+    api:          "Code & Dev — thematic illustrations",
+    monitor:      "Code & Dev — thematic illustrations",
+    keyboard:     "Code & Dev — thematic illustrations",
+    mouse:        "Code & Dev — thematic illustrations",
+    loading:      "Code & Dev — thematic illustrations",
+    error:        "Code & Dev — thematic illustrations",
+    bug:          "Bugs & Nature — fun accent elements",
+    spider:       "Bugs & Nature — fun accent elements",
+    git:          "Git & Version Control",
+    cpu:          "Hardware & Network",
+    memory:       "Hardware & Network",
+    server:       "Hardware & Network",
+    cloud:        "Hardware & Network",
+    wifi:         "Hardware & Network",
+    network:      "Hardware & Network",
+    database:     "Hardware & Network",
+    triangle:     "Geometric & Abstract — structural accents",
+    cube:         "Geometric & Abstract — structural accents",
+    starburst:    "Geometric & Abstract — structural accents",
+    circle:       "Geometric & Abstract — structural accents",
+    abstract:     "Geometric & Abstract — structural accents",
+    polygon:      "Geometric & Abstract — structural accents",
+    spiral:       "Geometric & Abstract — structural accents",
+    particle:     "Geometric & Abstract — structural accents",
+    squiggle:     "Geometric & Abstract — structural accents",
+    floating:     "Geometric & Abstract — structural accents",
+    arrow:        "Geometric & Abstract — structural accents",
+    corner:       "Geometric & Abstract — structural accents",
+    bracket:      "Geometric & Abstract — structural accents",
+    infinity:     "Geometric & Abstract — structural accents",
+    timeline:     "Geometric & Abstract — structural accents",
+    status:       "Geometric & Abstract — structural accents",
+    line:         "Geometric & Abstract — structural accents",
   };
-  const svgBlock = Object.entries(svgGroups)
-    .filter(([, items]) => items.length > 0)
+
+  const svgGroupMap = {};
+  for (const a of svgAssets) {
+    const prefix = a.file.split("-")[0].toLowerCase();
+    const label  = PREFIX_LABELS[prefix] || `Other — ${prefix}`;
+    if (!svgGroupMap[label]) svgGroupMap[label] = [];
+    svgGroupMap[label].push(a);
+  }
+  const svgBlock = Object.entries(svgGroupMap)
+    .sort(([a], [b]) => a.localeCompare(b))
     .map(([group, items]) =>
       `  ▸ ${group}:\n` +
       items.map(a => `      → src="${a.path}"`).join("\n")
