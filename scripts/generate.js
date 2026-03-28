@@ -107,6 +107,25 @@ function buildPrompt(content, date, params, assets) {
       ).join("\n")
     : "  (no assets found)";
 
+  // ── SVG catalog: group by category prefix for explicit AI guidance ──────────
+  const svgAssets = (assets || []).filter(a => a.ext === "svg" && a.path.includes("assets/svg/"));
+  const svgGroups = {
+    "Blobs & Orbs (background accent shapes)": svgAssets.filter(a => /blob|orb|mesh/.test(a.file)),
+    "Patterns & Grids (repeating backgrounds)": svgAssets.filter(a => /grid|pattern|dot|plus|diamond|hexagon|circuit|topography|noise/.test(a.file)),
+    "Waves & Dividers (section separators)": svgAssets.filter(a => /wave|divider|section/.test(a.file)),
+    "Code & Dev tools (thematic illustrations)": svgAssets.filter(a => /code|terminal|browser|debug|editor|binary|call.stack|commit|progress|package|folder|api|monitor|keyboard|mouse|loading|error/.test(a.file)),
+    "Bugs & Nature (fun accent elements)": svgAssets.filter(a => /bug|spider/.test(a.file)),
+    "Hardware & Network (tech decoration)": svgAssets.filter(a => /cpu|memory|server|cloud|wifi|network|database|ram/.test(a.file)),
+    "Git & Version control": svgAssets.filter(a => /git|branch/.test(a.file)),
+    "Geometric & Abstract (structural accents)": svgAssets.filter(a => /triangle|cube|starburst|circle.ring|polygon|spiral|particle|squiggle|float|arrow|corner|bracket|infinity|timeline|status|line.art/.test(a.file)),
+  };
+  const svgBlock = Object.entries(svgGroups)
+    .filter(([, items]) => items.length > 0)
+    .map(([group, items]) =>
+      `  ▸ ${group}:\n` +
+      items.map(a => `      → src="${a.path}"`).join("\n")
+    ).join("\n");
+
   return `You are an expert web developer and creative designer. Generate a complete one-page portfolio as a SINGLE self-contained HTML file.
 
 ═══ TODAY'S DESIGN PARAMETERS (${seed}) ═══
@@ -115,6 +134,27 @@ ${describeParams(params)}
 ═══ AVAILABLE ASSETS ═══
 All paths below are relative to the HTML file (docs/). Use them directly in src="" or url().
 ${assetBlock}
+
+═══ AVAILABLE SVG DECORATIONS — USE THEM! ═══
+You have a rich library of hand-crafted SVGs ready to use. Pick several that fit the design theme.
+Usage options:
+  A) <img src="assets/svg/FILE.svg" style="position:absolute; opacity:0.08; width:400px; ..."> — for decorative background elements
+  B) background-image: url('assets/svg/FILE.svg') — for CSS pattern fills/backgrounds
+  C) <img src="assets/svg/FILE.svg" style="width:60px; ..."> — inline as thematic icons/illustrations
+
+Grouped by category:
+${svgBlock}
+
+GUIDANCE:
+- Pick 3–7 SVGs that match the visual theme — do NOT use all of them
+- Blobs & Orbs → great behind hero sections or as floating accents (position:absolute, opacity 0.06–0.14)
+- Patterns & Grids → ideal as repeating section backgrounds (background-image + background-size: 40px)
+- Waves & Dividers → between sections as visual separators (<img style="width:100%; display:block">)
+- Code/Dev/Bug SVGs → decorative accents in hero, about, or sidebar — reinforce the developer theme
+- Hardware/Network → subtle corner decorations or section backgrounds for a tech feel
+- Git/Branch → great near experience/projects sections
+- Geometric → floating shapes behind cards or hero (slow CSS animation or scroll JS drift)
+- Rotate, scale, position them creatively — they inherit currentColor from CSS for flexible theming
 
 ═══ WRITING STYLE INSTRUCTION ═══
 You have a current text tone: "${params.text_tone || "your choice"}".
@@ -164,10 +204,11 @@ ${params.hero_height ? `- Height: ${params.hero_height}` : "- Height: your choic
 
 ═══ VISUAL DECORATION ═══
 - Decoration level: ${params.decoration}
-- Add decorative background SVG shapes/blobs (position: fixed or absolute, opacity 0.05–0.12, z-index: -1)
+- Use the SVGs from the "AVAILABLE SVG DECORATIONS" section above — pick ones matching the theme
+- Position decorative SVGs as: position:absolute inside a relative container, or position:fixed, opacity 0.05–0.14, z-index: -1
 - On scroll: use ~10 lines of JS with requestAnimationFrame + scrollY to slowly rotate/drift those background shapes — decorative only, NEVER affects content elements
 - Keep ALL content z-index above decorations
-${params.section_divider ? `- Section dividers: ${params.section_divider}` : ""}
+${params.section_divider ? `- Section dividers: ${params.section_divider} — consider using divider-wave-soft.svg, divider-zigzag.svg, or section-divider-curve.svg from the SVG library` : ""}
 
 ═══ INTERACTION & POLISH ═══
 ${params.scroll_animation ? `- Scroll animation: ${params.scroll_animation}` : "- Scroll animation: keep subtle or skip entirely"}
