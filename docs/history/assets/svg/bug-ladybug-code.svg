@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" fill="none">
+  <!-- Body -->
+  <ellipse cx="100" cy="115" rx="50" ry="60" fill="currentColor" opacity="0.1" stroke="currentColor" stroke-width="1.5" stroke-opacity="0.4"/>
+  <!-- Head -->
+  <circle cx="100" cy="58" r="22" fill="currentColor" opacity="0.12" stroke="currentColor" stroke-width="1.5" stroke-opacity="0.4"/>
+  <!-- Eyes -->
+  <circle cx="91" cy="52" r="4" fill="currentColor" opacity="0.5"/>
+  <circle cx="109" cy="52" r="4" fill="currentColor" opacity="0.5"/>
+  <!-- Centre line -->
+  <line x1="100" y1="75" x2="100" y2="170" stroke="currentColor" stroke-width="1.5" opacity="0.3"/>
+  <!-- Spots -->
+  <circle cx="82" cy="100" r="8" fill="currentColor" opacity="0.2"/>
+  <circle cx="118" cy="100" r="8" fill="currentColor" opacity="0.2"/>
+  <circle cx="80" cy="125" r="6" fill="currentColor" opacity="0.15"/>
+  <circle cx="120" cy="125" r="6" fill="currentColor" opacity="0.15"/>
+  <circle cx="88" cy="148" r="5" fill="currentColor" opacity="0.12"/>
+  <circle cx="112" cy="148" r="5" fill="currentColor" opacity="0.12"/>
+  <!-- Antennae -->
+  <path d="M91 38 Q80 18 70 10" stroke="currentColor" stroke-width="1.5" fill="none" opacity="0.4" stroke-linecap="round"/>
+  <path d="M109 38 Q120 18 130 10" stroke="currentColor" stroke-width="1.5" fill="none" opacity="0.4" stroke-linecap="round"/>
+  <circle cx="70" cy="10" r="3" fill="currentColor" opacity="0.4"/>
+  <circle cx="130" cy="10" r="3" fill="currentColor" opacity="0.4"/>
+  <!-- Legs -->
+  <path d="M55 105 Q35 98 25 90" stroke="currentColor" stroke-width="1.5" fill="none" opacity="0.3" stroke-linecap="round"/>
+  <path d="M52 120 Q30 118 18 115" stroke="currentColor" stroke-width="1.5" fill="none" opacity="0.3" stroke-linecap="round"/>
+  <path d="M55 138 Q35 140 24 145" stroke="currentColor" stroke-width="1.5" fill="none" opacity="0.3" stroke-linecap="round"/>
+  <path d="M145 105 Q165 98 175 90" stroke="currentColor" stroke-width="1.5" fill="none" opacity="0.3" stroke-linecap="round"/>
+  <path d="M148 120 Q170 118 182 115" stroke="currentColor" stroke-width="1.5" fill="none" opacity="0.3" stroke-linecap="round"/>
+  <path d="M145 138 Q165 140 176 145" stroke="currentColor" stroke-width="1.5" fill="none" opacity="0.3" stroke-linecap="round"/>
+</svg>

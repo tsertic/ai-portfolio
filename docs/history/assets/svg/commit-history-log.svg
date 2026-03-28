@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 240" fill="none">
+  <g font-family="monospace" fill="currentColor">
+    <!-- Commit line -->
+    <line x1="32" y1="40" x2="32" y2="220" stroke="currentColor" stroke-width="1.5" opacity="0.2"/>
+    <!-- Commits -->
+    <circle cx="32" cy="48"  r="6" stroke="currentColor" stroke-width="1.5" fill="currentColor" fill-opacity="0.2" opacity="0.6"/>
+    <circle cx="32" cy="96"  r="6" stroke="currentColor" stroke-width="1.5" fill="currentColor" fill-opacity="0.15" opacity="0.5"/>
+    <circle cx="32" cy="144" r="6" stroke="currentColor" stroke-width="1.5" fill="currentColor" fill-opacity="0.12" opacity="0.4"/>
+    <circle cx="32" cy="192" r="6" stroke="currentColor" stroke-width="1.5" fill="currentColor" fill-opacity="0.1"  opacity="0.3"/>
+    <!-- Commit info -->
+    <text x="50" y="45"  font-size="11" opacity="0.55">feat: add dark mode support</text>
+    <text x="50" y="60"  font-size="9"  opacity="0.3">a3f2c1b · 2h ago · @tomislav</text>
+    <text x="50" y="93"  font-size="11" opacity="0.45">fix: resolve layout shift on mobile</text>
+    <text x="50" y="108" font-size="9"  opacity="0.25">9d1e4a7 · 5h ago · @tomislav</text>
+    <text x="50" y="141" font-size="11" opacity="0.35">refactor: extract hero component</text>
+    <text x="50" y="156" font-size="9"  opacity="0.2">2b8f0c3 · 1d ago · @tomislav</text>
+    <text x="50" y="189" font-size="11" opacity="0.28">chore: update dependencies</text>
+    <text x="50" y="204" font-size="9"  opacity="0.18">f7a1d6e · 2d ago · @tomislav</text>
+  </g>
+</svg>

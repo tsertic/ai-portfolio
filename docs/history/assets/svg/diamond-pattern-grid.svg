@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240" fill="none">
+  <defs>
+    <pattern id="diamond" x="0" y="0" width="40" height="40" patternUnits="userSpaceOnUse">
+      <polygon points="20,2 38,20 20,38 2,20" stroke="currentColor" stroke-width="1" fill="none" opacity="0.2"/>
+    </pattern>
+  </defs>
+  <rect width="240" height="240" fill="url(#diamond)"/>
+</svg>

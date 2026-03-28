@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 250" fill="none">
+  <polygon points="200,20 380,220 20,220" stroke="currentColor" stroke-width="2" fill="currentColor" opacity="0.06" stroke-opacity="0.25"/>
+  <polygon points="200,20 340,220 60,220" stroke="currentColor" stroke-width="1" fill="none" opacity="0.12"/>
+  <polygon points="200,20 300,220 100,220" stroke="currentColor" stroke-width="1" fill="none" opacity="0.08"/>
+  <polygon points="120,80 280,220 20,220" stroke="currentColor" stroke-width="1" fill="none" opacity="0.1"/>
+  <polygon points="290,60 380,220 150,220" stroke="currentColor" stroke-width="1" fill="none" opacity="0.08"/>
+  <line x1="200" y1="20" x2="200" y2="220" stroke="currentColor" stroke-width="0.8" opacity="0.12"/>
+</svg>

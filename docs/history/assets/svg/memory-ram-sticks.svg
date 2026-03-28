@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 200" fill="none">
+  <!-- RAM stick 1 -->
+  <rect x="30" y="30" width="50" height="140" rx="4" stroke="currentColor" stroke-width="2" opacity="0.4" fill="currentColor" fill-opacity="0.06"/>
+  <!-- Chips on stick 1 -->
+  <rect x="38" y="45"  width="34" height="20" rx="3" stroke="currentColor" stroke-width="1" opacity="0.3" fill="currentColor" fill-opacity="0.08"/>
+  <rect x="38" y="73"  width="34" height="20" rx="3" stroke="currentColor" stroke-width="1" opacity="0.3" fill="currentColor" fill-opacity="0.08"/>
+  <rect x="38" y="101" width="34" height="20" rx="3" stroke="currentColor" stroke-width="1" opacity="0.3" fill="currentColor" fill-opacity="0.08"/>
+  <rect x="38" y="129" width="34" height="20" rx="3" stroke="currentColor" stroke-width="1" opacity="0.3" fill="currentColor" fill-opacity="0.08"/>
+  <!-- Notch -->
+  <rect x="38" y="165" width="12" height="5" rx="1" fill="currentColor" opacity="0.3"/>
+  <!-- RAM stick 2 -->
+  <rect x="115" y="30" width="50" height="140" rx="4" stroke="currentColor" stroke-width="2" opacity="0.5" fill="currentColor" fill-opacity="0.08"/>
+  <rect x="123" y="45"  width="34" height="20" rx="3" stroke="currentColor" stroke-width="1" opacity="0.35" fill="currentColor" fill-opacity="0.1"/>
+  <rect x="123" y="73"  width="34" height="20" rx="3" stroke="currentColor" stroke-width="1" opacity="0.35" fill="currentColor" fill-opacity="0.1"/>
+  <rect x="123" y="101" width="34" height="20" rx="3" stroke="currentColor" stroke-width="1" opacity="0.35" fill="currentColor" fill-opacity="0.1"/>
+  <rect x="123" y="129" width="34" height="20" rx="3" stroke="currentColor" stroke-width="1" opacity="0.35" fill="currentColor" fill-opacity="0.1"/>
+  <rect x="123" y="165" width="12" height="5" rx="1" fill="currentColor" opacity="0.35"/>
+  <!-- RAM stick 3 -->
+  <rect x="200" y="30" width="50" height="140" rx="4" stroke="currentColor" stroke-width="2" opacity="0.35" fill="currentColor" fill-opacity="0.05"/>
+  <rect x="208" y="45"  width="34" height="20" rx="3" stroke="currentColor" stroke-width="1" opacity="0.25" fill="currentColor" fill-opacity="0.07"/>
+  <rect x="208" y="73"  width="34" height="20" rx="3" stroke="currentColor" stroke-width="1" opacity="0.25" fill="currentColor" fill-opacity="0.07"/>
+  <rect x="208" y="101" width="34" height="20" rx="3" stroke="currentColor" stroke-width="1" opacity="0.25" fill="currentColor" fill-opacity="0.07"/>
+  <rect x="208" y="129" width="34" height="20" rx="3" stroke="currentColor" stroke-width="1" opacity="0.25" fill="currentColor" fill-opacity="0.07"/>
+  <rect x="208" y="165" width="12" height="5" rx="1" fill="currentColor" opacity="0.25"/>
+  <!-- Labels -->
+  <text x="55"  y="185" font-family="monospace" font-size="8" fill="currentColor" opacity="0.3" text-anchor="middle">DDR5</text>
+  <text x="140" y="185" font-family="monospace" font-size="8" fill="currentColor" opacity="0.35" text-anchor="middle">DDR5</text>
+  <text x="225" y="185" font-family="monospace" font-size="8" fill="currentColor" opacity="0.25" text-anchor="middle">DDR5</text>
+</svg>

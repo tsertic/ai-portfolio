@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 400" fill="none">
+  <g font-family="monospace" font-size="14" fill="currentColor">
+    <text x="20"  y="30"  opacity="0.5">01101</text>
+    <text x="80"  y="55"  opacity="0.3">10010</text>
+    <text x="10"  y="80"  opacity="0.4">11001</text>
+    <text x="100" y="105" opacity="0.25">01110</text>
+    <text x="30"  y="130" opacity="0.45">10101</text>
+    <text x="110" y="155" opacity="0.2">00110</text>
+    <text x="15"  y="180" opacity="0.5">11010</text>
+    <text x="90"  y="205" opacity="0.3">01001</text>
+    <text x="40"  y="230" opacity="0.35">10110</text>
+    <text x="120" y="255" opacity="0.2">11100</text>
+    <text x="25"  y="280" opacity="0.4">00011</text>
+    <text x="95"  y="305" opacity="0.28">10001</text>
+    <text x="10"  y="330" opacity="0.45">01111</text>
+    <text x="105" y="355" opacity="0.22">11011</text>
+    <text x="45"  y="380" opacity="0.35">00101</text>
+  </g>
+</svg>

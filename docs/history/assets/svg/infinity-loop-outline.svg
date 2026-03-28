@@ -1,0 +1,4 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 150" fill="none">
+  <path d="M150 75 C150 75 120 30 75 30 C30 30 10 75 75 75 C140 75 160 120 225 120 C290 120 270 75 225 75 C180 75 150 75 150 75 C150 75 120 75 75 75 C30 75 10 30 75 30 C120 30 150 75 150 75 C150 75 180 30 225 30 C290 30 270 75 225 75 C180 75 150 75 150 75 C150 75 120 120 75 120 C30 120 10 75 75 75Z"
+    stroke="currentColor" stroke-width="2.5" fill="none" opacity="0.4" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

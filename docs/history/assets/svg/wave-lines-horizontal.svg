@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 120" fill="none">
+  <path d="M0 60 C50 30 100 90 150 60 C200 30 250 90 300 60 C350 30 400 90 450 60 C500 30 550 90 600 60" stroke="currentColor" stroke-width="2" opacity="0.4" fill="none"/>
+  <path d="M0 75 C50 45 100 105 150 75 C200 45 250 105 300 75 C350 45 400 105 450 75 C500 45 550 105 600 75" stroke="currentColor" stroke-width="1.5" opacity="0.25" fill="none"/>
+  <path d="M0 45 C50 15 100 75 150 45 C200 15 250 75 300 45 C350 15 400 75 450 45 C500 15 550 75 600 45" stroke="currentColor" stroke-width="1" opacity="0.15" fill="none"/>
+</svg>

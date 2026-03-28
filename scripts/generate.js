@@ -11,6 +11,7 @@ const path = require("path");
 const https = require("https");
 const { pickParams, describeParams } = require("./params");
 const { scanAssets }                 = require("./scan-assets");
+const { syncAssets }                 = require("./sync-assets");
 const { fetchProjects }              = require("./fetch-projects");
 
 // ─── Config ─────────────────────────────────────────────────────────────────
@@ -681,6 +682,9 @@ async function main() {
 
   // Params sidecar JSON (used by gallery to show tags + metadata)
   fs.writeFileSync(`${historyBase}.json`, JSON.stringify(params, null, 2), "utf8");
+
+  // ── Sync assets → history/assets/ (additive only) ─────────────────────────
+  syncAssets();
 
   // ── Rebuild gallery ────────────────────────────────────────────────────────
   buildHistoryGallery(historyDir);

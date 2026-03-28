@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240" fill="none">
+  <g transform="translate(120,110)" stroke="currentColor" fill="none">
+    <!-- Radial threads -->
+    <g opacity="0.2" stroke-width="1">
+      <line x1="0" y1="-100" x2="0"   y2="0"/>
+      <line x1="50"  y1="-86" x2="0"  y2="0"/>
+      <line x1="87"  y1="-50" x2="0"  y2="0"/>
+      <line x1="100" y1="0"   x2="0"  y2="0"/>
+      <line x1="87"  y1="50"  x2="0"  y2="0"/>
+      <line x1="50"  y1="86"  x2="0"  y2="0"/>
+      <line x1="0"   y1="100" x2="0"  y2="0"/>
+      <line x1="-50" y1="86"  x2="0"  y2="0"/>
+      <line x1="-87" y1="50"  x2="0"  y2="0"/>
+      <line x1="-100" y1="0"  x2="0"  y2="0"/>
+      <line x1="-87" y1="-50" x2="0"  y2="0"/>
+      <line x1="-50" y1="-86" x2="0"  y2="0"/>
+    </g>
+    <!-- Concentric rings -->
+    <circle cx="0" cy="0" r="25"  opacity="0.22" stroke-width="1"/>
+    <circle cx="0" cy="0" r="50"  opacity="0.18" stroke-width="1"/>
+    <circle cx="0" cy="0" r="75"  opacity="0.14" stroke-width="1"/>
+    <circle cx="0" cy="0" r="100" opacity="0.10" stroke-width="1"/>
+  </g>
+  <!-- Spider body -->
+  <ellipse cx="120" cy="90" rx="10" ry="12" fill="currentColor" opacity="0.4"/>
+  <circle  cx="120" cy="76" r="7"            fill="currentColor" opacity="0.35"/>
+  <!-- Eyes -->
+  <circle cx="117" cy="74" r="1.5" fill="currentColor" opacity="0.7"/>
+  <circle cx="123" cy="74" r="1.5" fill="currentColor" opacity="0.7"/>
+  <!-- Legs -->
+  <g stroke="currentColor" stroke-width="1.2" opacity="0.3" stroke-linecap="round">
+    <path d="M112 84 Q98 78 90 70"/><path d="M112 88 Q98 88 88 92"/>
+    <path d="M112 92 Q98 98 90 108"/><path d="M128 84 Q142 78 150 70"/>
+    <path d="M128 88 Q142 88 152 92"/><path d="M128 92 Q142 98 150 108"/>
+  </g>
+  <!-- Silk thread -->
+  <line x1="120" y1="66" x2="120" y2="20" stroke="currentColor" stroke-width="1" opacity="0.3"/>
+</svg>

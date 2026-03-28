@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 240" fill="none">
+  <!-- Screen bezel -->
+  <rect x="10" y="10" width="300" height="190" rx="12" stroke="currentColor" stroke-width="2" opacity="0.3" fill="currentColor" fill-opacity="0.04"/>
+  <!-- Screen inner -->
+  <rect x="22" y="22" width="276" height="166" rx="6" stroke="currentColor" stroke-width="1" opacity="0.15" fill="currentColor" fill-opacity="0.04"/>
+  <!-- Stand neck -->
+  <rect x="148" y="200" width="24" height="20" fill="currentColor" opacity="0.15"/>
+  <!-- Stand base -->
+  <rect x="100" y="218" width="120" height="14" rx="7" stroke="currentColor" stroke-width="1.5" fill="currentColor" fill-opacity="0.08" opacity="0.4"/>
+  <!-- Screen content - code-like -->
+  <rect x="35" y="38" width="80" height="8" rx="4" fill="currentColor" opacity="0.25"/>
+  <rect x="35" y="54" width="140" height="8" rx="4" fill="currentColor" opacity="0.18"/>
+  <rect x="35" y="70" width="110" height="8" rx="4" fill="currentColor" opacity="0.2"/>
+  <rect x="35" y="86" width="160" height="8" rx="4" fill="currentColor" opacity="0.15"/>
+  <rect x="35" y="102" width="90"  height="8" rx="4" fill="currentColor" opacity="0.2"/>
+  <rect x="35" y="118" width="130" height="8" rx="4" fill="currentColor" opacity="0.15"/>
+  <rect x="35" y="134" width="75"  height="8" rx="4" fill="currentColor" opacity="0.18"/>
+  <!-- Browser chrome sim -->
+  <rect x="180" y="38" width="105" height="140" rx="6" stroke="currentColor" stroke-width="1" fill="currentColor" fill-opacity="0.04" opacity="0.3"/>
+  <rect x="180" y="38" width="105" height="20"  rx="6" fill="currentColor" opacity="0.07"/>
+  <circle cx="192" cy="48" r="3" fill="currentColor" opacity="0.3"/>
+  <circle cx="202" cy="48" r="3" fill="currentColor" opacity="0.25"/>
+  <circle cx="212" cy="48" r="3" fill="currentColor" opacity="0.2"/>
+  <!-- Status bar -->
+  <circle cx="160" cy="172" r="5" fill="currentColor" opacity="0.25"/>
+</svg>
