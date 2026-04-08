@@ -154,8 +154,8 @@
 
     <div class="noise"></div>
 
-    <img src="assets/svg/blob-organic-teal.svg" class="floating-svg" id="blob1" style="top: 10%; left: -5%; width: 400px;">
-    <img src="assets/svg/circuit-board-lines.svg" class="floating-svg" id="blob2" style="bottom: 20%; right: -5%; width: 500px;">
+    <img src="../assets/svg/blob-organic-teal.svg" class="floating-svg" id="blob1" style="top: 10%; left: -5%; width: 400px;">
+    <img src="../assets/svg/circuit-board-lines.svg" class="floating-svg" id="blob2" style="bottom: 20%; right: -5%; width: 500px;">
 
     <nav>
         <div class="handwritten" style="font-size: 1.5rem;">TS.dev</div>
@@ -168,7 +168,7 @@
 
     <header class="hero">
         <div class="hero-name">TOMISLAV</div>
-        <img src="assets/images/portrait.webp" alt="Tomislav Sertic" class="hero-portrait" onerror="this.style.display='none'">
+        <img src="../assets/images/portrait.webp" alt="Tomislav Sertic" class="hero-portrait" onerror="this.style.display='none'">
         <div class="hero-title">
             <span class="handwritten">Hey! I'm Tomislav.</span><br>
             I build enterprise systems and craft digital things.
@@ -257,7 +257,7 @@
         // Render Skills
         const skillsBox = document.getElementById('skills');
         data.skills.forEach(s => {
-            skillsBox.innerHTML += `<div class="skill-badge"><img src="assets/svg/badge-skill-tag.svg" width="14"> ${s}</div>`;
+            skillsBox.innerHTML += `<div class="skill-badge"><img src="../assets/svg/badge-skill-tag.svg" width="14"> ${s}</div>`;
         });
 
         // Filter Logic
