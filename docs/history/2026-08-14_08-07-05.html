@@ -156,8 +156,8 @@
 </head>
 <body>
 
-    <img src="assets/svg/spiral-fibonacci.svg" class="bg-svg" style="top: 10%; left: -5%; width: 500px;" id="fib">
-    <img src="assets/svg/topography-contour-lines.svg" class="bg-svg" style="bottom: 10%; right: -5%; width: 600px;" id="topo">
+    <img src="../assets/svg/spiral-fibonacci.svg" class="bg-svg" style="top: 10%; left: -5%; width: 500px;" id="fib">
+    <img src="../assets/svg/topography-contour-lines.svg" class="bg-svg" style="bottom: 10%; right: -5%; width: 600px;" id="topo">
 
     <nav>
         <div class="logo">TS / 2026</div>
@@ -171,7 +171,7 @@
     <section class="hero">
         <div class="hero-scatter">
             <h1 class="hero-name">Tomislav<br>Sertic</h1>
-            <img src="assets/images/portrait.webp" alt="Tomislav Sertic" class="hero-portrait">
+            <img src="../assets/images/portrait.webp" alt="Tomislav Sertic" class="hero-portrait">
             <p class="hero-title">Architect of Enterprise Solutions & Digital Paradoxes</p>
             <div class="hero-links">
                 <a href="https://github.com/tsertic" title="GitHub">GH</a>
@@ -296,7 +296,7 @@
                 const card = document.createElement('div');
                 card.className = 'card';
                 card.innerHTML = `
-                    <img src="${p.img}" alt="${p.name}" onerror="this.src='assets/svg/browser-window-frame.svg'">
+                    <img src="${p.img}" alt="${p.name}" onerror="this.src='../assets/svg/browser-window-frame.svg'">
                     <h3>${p.name}</h3>
                     <p>${p.desc}</p>
                     <div class="tech-tags">${p.tech.map(t => `<span class="tech-tag">${t}</span>`).join('')}</div>
