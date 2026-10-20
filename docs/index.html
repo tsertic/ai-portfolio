@@ -6,166 +6,91 @@
     <title>Tomislav Sertic | Software Architect</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Saira+Extra+Condensed:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=Syne:wght@700;800&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg: #f5f2ed;
-            --bg-alt: #ebe7e0;
-            --text: #2d3436;
-            --accent: #7f8c8d;
-            --muted: #b2bec3;
-            --white: #ffffff;
-            --radius: 0px; /* Corporate sharp look */
-            --paper: url('assets/svg/noise-grain-texture.svg');
+            --ruby: #8B0000; --emerald: #024D38; --sapphire: #0E3B6E; --amethyst: #4B0082;
+            --bg: #FDFDFD; --text: #1A1A1A; --hero-bg: #121212; --border: #1A1A1A;
+            --radius: 0px;
         }
-
-        * { margin: 0; padding: 0; box-sizing: border-box; cursor: none; }
-        body { 
-            font-family: 'Saira Extra Condensed', sans-serif; 
-            background-color: var(--bg); 
-            color: var(--text); 
-            line-height: 1.4;
-            overflow-x: hidden;
-            font-size: 1.1rem;
-        }
-
-        /* Paper Texture Overlay */
-        body::before {
-            content: "";
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background-image: var(--paper);
-            opacity: 0.04; pointer-events: none; z-index: 9999;
-        }
-
-        .custom-cursor {
-            width: 20px; height: 20px; border: 1px solid var(--text);
-            position: fixed; pointer-events: none; z-index: 10000;
-            border-radius: 50%; transform: translate(-50%, -50%);
-            transition: width 0.2s, height 0.2s;
-        }
-
-        h1, h2, h3 { text-transform: uppercase; letter-spacing: 2px; font-weight: 800; }
-        p { font-weight: 300; }
-
-        .container { max-width: 1200px; margin: 0 auto; padding: 0 40px; }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; overflow-x: hidden; }
         
+        /* Typography */
+        h1, h2, h3 { font-family: 'Syne', sans-serif; text-transform: uppercase; letter-spacing: 0.15em; }
+        .hero-title { font-size: 1.5rem; color: #fff; margin-bottom: 1rem; }
+        
+        /* Halftone Filter */
+        .halftone { filter: grayscale(1) contrast(150%) brightness(110%); position: relative; }
+        .halftone-overlay { 
+            position: absolute; inset: 0; 
+            background-image: radial-gradient(circle, #000 1px, transparent 1px);
+            background-size: 4px 4px; mix-mode: screen; pointer-events: none;
+        }
+
+        /* Layout */
+        .container { max-width: 800px; margin: 0 auto; padding: 0 20px; position: relative; z-index: 10; }
+        section { padding: 80px 0; border-bottom: 1px solid var(--border); }
+        
+        /* Decorations */
+        .deco { position: absolute; z-index: -1; opacity: 0.12; pointer-events: none; }
+        .floating-cog { width: 40px; height: 40px; animation: spin 10s linear infinite; fill: var(--ruby); position: fixed; bottom: 20px; right: 20px; z-index: 100; opacity: 0.8; }
+        @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+        /* Navigation */
+        nav { position: fixed; top: 0; width: 100%; height: 60px; background: rgba(255,255,255,0.9); border-bottom: 2px solid var(--border); z-index: 1000; display: flex; align-items: center; justify-content: center; }
+        nav a { text-decoration: none; color: var(--text); font-weight: 700; font-size: 0.8rem; text-transform: uppercase; margin: 0 15px; letter-spacing: 0.1em; transition: color 0.3s; }
+        nav a:hover { color: var(--ruby); }
+
         /* Hero Section */
-        .hero { 
-            height: 80vh; 
-            display: grid; 
-            grid-template-columns: 1.2fr 0.8fr; 
-            align-items: center; 
-            background: var(--bg);
-            position: relative;
-            overflow: hidden;
-        }
-        .hero-content { padding-right: 50px; z-index: 2; }
-        .hero-headline { font-size: 6rem; line-height: 0.9; margin-bottom: 20px; }
-        .hero-tagline { font-size: 1.5rem; color: var(--accent); margin-bottom: 30px; max-width: 500px; }
+        .hero { height: 60vh; background: var(--hero-bg); color: #fff; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; border-bottom: 8px solid var(--ruby); position: relative; overflow: hidden; }
+        .hero::before { content: ""; position: absolute; inset: 0; background-image: url('assets/svg/plus-cross-grid.svg'); opacity: 0.15; background-size: 50px; }
+        .portrait-container { width: 120px; height: 120px; border: 4px solid var(--ruby); overflow: hidden; margin-bottom: 1.5rem; position: relative; }
+        .portrait-container img { width: 100%; height: 100%; object-fit: cover; }
         
-        .hero-image-container { 
-            height: 100%; 
-            background: var(--bg-alt); 
-            position: relative;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .portrait {
-            width: 100%; height: 100%; object-fit: cover;
-            filter: grayscale(100%) sepia(10%) contrast(1.1);
-            mix-blend-mode: multiply;
-        }
-        .btn-group { display: flex; gap: 15px; }
-        .btn {
-            padding: 12px 30px; border-radius: 50px; text-decoration: none;
-            text-transform: uppercase; font-weight: 600; letter-spacing: 1px;
-            transition: all 0.3s; border: 1px solid var(--text);
-            background: transparent; color: var(--text);
-            display: inline-block;
-        }
-        .btn:hover { background: var(--text); color: var(--white); transform: scale(1.05); box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
-
-        /* Nav */
-        nav {
-            position: fixed; bottom: 0; left: 0; width: 100%;
-            background: rgba(245, 242, 237, 0.95);
-            backdrop-filter: blur(10px);
-            border-top: 1px solid rgba(0,0,0,0.1);
-            z-index: 1000; padding: 15px 0;
-        }
-        nav .container { display: flex; justify-content: space-between; align-items: center; }
-        nav ul { display: flex; list-style: none; gap: 30px; }
-        nav a { text-decoration: none; color: var(--text); text-transform: uppercase; font-weight: 600; font-size: 0.9rem; }
-        nav a:hover { color: var(--accent); }
-
-        /* Sections */
-        section { padding: 120px 0; position: relative; }
-        .section-alt { background: var(--bg-alt); }
-        .section-title { font-size: 3rem; margin-bottom: 40px; border-left: 5px solid var(--accent); padding-left: 20px; }
+        .cta-wrap { display: flex; gap: 1rem; margin-top: 2rem; }
+        .fab { padding: 12px 24px; border: 2px solid #fff; background: transparent; color: #fff; text-decoration: none; font-weight: bold; text-transform: uppercase; transition: 0.3s; box-shadow: 4px 4px 0 var(--ruby); }
+        .fab:hover { background: #fff; color: var(--hero-bg); transform: translate(-2px, -2px); box-shadow: 6px 6px 0 var(--ruby); }
 
         /* About & Skills */
-        .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; }
-        .philosophy { font-size: 1.4rem; font-style: italic; color: var(--accent); margin-bottom: 30px; }
-        .skills-list { margin-top: 40px; font-weight: 600; color: var(--text); font-size: 1.2rem; }
-        .skills-list span { color: var(--accent); font-weight: 400; }
+        .about-text { font-size: 1.25rem; font-weight: 400; margin-bottom: 2rem; }
+        .skill-grid { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 2rem; }
+        .skill-tag { background: var(--border); color: #fff; padding: 4px 12px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; }
 
-        /* Project Filter */
-        .filter-bar { margin-bottom: 40px; display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
-        #search-input { 
-            padding: 10px 20px; border: 1px solid var(--muted); background: var(--white);
-            font-family: inherit; width: 250px; text-transform: uppercase;
-        }
-        .filter-tag { 
-            padding: 5px 15px; border: 1px solid var(--muted); background: var(--white);
-            font-size: 0.8rem; cursor: pointer; text-transform: uppercase;
-        }
-        .filter-tag.active { background: var(--text); color: var(--white); border-color: var(--text); }
-        .counter { font-size: 0.9rem; color: var(--accent); margin-left: auto; text-transform: uppercase; }
+        /* Filter Bar */
+        .filter-bar { margin: 40px 0; background: #eee; padding: 20px; border: 2px solid var(--border); }
+        .filter-bar input { width: 100%; padding: 12px; border: 2px solid var(--border); margin-bottom: 15px; font-family: inherit; font-weight: bold; }
+        .tag-filters { display: flex; flex-wrap: wrap; gap: 5px; }
+        .tag-btn { border: 1px solid var(--border); background: #fff; padding: 4px 10px; cursor: pointer; font-size: 0.7rem; font-weight: bold; }
+        .tag-btn.active { background: var(--sapphire); color: #fff; }
+        .counter { margin-top: 10px; font-size: 0.8rem; font-weight: 900; color: var(--ruby); }
 
-        /* Project Cards */
-        .projects-grid { 
-            display: grid; 
-            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); 
-            gap: 40px; 
-        }
-        .project-card { 
-            background: var(--white); border: 1px solid rgba(0,0,0,0.05); 
-            transition: all 0.4s; position: relative;
-        }
-        .project-card:hover { transform: translateY(-10px); box-shadow: 0 20px 40px rgba(0,0,0,0.05); }
-        .card-img { width: 100%; height: 250px; object-fit: cover; border-bottom: 1px solid rgba(0,0,0,0.05); }
-        .card-content { padding: 25px; }
-        .project-tech { font-size: 0.8rem; color: var(--accent); margin: 15px 0; display: block; }
-        .project-links { display: flex; gap: 15px; margin-top: 20px; }
-        .project-links a { font-size: 0.8rem; color: var(--text); text-transform: uppercase; font-weight: 800; text-decoration: none; border-bottom: 2px solid var(--text); }
+        /* Projects */
+        .project-grid { display: grid; gap: 40px; }
+        .project-card { border: 2px solid var(--border); padding: 0; background: #fff; display: flex; flex-direction: column; transition: transform 0.2s; }
+        .project-card:hover { transform: scale(1.01); }
+        .project-img { width: 100%; aspect-ratio: 16/9; object-fit: cover; border-bottom: 2px solid var(--border); }
+        .project-content { padding: 20px; }
+        .project-tech { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 10px; }
+        .project-tech span { font-size: 0.65rem; background: #f0f0f0; padding: 2px 6px; border: 1px solid #ccc; }
+        .project-links { margin-top: 15px; display: flex; gap: 15px; }
+        .project-links a { font-weight: 900; color: var(--text); text-decoration: none; border-bottom: 2px solid var(--ruby); }
 
-        /* Daily Regeneration Section */
-        .regen-banner { 
-            background: var(--text); color: var(--bg); padding: 80px 0; text-align: center; 
-            position: relative; overflow: hidden;
-        }
-        .regen-content h2 { font-size: 4rem; margin-bottom: 10px; }
-        .regen-content p { font-size: 1.2rem; opacity: 0.8; margin-bottom: 30px; }
-        .regen-date { font-weight: 800; letter-spacing: 5px; font-size: 2rem; display: block; margin-bottom: 20px; }
+        /* Map Section */
+        .map-section { background: #fff; padding: 60px 0; text-align: center; }
+        .marker { width: 60px; height: 60px; margin: 0 auto 20px; background: var(--ruby); display: flex; align-items: center; justify-content: center; clip-path: polygon(50% 0%, 100% 38%, 81% 100%, 19% 100%, 0% 38%); color: #fff; font-weight: bold; }
 
-        /* Contact */
-        .contact-content { text-align: center; max-width: 700px; margin: 0 auto; }
-        .contact-title { font-size: 4rem; margin-bottom: 20px; }
+        /* AI Section */
+        .daily-ai { background: var(--emerald); color: #fff; padding: 40px; text-align: center; border: 5px solid var(--border); margin: 60px 0; }
+        .daily-ai a { color: #fff; text-decoration: underline; font-weight: bold; }
 
         /* Footer */
-        footer { padding: 60px 0 120px; text-align: center; border-top: 1px solid var(--bg-alt); }
+        footer { background: #000; color: #fff; padding: 60px 20px; font-weight: 900; font-size: 2rem; word-break: break-all; line-height: 1; }
+        footer .copy { font-size: 0.8rem; margin-top: 20px; opacity: 0.5; }
 
-        /* Decorative SVGs */
-        .shape { position: absolute; z-index: -1; opacity: 0.1; pointer-events: none; }
-        .fibonacci { top: 10%; right: 5%; width: 400px; }
-        .mesh { bottom: 5%; left: 2%; width: 300px; }
-
-        @media (max-width: 768px) {
-            .hero { grid-template-columns: 1fr; height: auto; padding-top: 60px; }
-            .hero-headline { font-size: 4rem; }
-            .about-grid { grid-template-columns: 1fr; }
-            .hero-image-container { height: 400px; }
+        @media (max-width: 600px) {
+            .container { padding: 0 15px; }
+            footer { font-size: 1.5rem; }
         }
     </style>
 <style id="safety-override">
@@ -177,257 +102,247 @@
 </head>
 <body>
 
-    <div class="custom-cursor" id="cursor"></div>
+    <img src="assets/svg/cog-svgrepo-com.svg" class="floating-cog" alt="cog">
 
     <nav>
-        <div class="container">
-            <div style="font-weight: 800; letter-spacing: 2px;">T. SERTIC</div>
-            <ul>
-                <li><a href="#about">Reflection</a></li>
-                <li><a href="#projects">Manifestations</a></li>
-                <li><a href="#contact">Dialogue</a></li>
-            </ul>
-        </div>
+        <a href="#about">Bio</a>
+        <a href="#projects">Work</a>
+        <a href="#contact">Contact</a>
+        <a href="https://www.tsertic.dev" target="_blank">Site</a>
     </nav>
 
+    <!-- DECORATIONS -->
+    <img src="assets/svg/blob-organic-teal.svg" class="deco drift" style="top: 10%; left: -5%; width: 300px;">
+    <img src="assets/svg/circuit-board-lines.svg" class="deco drift" style="top: 40%; right: -5%; width: 400px; transform: rotate(90deg);">
+    <img src="assets/svg/hexagon-grid-pattern.svg" class="deco" style="top: 70%; left: 10%; width: 200px; opacity: 0.05;">
+
     <header class="hero">
-        <img src="assets/svg/spiral-fibonacci.svg" class="shape fibonacci" id="shape1">
-        <div class="container">
-            <div class="hero-content">
-                <h1 class="hero-headline">TOMISLAV<br>SERTIC</h1>
-                <p class="hero-tagline">Architecting digital permanence through intentional code and philosophical rigor. Full-stack software developer based in Zagreb.</p>
-                <div class="btn-group">
-                    <a href="mailto:tsertic5@gmail.com" class="btn">Initiate Contact</a>
-                    <a href="https://github.com/tsertic" class="btn">Technical Archive</a>
-                </div>
-            </div>
+        <div class="portrait-container halftone">
+            <img src="assets/images/portrait.webp" alt="Tomislav Sertic" onerror="this.parentElement.innerHTML='<div style=\'height:100%; display:flex; align-items:center; justify-content:center; font-weight:900; font-size:3rem;\'>TS</div>'">
+            <div class="halftone-overlay"></div>
         </div>
-        <div class="hero-image-container">
-            <img src="assets/images/portrait.webp" alt="Tomislav Sertic" class="portrait" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
-            <div style="display:none; font-size: 15rem; font-weight: 800; color: var(--accent); opacity: 0.3;">TS</div>
+        <h1 class="hero-title">Tomislav Sertic</h1>
+        <p style="font-weight: 700; text-transform: uppercase; letter-spacing: 0.3em; opacity: 0.8; font-size: 0.8rem;">Building Systems, Not Just Code.</p>
+        <div class="cta-wrap">
+            <a href="https://github.com/tsertic" class="fab">GitHub</a>
+            <a href="https://linkedin.com/in/tomislav-sertic" class="fab">LinkedIn</a>
+            <a href="mailto:tsertic5@gmail.com" class="fab">Email</a>
         </div>
     </header>
 
-    <section id="about" class="section-alt">
-        <img src="assets/svg/abstract-polygon-mesh.svg" class="shape mesh" id="shape2">
-        <div class="container">
-            <div class="about-grid">
-                <div>
-                    <h2 class="section-title">The Foundation</h2>
-                    <p class="philosophy">"Code is not merely instructions for a machine, but a reflection of the architect's clarity of thought."</p>
-                    <p>By day, I navigate the complex ecosystems of international enterprises—Saudi Aramco, the European Space Agency, and the European Court of Justice—crafting robust solutions within the Archibus IWMS framework. My work exists at the intersection of legacy stability and modern innovation, bridging Java backends with React-driven futures.</p>
+    <div class="container">
+        
+        <section id="about">
+            <h2>The Operator</h2>
+            <p class="about-text">
+                I build industrial-grade software for heavy hitters. From the <strong>European Space Agency</strong> to <strong>Saudi Aramco</strong>, my day job at Arctis d.o.o involves wrestling legacy enterprise systems into the modern era. I specialize in the Archibus IWMS platform, bridging high-level Java backends with React-driven frontends. 
+            </p>
+            <p>
+                When the enterprise giants sleep, I'm solving complex puzzles with Next.js, tinkering with AI streamers, or exploring 3D web experiences. I reside in Zagreb, Croatia, accompanied by my daughter Anja and a mixed-breed explorer named Eevee.
+            </p>
+            <div class="skill-grid">
+                <span class="skill-tag">TypeScript</span>
+                <span class="skill-tag">Next.js</span>
+                <span class="skill-tag">React</span>
+                <span class="skill-tag">Java</span>
+                <span class="skill-tag">SQL Optimization</span>
+                <span class="skill-tag">Node.js</span>
+                <span class="skill-tag">Python</span>
+                <span class="skill-tag">Three.js</span>
+                <span class="skill-tag">API Design</span>
+            </div>
+        </section>
+
+        <section id="projects">
+            <h2>The Lab</h2>
+            <p style="margin-bottom: 10px; font-style: italic; opacity: 0.7; font-size: 0.9rem;">
+                Note: These projects represent side missions, AI experiments, and custom client sites. My professional enterprise work for Saudi Aramco, ESA, and THT is locked behind enterprise-level security.
+            </p>
+
+            <div class="filter-bar">
+                <input type="text" id="search" placeholder="Search by name or technology...">
+                <div class="tag-filters" id="tag-filters">
+                    <button class="tag-btn active" data-tag="all">All</button>
+                    <!-- Tags generated by JS -->
                 </div>
-                <div>
-                    <p>Beyond the corporate monoliths, I explore the agility of Next.js and the nuances of AI integration. My process is a continuous dialogue between the problem and the solution, ensuring every line of TypeScript serves a deliberate purpose.</p>
-                    <div class="skills-list">
-                        CORE CAPABILITIES: <span>JavaScript, TypeScript, C#, Python, React, Next.js, Node.js, .NET Core, SQL, MongoDB, AI Integration, RESTful Design, Technical Documentation.</span>
+                <div class="counter" id="counter">Showing 17 of 17 projects</div>
+            </div>
+
+            <div class="project-grid" id="project-list">
+                <!-- Projects from data -->
+                <article class="project-card" data-tech="Next.js Typescript TailwindCSS FrontEnd Server">
+                    <img src="https://cdn.sanity.io/images/pf6wp37f/production/54a81664cc61e85990647d4a292a38355e272475-1856x936.png" class="project-img" alt="Manage">
+                    <div class="project-content">
+                        <h3>Manage Landing Page</h3>
+                        <p>High-fidelity responsive landing page for a fictional management firm.</p>
+                        <div class="project-tech"><span>Next.js</span><span>TypeScript</span><span>TailwindCSS</span></div>
+                        <div class="project-links"><a href="https://manage-landing-page-seven-theta.vercel.app/">Live</a><a href="https://github.com/tsertic/manage_landing_page/tree/master">Code</a></div>
                     </div>
-                    <p style="margin-top: 20px; font-size: 0.9rem; color: var(--accent);">
-                        Shared life with Anja and Eevee (the mixed-breed shadow).
-                    </p>
-                </div>
-            </div>
-        </div>
-        <img src="assets/svg/divider-wave-soft.svg" style="width: 100%; position: absolute; bottom: 0; left: 0; opacity: 0.1;">
-    </section>
+                </article>
 
-    <section id="projects">
-        <div class="container">
-            <h2 class="section-title">Manifestations</h2>
-            <p style="margin-bottom: 40px; font-style: italic; color: var(--accent);">A curated collection of side-endeavors, experiments, and creative tools. (Enterprise solutions remain confidential).</p>
-            
-            <div class="filter-bar" id="filter-container">
-                <input type="text" id="search-input" placeholder="Search the archive...">
-                <button class="filter-tag active" onclick="filterProjects('all', this)">All</button>
-                <!-- Dynamic tags will be injected here -->
-                <span class="counter" id="project-counter">Showing 0 of 0</span>
-            </div>
+                <article class="project-card" data-tech="Node.js AI - Ollama AI - ChatGpt AI Script">
+                    <img src="https://cdn.sanity.io/images/pf6wp37f/production/32f2e0268a9fe542d8047c8531c289762ab4dc01-1712x896.png" class="project-img" alt="Haiku AI">
+                    <div class="project-content">
+                        <h3>Haiku AI Streamer</h3>
+                        <p>Real-time AI poem generator using OpenAI and local Ollama models.</p>
+                        <div class="project-tech"><span>Node.js</span><span>AI</span><span>Ollama</span></div>
+                        <div class="project-links"><a href="https://github.com/tsertic/haiku-ai-streamer-script">Repository</a></div>
+                    </div>
+                </article>
 
-            <div class="projects-grid" id="projects-container">
-                <!-- Project cards injected via JS -->
-            </div>
-        </div>
-    </section>
+                <article class="project-card" data-tech="Typescript TailwindCSS Three.js Next.js FrontEnd">
+                    <img src="https://cdn.sanity.io/images/pf6wp37f/production/9c3a623fc9e77bab5c2b31ebb307e059916d3835-1000x536.png" class="project-img" alt="Pinky Delights">
+                    <div class="project-content">
+                        <h3>Pinky Delights Bakery</h3>
+                        <p>Interactive 3D experience featuring real-time donut manipulation with Three.js.</p>
+                        <div class="project-tech"><span>Three.js</span><span>Next.js 15</span><span>Tailwind v4</span></div>
+                        <div class="project-links"><a href="https://github.com/tsertic/pinky-delights-bakery">Code</a></div>
+                    </div>
+                </article>
 
-    <section class="regen-banner">
-        <div class="container">
-            <div class="regen-content">
-                <span class="regen-date">2026-10-14</span>
-                <h2>EVERY DAY, THE ARCHITECTURE REBORN.</h2>
-                <p>This portfolio is a living organism. Each sunrise triggers a complete AI redesign—restructuring logic, aesthetics, and tone to reflect the ephemeral nature of digital existence.</p>
-                <a href="history/" class="btn" style="border-color: var(--bg); color: var(--bg);">The Archive of Past Selves →</a>
-            </div>
-        </div>
-    </section>
+                <article class="project-card" data-tech="Typescript Next.js Sanity TailwindCSS FullStack Designed">
+                    <img src="https://cdn.sanity.io/images/pf6wp37f/production/dd745de3166bd404a304ced44431b3807438e951-1200x603.png" class="project-img" alt="The Vixa">
+                    <div class="project-content">
+                        <h3>The Vixa Platform</h3>
+                        <p>A high-performance vacation rental platform built for scalability and SEO.</p>
+                        <div class="project-tech"><span>Next.js</span><span>Sanity</span><span>Typescript</span></div>
+                        <div class="project-links"><a href="https://www.the-vixa.com/hr">Live</a><a href="https://github.com/tsertic/TheViksaWebsite">Code</a></div>
+                    </div>
+                </article>
 
-    <section id="contact">
-        <div class="container">
-            <div class="contact-content">
-                <h2 class="contact-title">Shall we begin?</h2>
-                <p class="philosophy">Dialogue is the precursor to creation. Reach out if you wish to build something of substance.</p>
-                <div class="btn-group" style="justify-content: center; margin-top: 40px;">
-                    <a href="mailto:tsertic5@gmail.com" class="btn">tsertic5@gmail.com</a>
-                    <a href="https://linkedin.com/in/tomislav-sertic" class="btn">LinkedIn</a>
-                    <a href="https://instagram.com/tsertic5" class="btn">Instagram</a>
-                </div>
+                <article class="project-card" data-tech="Express.js React AI Node.js Typescript FullStack Server AI REST API">
+                    <img src="https://cdn.sanity.io/images/pf6wp37f/production/cc01144c22251187e40bc42bb3408413a6c8c141-1200x645.png" class="project-img" alt="AI Debate">
+                    <div class="project-content">
+                        <h3>Pokémon AI Debate</h3>
+                        <p>Orchestrating GPT-4 and Claude in a battle of wits about Pokémon superiority.</p>
+                        <div class="project-tech"><span>React</span><span>Express</span><span>AI Orchestration</span></div>
+                        <div class="project-links"><a href="https://github.com/tsertic/pokemon-ai-debate">Code</a></div>
+                    </div>
+                </article>
+
+                <article class="project-card" data-tech="Python AI Gradio Script Application">
+                    <img src="https://cdn.sanity.io/images/pf6wp37f/production/4199641036ba4f5166cd6594b898ada6facaff31-1200x706.png" class="project-img" alt="Pokepal AI">
+                    <div class="project-content">
+                        <h3>PokéPal AI</h3>
+                        <p>Advanced chatbot with dynamic statistical visualization using Matplotlib.</p>
+                        <div class="project-tech"><span>Python</span><span>OpenAI</span><span>Gradio</span></div>
+                        <div class="project-links"><a href="https://github.com/tsertic/pokeapi-gradio-ai-chatbot">Code</a></div>
+                    </div>
+                </article>
+
+                <article class="project-card" data-tech="Next.js Sanity SCSS FullStack">
+                    <img src="https://cdn.sanity.io/images/pf6wp37f/production/22d037550976b8e15b051b183b2af6206f648030-600x377.png" class="project-img" alt="Plesni Studio Ventus">
+                    <div class="project-content">
+                        <h3>Plesni Studio Ventus</h3>
+                        <p>Full-stack portal for a Zagreb dance studio with dynamic class scheduling.</p>
+                        <div class="project-tech"><span>Next.js</span><span>Sanity</span><span>SCSS</span></div>
+                        <div class="project-links"><a href="https://www.plesni-studio-ventus.hr/">Live</a></div>
+                    </div>
+                </article>
+                
+                <article class="project-card" data-tech="Typescript SCSS Next.js Sanity FullStack">
+                    <img src="https://cdn.sanity.io/images/pf6wp37f/production/41259c66ca9f3472f31d65dfa58beedcdc4fd977-600x301.png" class="project-img" alt="Arctis">
+                    <div class="project-content">
+                        <h3>Arctis Corporate</h3>
+                        <p>Professional identity and CMS-driven site for an enterprise software firm.</p>
+                        <div class="project-tech"><span>Next.js</span><span>TypeScript</span><span>Sanity</span></div>
+                        <div class="project-links"><a href="https://www.arctis.hr/">Live</a></div>
+                    </div>
+                </article>
             </div>
-        </div>
-    </section>
+        </section>
+
+        <section class="daily-ai">
+            <h2>AI Redesign Pulse</h2>
+            <p style="font-size: 1.1rem; margin-bottom: 20px;">
+                Every 24 hours, an AI architect wakes up and rebuilds this entire portfolio from zero. Same facts, different soul.
+            </p>
+            <p style="font-weight: 900; letter-spacing: 2px;">GEN-DATE: 2026-10-20</p>
+            <div style="margin-top: 25px;">
+                <a href="history/">BROWSE THE DESIGN ARCHIVE →</a>
+            </div>
+        </section>
+
+        <section id="contact" class="map-section">
+            <div class="marker">TS</div>
+            <h2>Currently In</h2>
+            <p style="font-size: 1.5rem; font-weight: 900;">Zagreb, Croatia</p>
+            <p>Available for complex technical challenges and bold collaborations.</p>
+            <div class="cta-wrap" style="justify-content: center;">
+                <a href="mailto:tsertic5@gmail.com" class="fab" style="box-shadow: 4px 4px 0 var(--emerald);">Drop a message</a>
+            </div>
+        </section>
+
+    </div>
 
     <footer>
-        <div class="container">
-            <p>&copy; 2026 Tomislav Sertic. Curated with deliberate intent. ♟️</p>
-            <p style="font-size: 0.8rem; margin-top: 10px; opacity: 0.5;">No pixels were harmed in this daily regeneration.</p>
-        </div>
+        TOMISLAV SERTIC / FULL-STACK DEVELOPER / ARCHIBUS EXPERT / AI EXPLORER / ZAGREB 2026
+        <div class="copy">Hand-coded in React/Next.js. Daily design by AI.</div>
     </footer>
 
     <script>
-        const projectData = {
-  "projects": [
-    {
-      "name": "Manage Landing Page",
-      "description": "A study in responsive flow and corporate minimalism.",
-      "image": "https://cdn.sanity.io/images/pf6wp37f/production/54a81664cc61e85990647d4a292a38355e272475-1856x936.png",
-      "tech": ["Next.js", "Typescript", "TailwindCSS"],
-      "live": "https://manage-landing-page-seven-theta.vercel.app/",
-      "repo": "https://github.com/tsertic/manage_landing_page/tree/master"
-    },
-    {
-      "name": "Hrvatska Esport Inicijativa",
-      "description": "Digital home for the Croatian esports community.",
-      "image": "https://cdn.sanity.io/images/pf6wp37f/production/d7d8411c9ca5605e91516d8ca6da37f1a5a35d92-600x302.png",
-      "tech": ["Next.js", "SCSS", "Sanity", "Javascript"],
-      "live": "https://www.esportinicijativa.hr/",
-      "repo": "https://github.com/tsertic/hei_v2"
-    },
-    {
-      "name": "Pinky Delights Bakery",
-      "description": "Interactive 3D experience exploring the geometry of confections.",
-      "image": "https://cdn.sanity.io/images/pf6wp37f/production/9c3a623fc9e77bab5c2b31ebb307e059916d3835-1000x536.png",
-      "tech": ["Typescript", "TailwindCSS", "Three.js", "Next.js"],
-      "repo": "https://github.com/tsertic/pinky-delights-bakery"
-    },
-    {
-      "name": "Where in the World?",
-      "description": "An analytical interface for global country data.",
-      "image": "https://cdn.sanity.io/images/pf6wp37f/production/a40662bb7d8a672a19db9c1c7669a395941abc84-600x301.png",
-      "tech": ["Typescript", "Redux", "Next.js", "TailwindCSS"],
-      "live": "https://where-in-the-world-drab.vercel.app/",
-      "repo": "https://github.com/tsertic/where_in_the_world"
-    },
-    {
-      "name": "Haiku AI Streamer",
-      "description": "Automated poetry generation through LLM orchestration.",
-      "image": "https://cdn.sanity.io/images/pf6wp37f/production/32f2e0268a9fe542d8047c8531c289762ab4dc01-1712x896.png",
-      "tech": ["Node.js", "AI", "Python"],
-      "repo": "https://github.com/tsertic/haiku-ai-streamer-script"
-    },
-    {
-      "name": "The Vixa",
-      "description": "Modern rental platform balancing aesthetics and utility.",
-      "image": "https://cdn.sanity.io/images/pf6wp37f/production/dd745de3166bd404a304ced44431b3807438e951-1200x603.png",
-      "tech": ["Typescript", "TailwindCSS", "Next.js", "Sanity"],
-      "live": "https://www.the-vixa.com/hr",
-      "repo": "https://github.com/tsertic/TheViksaWebsite"
-    },
-    {
-        "name": "PokéPal AI",
-        "description": "Advanced conversational assistant with stat visualization.",
-        "image": "https://cdn.sanity.io/images/pf6wp37f/production/4199641036ba4f5166cd6594b898ada6facaff31-1200x706.png",
-        "tech": ["Python", "AI", "Gradio"],
-        "repo": "https://github.com/tsertic/pokeapi-gradio-ai-chatbot"
-    },
-    {
-        "name": "LLaVA Image Analyzer",
-        "description": "AI-powered vision analysis using local LLaVA models.",
-        "image": "https://cdn.sanity.io/images/pf6wp37f/production/23234234d818f39a265c9a56d425f4aa569c1c1b-1344x832.png",
-        "tech": ["React", "Typescript", "AI"],
-        "repo": "https://github.com/tsertic/llava-image-analyzer-react"
-    }
-  ]
-};
+        // Project Filtering
+        const searchInput = document.getElementById('search');
+        const tagContainer = document.getElementById('tag-filters');
+        const projectCards = document.querySelectorAll('.project-card');
+        const counter = document.getElementById('counter');
+        let activeTag = 'all';
 
-        const projectsContainer = document.getElementById('projects-container');
-        const filterContainer = document.getElementById('filter-container');
-        const searchInput = document.getElementById('search-input');
-        const counter = document.getElementById('project-counter');
-        const cursor = document.getElementById('cursor');
+        // Extract tags
+        const allTags = new Set();
+        projectCards.forEach(card => {
+            card.getAttribute('data-tech').split(' ').forEach(tag => { if(tag) allTags.add(tag); });
+        });
 
-        // Render Cards
-        function renderProjects(filter = 'all', search = '') {
-            projectsContainer.innerHTML = '';
-            let filtered = projectData.projects.filter(p => {
-                const matchesSearch = p.name.toLowerCase().includes(search.toLowerCase()) || 
-                                     p.tech.some(t => t.toLowerCase().includes(search.toLowerCase()));
-                const matchesTag = filter === 'all' || p.tech.includes(filter);
-                return matchesSearch && matchesTag;
-            });
-
-            filtered.forEach(p => {
-                const card = document.createElement('div');
-                card.className = 'project-card';
-                card.innerHTML = `
-                    <img src="${p.image}" alt="${p.name}" class="card-img" loading="lazy">
-                    <div class="card-content">
-                        <h3>${p.name}</h3>
-                        <p>${p.description}</p>
-                        <span class="project-tech">${p.tech.join(', ')}</span>
-                        <div class="project-links">
-                            ${p.live ? `<a href="${p.live}" target="_blank">Live View</a>` : ''}
-                            <a href="${p.repo}" target="_blank">Repository</a>
-                        </div>
-                    </div>
-                `;
-                projectsContainer.appendChild(card);
-            });
-            counter.innerText = `Showing ${filtered.length} of ${projectData.projects.length}`;
-        }
-
-        // Initialize Filter Tags
-        const allTech = [...new Set(projectData.projects.flatMap(p => p.tech))];
-        allTech.forEach(tech => {
+        allTags.forEach(tag => {
             const btn = document.createElement('button');
-            btn.className = 'filter-tag';
-            btn.innerText = tech;
-            btn.onclick = (e) => filterProjects(tech, e.target);
-            filterContainer.insertBefore(btn, counter);
+            btn.className = 'tag-btn';
+            btn.textContent = tag;
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.tag-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                activeTag = tag;
+                filterProjects();
+            });
+            tagContainer.appendChild(btn);
         });
 
-        function filterProjects(tag, btn) {
-            document.querySelectorAll('.filter-tag').forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-            renderProjects(tag, searchInput.value);
+        function filterProjects() {
+            const query = searchInput.value.toLowerCase();
+            let visibleCount = 0;
+            projectCards.forEach(card => {
+                const text = card.innerText.toLowerCase();
+                const tech = card.getAttribute('data-tech');
+                const matchesSearch = text.includes(query);
+                const matchesTag = activeTag === 'all' || tech.includes(activeTag);
+                
+                if (matchesSearch && matchesTag) {
+                    card.style.display = 'flex';
+                    visibleCount++;
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+            counter.textContent = `Showing ${visibleCount} of ${projectCards.length} projects`;
         }
 
-        searchInput.oninput = () => {
-            const activeTag = document.querySelector('.filter-tag.active').innerText;
-            renderProjects(activeTag === 'ALL' ? 'all' : activeTag, searchInput.value);
-        };
-
-        // Custom Cursor
-        document.addEventListener('mousemove', e => {
-            cursor.style.left = e.clientX + 'px';
-            cursor.style.top = e.clientY + 'px';
+        searchInput.addEventListener('input', filterProjects);
+        document.querySelector('.tag-btn').addEventListener('click', (e) => {
+            document.querySelectorAll('.tag-btn').forEach(b => b.classList.remove('active'));
+            e.target.classList.add('active');
+            activeTag = 'all';
+            filterProjects();
         });
 
-        document.querySelectorAll('a, button').forEach(el => {
-            el.onmouseenter = () => cursor.style.transform = 'translate(-50%, -50%) scale(2.5)';
-            el.onmouseleave = () => cursor.style.transform = 'translate(-50%, -50%) scale(1)';
+        // Decorative Drift
+        const drifters = document.querySelectorAll('.drift');
+        window.addEventListener('scroll', () => {
+            const y = window.scrollY;
+            drifters.forEach((el, i) => {
+                const speed = (i + 1) * 0.1;
+                el.style.transform = `translateY(${y * speed}px) rotate(${y * 0.02}deg)`;
+            });
         });
-
-        // Background Drift
-        let lastScroll = 0;
-        function animate() {
-            const scroll = window.pageYOffset;
-            const drift = scroll * 0.05;
-            document.getElementById('shape1').style.transform = `rotate(${drift}deg) translateY(${drift}px)`;
-            document.getElementById('shape2').style.transform = `rotate(-${drift}deg) translateX(${drift}px)`;
-            requestAnimationFrame(animate);
-        }
-        animate();
-
-        // Initial Load
-        renderProjects();
     </script>
 </body>
 </html>
