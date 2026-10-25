@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tomislav Sertic | Software Developer Portfolio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=Montserrat:wght@300;400;600&family=Caveat:wght@500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --gold: #D4AF37;
+            --black: #080808;
+            --dark-green: #0a120b;
+            --text: #e0e0e0;
+            --accent: #b5932d;
+            --font-main: 'Montserrat', sans-serif;
+            --font-heading: 'Syne', sans-serif;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; cursor: none; }
+        body { 
+            background-color: var(--black); 
+            color: var(--text); 
+            font-family: var(--font-main); 
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Custom Cursor */
+        #cursor {
+            width: 20px; height: 20px;
+            border: 1px solid var(--gold);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            transition: transform 0.1s ease;
+        }
+
+        /* Background Decorations */
+        .bg-decor {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -1; pointer-events: none; opacity: 0.08;
+        }
+
+        /* Side Navigation */
+        .side-nav {
+            position: fixed; right: 30px; top: 50%; transform: translateY(-50%);
+            display: flex; flex-direction: column; gap: 20px; z-index: 100;
+        }
+        .nav-dot {
+            width: 10px; height: 10px; border: 1px solid var(--gold);
+            border-radius: 50%; transition: 0.3s;
+        }
+        .nav-dot.active { background: var(--gold); transform: scale(1.5); }
+
+        /* Centered Column Layout */
+        .container { max-width: 900px; margin: 0 auto; padding: 0 20px; }
+
+        /* Hero Section */
+        .hero {
+            height: 50vh;
+            display: flex; align-items: center; justify-content: center;
+            background-color: var(--black);
+            position: relative; overflow: hidden;
+            text-align: center;
+        }
+        .hero-title {
+            font-family: var(--font-heading);
+            font-size: clamp(4rem, 12vw, 10rem);
+            font-weight: 800;
+            line-height: 0.8;
+            color: var(--gold);
+            text-transform: uppercase;
+            letter-spacing: -2px;
+            z-index: 2;
+        }
+        .hero-portrait {
+            position: absolute; bottom: 0; right: 10%;
+            width: 300px; height: auto; opacity: 0.6; filter: grayscale(1) sepia(0.5) contrast(1.2);
+            z-index: 1; mask-image: linear-gradient(to top, transparent, black);
+        }
+
+        /* Handwritten Note */
+        .regen-note {
+            background: #fff9c4;
+            color: #222;
+            padding: 20px;
+            font-family: 'Caveat', cursive;
+            font-size: 1.4rem;
+            transform: rotate(-2deg);
+            max-width: 350px;
+            margin: -40px auto 40px;
+            box-shadow: 5px 5px 15px rgba(0,0,0,0.3);
+            position: relative;
+            z-index: 10;
+        }
+        .regen-note a { color: #d32f2f; text-decoration: underline; font-weight: bold; }
+
+        /* Section Styling */
+        section { padding: 100px 0; position: relative; }
+        h2 { 
+            font-family: var(--font-heading); 
+            font-size: 3rem; margin-bottom: 40px; 
+            color: var(--gold); text-transform: uppercase;
+        }
+
+        /* Zigzag Divider */
+        .zigzag {
+            width: 100%; height: 50px;
+            background-image: url("assets/svg/divider-zigzag.svg");
+            background-repeat: repeat-x;
+            background-size: 100px;
+            filter: invert(72%) sepia(54%) saturate(417%) hue-rotate(5deg) brightness(91%) contrast(89%);
+        }
+
+        /* About & Skills */
+        .about-text { font-size: 1.1rem; color: #bbb; margin-bottom: 40px; text-align: center; max-width: 700px; margin-left: auto; margin-right: auto; }
+        .tag-cloud {
+            display: flex; flex-wrap: wrap; justify-content: center;
+            gap: 15px; margin-top: 30px;
+        }
+        .tag-item {
+            padding: 5px 15px;
+            background: rgba(212, 175, 55, 0.05);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            color: var(--gold);
+            font-weight: 600;
+            transition: 0.3s;
+        }
+        .tag-item:hover { background: var(--gold); color: var(--black); transform: translateY(-3px); }
+
+        /* Project Filters */
+        .filter-bar {
+            margin-bottom: 50px; text-align: center;
+        }
+        .search-input {
+            width: 100%; max-width: 400px;
+            background: none; border: none; border-bottom: 2px solid var(--gold);
+            color: #fff; padding: 10px; font-size: 1.1rem; margin-bottom: 20px;
+            outline: none;
+        }
+        .filter-tags { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-bottom: 20px; }
+        .filter-btn {
+            background: none; border: 1px solid #333; color: #888;
+            padding: 5px 15px; border-radius: 20px; transition: 0.3s;
+        }
+        .filter-btn.active { border-color: var(--gold); color: var(--gold); }
+
+        /* Project Blocks (Minimal Style) */
+        .project-block {
+            margin-bottom: 120px;
+            opacity: 1; transition: transform 0.6s ease, opacity 0.6s ease;
+        }
+        .project-image {
+            width: 100%; height: 450px;
+            object-fit: cover;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            filter: grayscale(0.4);
+            transition: 0.5s;
+        }
+        .project-block:hover .project-image { filter: grayscale(0); transform: scale(1.02); }
+        .project-info h3 { font-family: var(--font-heading); font-size: 2rem; color: var(--gold); margin-bottom: 10px; }
+        .project-desc { color: #aaa; margin-bottom: 15px; }
+        .project-tech { font-size: 0.8rem; letter-spacing: 1px; color: var(--accent); text-transform: uppercase; margin-bottom: 15px; }
+        .project-links a {
+            color: var(--text); text-decoration: none; font-weight: bold; margin-right: 20px;
+            padding-bottom: 2px; border-bottom: 1px solid var(--gold); transition: 0.3s;
+        }
+        .project-links a:hover { color: var(--gold); }
+
+        .hobby-disclaimer {
+            text-align: center; font-style: italic; font-size: 0.9rem; color: #666; margin-bottom: 40px;
+        }
+
+        /* Buttons */
+        .btn-ghost {
+            display: inline-block; padding: 12px 30px; border: 1px solid var(--gold);
+            color: var(--gold); text-decoration: none; text-transform: uppercase;
+            font-weight: 600; letter-spacing: 2px; transition: 0.3s;
+            background: transparent;
+        }
+        .btn-ghost:hover { background: var(--gold); color: var(--black); }
+
+        /* Footer */
+        footer {
+            padding: 60px 0; border-top: 1px solid #222; text-align: center;
+        }
+        .social-links { display: flex; justify-content: center; gap: 30px; margin-bottom: 20px; }
+        .social-links a { color: #888; text-decoration: none; transition: 0.3s; }
+        .social-links a:hover { color: var(--gold); }
+
+        @media (max-width: 768px) {
+            .hero-title { font-size: 15vw; }
+            .project-image { height: 250px; }
+            .side-nav { display: none; }
+        }
+    </style>
+<style id="safety-override">
+*[class*="fade"],*[class*="anim"],*[class*="hidden"],*[class*="reveal"],*[class*="slide"] {
+  opacity: 1 !important; transform: none !important;
+  visibility: visible !important; animation: none !important;
+}
+</style>
+</head>
+<body>
+
+    <div id="cursor"></div>
+
+    <!-- Background Elements -->
+    <img src="../assets/svg/topography-contour-lines.svg" class="bg-decor" id="decor-1" style="top: 10%; left: -5%; width: 600px;">
+    <img src="../assets/svg/circuit-board-lines.svg" class="bg-decor" id="decor-2" style="bottom: 10%; right: -5%; width: 500px;">
+    <img src="../assets/svg/triangle-geometric-mountain.svg" class="bg-decor" id="decor-3" style="top: 40%; left: 30%; width: 300px; opacity: 0.04;">
+
+    <nav class="side-nav">
+        <a href="#hero" class="nav-dot active" title="Top"></a>
+        <a href="#about" class="nav-dot" title="Profile"></a>
+        <a href="#works" class="nav-dot" title="Works"></a>
+        <a href="#contact" class="nav-dot" title="Contact"></a>
+    </nav>
+
+    <section id="hero" class="hero">
+        <img src="../assets/images/portrait.webp" alt="Tomislav Sertic" class="hero-portrait" onerror="this.style.display='none'">
+        <div class="container">
+            <h1 class="hero-title">TOMISLAV<br>SERTIC</h1>
+            <p style="letter-spacing: 4px; margin-top: 20px; font-weight: 600; color: #888;">FULL-STACK ENGINEER & SOLUTIONS ARCHITECT</p>
+            <div style="margin-top: 30px;">
+                <a href="#works" class="btn-ghost">View Portfolio</a>
+            </div>
+        </div>
+    </section>
+
+    <div class="zigzag"></div>
+
+    <section id="about">
+        <div class="container">
+            <div class="regen-note">
+                <strong>Architectural Note:</strong> 
+                This interface is a unique iteration. Every 24 hours, AI redesigns my digital presence from the ground up. Today's synthesis: 2026-10-25.
+                <br><br>
+                <a href="history/">Browse the design archive →</a>
+            </div>
+
+            <div class="about-text">
+                <p>Based in Zagreb, Croatia, I serve as a Senior Software Developer at Arctis d.o.o., where I architect robust enterprise solutions for international titans including <strong>Saudi Aramco</strong> and the <strong>European Space Agency</strong>.</p>
+                <br>
+                <p>My professional practice revolves around the Archibus IWMS platform—bridging the gap between legacy Java backends and modern React interfaces. I specialize in complex SQL optimization, technical system documentation, and full-lifecycle deployment. Outside the enterprise realm, I craft high-performance web experiences and experiment with AI integration.</p>
+                <br>
+                <p style="font-size: 0.9rem; opacity: 0.7;">On a personal note, I'm the proud father of Anja and companion to Eevee, my mixed-breed dog.</p>
+            </div>
+
+            <div class="tag-cloud">
+                <span class="tag-item" style="font-size: 1.5rem;">JavaScript</span>
+                <span class="tag-item" style="font-size: 1.2rem;">TypeScript</span>
+                <span class="tag-item" style="font-size: 1.6rem;">React</span>
+                <span class="tag-item" style="font-size: 1.4rem;">Next.js</span>
+                <span class="tag-item" style="font-size: 1.1rem;">C#</span>
+                <span class="tag-item" style="font-size: 1.3rem;">Python</span>
+                <span class="tag-item" style="font-size: 1.5rem;">Node.js</span>
+                <span class="tag-item" style="font-size: 1.2rem;">SQL</span>
+                <span class="tag-item" style="font-size: 1.4rem;">Tailwind CSS</span>
+                <span class="tag-item" style="font-size: 1.1rem;">REST API</span>
+                <span class="tag-item" style="font-size: 1.3rem;">AI Integration</span>
+                <span class="tag-item" style="font-size: 1.0rem;">Figma</span>
+            </div>
+        </div>
+    </section>
+
+    <section id="works">
+        <div class="container">
+            <h2>Curated Works</h2>
+            <p class="hobby-disclaimer">Note: The following projects represent independent side-work, personal experiments, and client commissions. My primary professional enterprise work remains confidential.</p>
+            
+            <div class="filter-bar">
+                <input type="text" id="project-search" class="search-input" placeholder="Search by name or technology...">
+                <div class="filter-tags" id="tag-filters">
+                    <button class="filter-btn active" data-filter="all">All Systems</button>
+                    <!-- Tags will be injected here -->
+                </div>
+                <p id="project-count" style="font-size: 0.8rem; color: #666;">Showing all projects</p>
+            </div>
+
+            <div id="project-grid">
+                <!-- Projects injected by JS -->
+            </div>
+        </div>
+    </section>
+
+    <section id="contact">
+        <div class="container" style="text-align: center;">
+            <h2>Let's Collaborate</h2>
+            <p style="margin-bottom: 40px; color: #888;">Available for strategic consultation and bespoke development projects.</p>
+            <a href="mailto:tsertic5@gmail.com" class="btn-ghost">Direct Transmission</a>
+            
+            <div class="social-links" style="margin-top: 60px;">
+                <a href="https://github.com/tsertic">GitHub</a>
+                <a href="https://linkedin.com/in/tomislav-sertic">LinkedIn</a>
+                <a href="https://instagram.com/tsertic5">Instagram</a>
+                <a href="https://www.tsertic.dev">Website</a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>© 2026 Tomislav Sertic. Generated with organic digital matter. 🌿</p>
+            <p style="font-size: 0.8rem; color: #444; margin-top: 10px;">Easter Egg: Try resizing your browser to see the shadows dance.</p>
+        </div>
+    </footer>
+
+    <script>
+        const projectData = [
+            { name: "Manage Landing Page", desc: "Premium responsive landing interface for corporate management systems.", tech: ["Next.js", "Typescript", "TailwindCSS"], img: "https://cdn.sanity.io/images/pf6wp37f/production/54a81664cc61e85990647d4a292a38355e272475-1856x936.png", link: "https://manage-landing-page-seven-theta.vercel.app/", github: "https://github.com/tsertic/manage_landing_page/tree/master" },
+            { name: "Hrvatska Esport Inicijativa", desc: "Full-stack portal for the national esports association. Built with a modular SCSS architecture.", tech: ["Next.js", "SCSS", "Sanity", "Javascript"], img: "https://cdn.sanity.io/images/pf6wp37f/production/d7d8411c9ca5605e91516d8ca6da37f1a5a35d92-600x302.png", link: "https://www.esportinicijativa.hr/", github: "https://github.com/tsertic/hei_v2" },
+            { name: "The Vixa Website", desc: "A sophisticated platform for premium vacation rental management.", tech: ["Typescript", "TailwindCSS", "Next.js", "Sanity"], img: "https://cdn.sanity.io/images/pf6wp37f/production/dd745de3166bd404a304ced44431b3807438e951-1200x603.png", link: "https://www.the-vixa.com/hr", github: "https://github.com/tsertic/TheViksaWebsite" },
+            { name: "Pinky Delights Bakery", desc: "Immersive 3D web experience utilizing Three.js for interactive product visualization.", tech: ["Typescript", "TailwindCSS", "Three.js", "Next.js"], img: "https://cdn.sanity.io/images/pf6wp37f/production/9c3a623fc9e77bab5c2b31ebb307e059916d3835-1000x536.png", link: null, github: "https://github.com/tsertic/pinky-delights-bakery" },
+            { name: "Haiku AI Streamer", desc: "Autonomous Node.js application generating poetic structure via OpenAI and Ollama models.", tech: ["Node.js", "AI - Ollama", "AI - ChatGpt"], img: "https://cdn.sanity.io/images/pf6wp37f/production/32f2e0268a9fe542d8047c8531c289762ab4dc01-1712x896.png", link: null, github: "https://github.com/tsertic/haiku-ai-streamer-script" },
+            { name: "Pokémon AI Debate", desc: "Multi-agent system where GPT-4o and Claude engage in competitive logical reasoning.", tech: ["Express.js", "React", "AI", "Node.js", "Typescript"], img: "https://cdn.sanity.io/images/pf6wp37f/production/cc01144c22251187e40bc42bb3408413a6c8c141-1200x645.png", link: null, github: "https://github.com/tsertic/pokemon-ai-debate" },
+            { name: "Arctis d.o.o.", desc: "The official corporate identity and digital hub for Arctis Ltd.", tech: ["Typescript", "SCSS", "Next.js", "Sanity"], img: "https://cdn.sanity.io/images/pf6wp37f/production/41259c66ca9f3472f31d65dfa58beedcdc4fd977-600x301.png", link: "https://www.arctis.hr/", github: "https://github.com/ArctisZagreb/arctis_webpage_nextjs" }
+        ];
+
+        // Render Projects
+        const grid = document.getElementById('project-grid');
+        const search = document.getElementById('project-search');
+        const tagBox = document.getElementById('tag-filters');
+        const countDisplay = document.getElementById('project-count');
+
+        function renderProjects(filterTag = 'all', searchTerm = '') {
+            grid.innerHTML = '';
+            let filtered = projectData.filter(p => {
+                const matchesTag = filterTag === 'all' || p.tech.includes(filterTag);
+                const matchesSearch = p.name.toLowerCase().includes(searchTerm.toLowerCase()) || 
+                                     p.tech.some(t => t.toLowerCase().includes(searchTerm.toLowerCase()));
+                return matchesTag && matchesSearch;
+            });
+
+            filtered.forEach(p => {
+                const el = document.createElement('div');
+                el.className = 'project-block';
+                el.innerHTML = `
+                    <img src="${p.img}" class="project-image" alt="${p.name}">
+                    <div class="project-info">
+                        <p class="project-tech">${p.tech.join(' // ')}</p>
+                        <h3>${p.name}</h3>
+                        <p class="project-desc">${p.desc}</p>
+                        <div class="project-links">
+                            ${p.link ? `<a href="${p.link}" target="_blank">Live View</a>` : ''}
+                            <a href="${p.github}" target="_blank">Source Code</a>
+                        </div>
+                    </div>
+                `;
+                grid.appendChild(el);
+            });
+            countDisplay.innerText = `Showing ${filtered.length} of ${projectData.length} projects`;
+        }
+
+        // Initialize Tags
+        const allTech = [...new Set(projectData.flatMap(p => p.tech))];
+        allTech.forEach(t => {
+            const btn = document.createElement('button');
+            btn.className = 'filter-btn';
+            btn.innerText = t;
+            btn.dataset.filter = t;
+            btn.onclick = () => {
+                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                renderProjects(t, search.value);
+            };
+            tagBox.appendChild(btn);
+        });
+
+        search.oninput = (e) => {
+            const activeTag = document.querySelector('.filter-btn.active').dataset.filter;
+            renderProjects(activeTag, e.target.value);
+        };
+
+        document.querySelector('[data-filter="all"]').onclick = (e) => {
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            e.target.classList.add('active');
+            renderProjects('all', search.value);
+        };
+
+        // Custom Cursor
+        const cursor = document.getElementById('cursor');
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+        });
+
+        // Background Scroll Animation
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            document.getElementById('decor-1').style.transform = `translateY(${scrolled * 0.1}px) rotate(${scrolled * 0.02}deg)`;
+            document.getElementById('decor-2').style.transform = `translateY(${scrolled * -0.15}px) rotate(${scrolled * -0.01}deg)`;
+            
+            // Side Nav highlight
+            const sections = ['hero', 'about', 'works', 'contact'];
+            sections.forEach((id, i) => {
+                const el = document.getElementById(id);
+                const rect = el.getBoundingClientRect();
+                if (rect.top <= 200 && rect.bottom >= 200) {
+                    document.querySelectorAll('.nav-dot').forEach(dot => dot.classList.remove('active'));
+                    document.querySelectorAll('.nav-dot')[i].classList.add('active');
+                }
+            });
+        });
+
+        renderProjects();
+    </script>
+</body>
+</html>
