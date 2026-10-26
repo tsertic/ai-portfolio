@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tomislav Sertic // Digital Architect</title>
+    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #fdfdfd; --dark: #0a0a0a; --accent: #ff71ce; --cyan: #01cdfe; --purple: #b967ff;
+            --text: #222; --spacing: 12rem;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; cursor: none; }
+        body { font-family: 'EB Garamond', serif; background-color: var(--bg); color: var(--text); overflow-x: hidden; line-height: 1.4; }
+        
+        /* Cursor Effect */
+        #cursor { width: 20px; height: 20px; background: var(--accent); border-radius: 50%; position: fixed; pointer-events: none; z-index: 9999; mix-blend-mode: difference; transition: transform 0.1s; }
+
+        /* Hero */
+        .hero { height: 60vh; background: var(--dark); color: white; display: flex; align-items: center; position: relative; overflow: hidden; padding: 2rem; border-bottom: 5px solid var(--accent); }
+        .hero-split { display: grid; grid-template-columns: 1fr 1fr; width: 100%; align-items: center; gap: 2rem; max-width: 1800px; margin: 0 auto; }
+        .hero-portrait { width: 300px; height: 300px; object-fit: cover; clip-path: url(#blobPath); margin-left: auto; filter: grayscale(100%) contrast(1.2); transition: 0.5s; }
+        .hero-portrait:hover { filter: grayscale(0%); transform: scale(1.05) rotate(2deg); }
+        .hero-text h1 { font-size: 15vw; line-height: 0.8; letter-spacing: -0.05em; text-transform: uppercase; margin-left: -5vw; color: transparent; -webkit-text-stroke: 1px rgba(255,255,255,0.3); position: relative; z-index: 2; }
+        .hero-text h1 span { color: white; -webkit-text-stroke: 0; }
+        .hero-cta { position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%); display: flex; gap: 1rem; }
+        .fab { width: 60px; height: 60px; border-radius: 50%; background: var(--accent); display: flex; align-items: center; justify-content: center; color: white; text-decoration: none; box-shadow: 0 10px 20px rgba(0,0,0,0.3); transition: 0.3s; font-weight: bold; }
+        .fab:hover { transform: translateY(-10px) rotate(15deg); background: var(--cyan); color: var(--dark); }
+
+        /* Sections */
+        section { padding: var(--spacing) 5vw; position: relative; }
+        .section-tag { font-style: italic; opacity: 0.5; margin-bottom: 1rem; display: block; font-size: 1.2rem; }
+        
+        /* Ticker */
+        .ticker { background: var(--dark); color: white; padding: 1.5rem 0; transform: rotate(-1deg); width: 110%; margin-left: -5%; overflow: hidden; white-space: nowrap; border-top: 2px solid var(--cyan); border-bottom: 2px solid var(--purple); }
+        .ticker-wrap { display: inline-block; animation: ticker 40s linear infinite; }
+        .ticker-item { display: inline-block; padding: 0 2rem; font-size: 2rem; font-weight: bold; text-transform: uppercase; letter-spacing: 2px; }
+        @keyframes ticker { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+
+        /* Bio */
+        .about-content { max-width: 900px; font-size: 2.5rem; letter-spacing: -0.02em; }
+        .about-content em { color: var(--purple); font-style: normal; text-decoration: underline; }
+
+        /* Projects Filter */
+        .filter-ui { margin-bottom: 4rem; display: flex; flex-wrap: wrap; gap: 1rem; align-items: center; }
+        .search-input { padding: 1rem 2rem; border: 2px solid var(--dark); border-radius: 0; font-family: inherit; font-size: 1.2rem; background: transparent; width: 300px; }
+        .tag-pill { padding: 0.5rem 1.5rem; border: 1px solid #ddd; background: white; cursor: pointer; border-radius: 50px; transition: 0.2s; }
+        .tag-pill.active { background: var(--dark); color: white; border-color: var(--dark); }
+
+        /* Terminal Cards */
+        .project-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(400px, 1fr)); gap: 3rem; }
+        .terminal-card { background: white; border: 2px solid var(--dark); border-radius: 12px; overflow: hidden; box-shadow: 15px 15px 0 var(--cyan); transition: 0.3s; display: flex; flex-direction: column; }
+        .terminal-card:hover { transform: translate(-5px, -5px); box-shadow: 20px 20px 0 var(--accent); }
+        .terminal-header { background: #eee; padding: 10px 15px; border-bottom: 2px solid var(--dark); display: flex; gap: 6px; }
+        .dot { width: 12px; height: 12px; border-radius: 50%; border: 1px solid rgba(0,0,0,0.2); }
+        .project-img { width: 100%; height: 220px; object-fit: cover; border-bottom: 2px solid var(--dark); }
+        .project-body { padding: 2rem; flex-grow: 1; display: flex; flex-direction: column; }
+        .project-title { font-size: 1.8rem; margin-bottom: 1rem; }
+        .project-desc { font-size: 1.1rem; opacity: 0.8; margin-bottom: 1.5rem; flex-grow: 1; }
+        .tech-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1.5rem; }
+        .tech-tag { font-size: 0.8rem; background: #f0f0f0; padding: 4px 10px; border-radius: 4px; border: 1px solid #ddd; }
+        .project-links { display: flex; gap: 1.5rem; }
+        .project-links a { color: var(--dark); font-weight: bold; text-decoration: none; border-bottom: 2px solid var(--accent); }
+
+        /* Daily Section */
+        .daily-banner { background: linear-gradient(90deg, var(--cyan), var(--purple)); padding: 6rem 5vw; color: white; text-align: center; }
+        .daily-banner h2 { font-size: 4rem; margin-bottom: 1rem; }
+        .archive-btn { display: inline-block; margin-top: 2rem; padding: 1rem 3rem; background: var(--dark); color: white; text-decoration: none; border-radius: 50px; font-weight: bold; transition: 0.3s; }
+        .archive-btn:hover { transform: scale(1.1); background: var(--accent); }
+
+        /* Contact */
+        .contact-cta { font-size: 6vw; font-weight: bold; letter-spacing: -0.05em; line-height: 1; margin-bottom: 4rem; }
+        .contact-links { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem; font-size: 1.5rem; }
+        .contact-links a { color: var(--dark); text-decoration: none; border-bottom: 1px solid #ccc; padding-bottom: 0.5rem; width: max-content; }
+        .contact-links a:hover { border-color: var(--accent); color: var(--accent); }
+
+        /* Navigation */
+        nav { position: fixed; bottom: 0; left: 0; width: 100%; background: rgba(255,255,255,0.8); backdrop-filter: blur(10px); border-top: 2px solid var(--dark); padding: 1rem 0; z-index: 1000; display: flex; justify-content: center; gap: 3rem; }
+        nav a { text-decoration: none; color: var(--dark); font-weight: bold; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; transition: 0.2s; }
+        nav a:hover { color: var(--accent); }
+
+        /* Utils */
+        .spacious-note { max-width: 600px; font-style: italic; opacity: 0.6; margin-top: 2rem; }
+        .wave-divider { width: 100%; display: block; height: 100px; object-fit: cover; }
+
+        @media (max-width: 768px) {
+            :root { --spacing: 6rem; }
+            .hero-split { grid-template-columns: 1fr; text-align: center; }
+            .hero-portrait { margin: 0 auto; width: 200px; height: 200px; }
+            .hero-text h1 { font-size: 20vw; margin-left: 0; }
+            .hero { height: auto; padding-top: 4rem; padding-bottom: 8rem; }
+            .about-content { font-size: 1.8rem; }
+            .daily-banner h2 { font-size: 2.5rem; }
+            .project-grid { grid-template-columns: 1fr; }
+            nav { gap: 1rem; font-size: 0.7rem; }
+        }
+    </style>
+<style id="safety-override">
+*[class*="fade"],*[class*="anim"],*[class*="hidden"],*[class*="reveal"],*[class*="slide"] {
+  opacity: 1 !important; transform: none !important;
+  visibility: visible !important; animation: none !important;
+}
+</style>
+</head>
+<body>
+
+    <div id="cursor"></div>
+
+    <svg width="0" height="0">
+        <defs>
+            <clipPath id="blobPath" clipPathUnits="objectBoundingBox">
+                <path d="M0.8,0.2 C0.9,0.3,1,0.5,0.9,0.7 C0.8,0.9,0.6,1,0.4,1 C0.2,1,0,0.8,0,0.6 C0,0.4,0.1,0.2,0.3,0.1 C0.5,-0.1,0.7,0,0.8,0.2"></path>
+            </clipPath>
+        </defs>
+    </svg>
+
+    <img src="../assets/svg/mesh-blob-layered.svg" style="position:fixed; top:10%; right:-10%; width:800px; opacity:0.08; z-index:-1; pointer-events:none;" id="bgShape">
+
+    <section class="hero">
+        <div class="hero-split">
+            <div class="hero-text">
+                <h1>TOMISLAV<br><span>SERTIC</span></h1>
+            </div>
+            <img src="../assets/images/portrait.webp" alt="Tomislav Sertic" class="hero-portrait" onerror="this.src='https://via.placeholder.com/300?text=TS'">
+        </div>
+        <div class="hero-cta">
+            <a href="https://github.com/tsertic" class="fab" title="GitHub">GH</a>
+            <a href="https://linkedin.com/in/tomislav-sertic" class="fab" title="LinkedIn">IN</a>
+            <a href="mailto:tsertic5@gmail.com" class="fab" title="Email">@</a>
+        </div>
+    </section>
+
+    <div class="ticker">
+        <div class="ticker-wrap">
+            <div class="ticker-item">TypeScript</div><div class="ticker-item">React</div><div class="ticker-item">Next.js</div>
+            <div class="ticker-item">Node.js</div><div class="ticker-item">Python</div><div class="ticker-item">AI Integration</div>
+            <div class="ticker-item">SQL Optimization</div><div class="ticker-item">Java</div><div class="ticker-item">C#</div>
+            <div class="ticker-item">TypeScript</div><div class="ticker-item">React</div><div class="ticker-item">Next.js</div>
+            <div class="ticker-item">Node.js</div><div class="ticker-item">Python</div><div class="ticker-item">AI Integration</div>
+            <div class="ticker-item">SQL Optimization</div><div class="ticker-item">Java</div><div class="ticker-item">C#</div>
+        </div>
+    </div>
+
+    <section id="about">
+        <span class="section-tag">// The Philosophy</span>
+        <div class="about-content">
+            Tomislav is a software architect bridging the gap between <em>monolithic enterprise stability</em> and the <em>fluid experimentalism</em> of the modern web. Currently engineering high-stakes solutions for international giants like <em>Saudi Aramco</em> and the <em>European Space Agency</em> at Arctis d.o.o., he spends his orbit's dark hours crafting elegant Next.js experiences and curious AI scripts.
+        </div>
+        <p class="spacious-note">When the compiler is quiet, he’s likely cycling through Zagreb or playing with his dog, Eevee, and daughter, Anja.</p>
+    </section>
+
+    <img src="../assets/svg/section-divider-curve.svg" class="wave-divider" alt="divider">
+
+    <section id="projects">
+        <span class="section-tag">// Side Quests & Experiments</span>
+        <h2 style="font-size: 4rem; margin-bottom: 2rem;">Digital Artifacts</h2>
+        <p class="spacious-note" style="margin-bottom: 3rem;">A curated log of personal explorations, utility tools, and client websites. My enterprise portfolio (IWMS, Archibus) remains proprietary.</p>
+
+        <div class="filter-ui">
+            <input type="text" id="projectSearch" class="search-input" placeholder="Search tech or names...">
+            <div id="tagFilters" style="display:flex; flex-wrap:wrap; gap:0.5rem;">
+                <button class="tag-pill active" data-tag="all">All</button>
+            </div>
+            <span id="counter" style="margin-left:auto; font-weight:bold;">Showing 0 of 0 projects</span>
+        </div>
+
+        <div class="project-grid" id="projectGrid">
+            <!-- Projects injected by JS -->
+        </div>
+    </section>
+
+    <section class="daily-banner">
+        <span style="text-transform: uppercase; letter-spacing: 2px;">Regenerative Design</span>
+        <h2>Every day, AI wakes up and redesigns this space from scratch.</h2>
+        <p>No two iterations are alike. Today's design was generated on <strong>2026-10-26</strong>.</p>
+        <a href="history/" class="archive-btn">Browse the Archive →</a>
+    </section>
+
+    <section id="contact">
+        <span class="section-tag">// Initialization</span>
+        <div class="contact-cta">
+            Ready to build <br>something <span style="color:var(--accent)">substantial</span>?
+        </div>
+        <div class="contact-links">
+            <a href="mailto:tsertic5@gmail.com">tsertic5@gmail.com</a>
+            <a href="https://github.com/tsertic">github.com/tsertic</a>
+            <a href="https://linkedin.com/in/tomislav-sertic">linkedin.com/tsertic</a>
+            <a href="https://www.tsertic.dev">tsertic.dev</a>
+        </div>
+    </section>
+
+    <footer style="padding: 2rem 5vw; opacity: 0.5; font-size: 0.9rem;">
+        &copy; 2026 Tomislav Sertic. Generated with cleverness.
+    </footer>
+
+    <nav>
+        <a href="#">Home</a>
+        <a href="#about">About</a>
+        <a href="#projects">Projects</a>
+        <a href="#contact">Contact</a>
+    </nav>
+
+    <script>
+        const projects = [
+            { name: "Manage Landing Page", tech: ["Next.js", "Typescript", "TailwindCSS"], desc: "Responsive landing page for an imaginary management firm.", img: "https://cdn.sanity.io/images/pf6wp37f/production/54a81664cc61e85990647d4a292a38355e272475-1856x936.png", repo: "https://github.com/tsertic/manage_landing_page/tree/master" },
+            { name: "Pinky Delights Bakery", tech: ["Three.js", "Next.js", "TailwindCSS"], desc: "Interactive 3D donut experience using Three.js and modern React.", img: "https://cdn.sanity.io/images/pf6wp37f/production/9c3a623fc9e77bab5c2b31ebb307e059916d3835-1000x536.png", repo: "https://github.com/tsertic/pinky-delights-bakery" },
+            { name: "Hrvatska Esport Inicijativa", tech: ["Next.js", "SCSS", "Sanity"], desc: "The official digital hub for the Croatian Esports Initiative.", img: "https://cdn.sanity.io/images/pf6wp37f/production/d7d8411c9ca5605e91516d8ca6da37f1a5a35d92-600x302.png", repo: "https://github.com/tsertic/hei_v2" },
+            { name: "Haiku AI Streamer", tech: ["Node.js", "AI - Ollama", "AI - ChatGpt"], desc: "Automated haiku generation script supporting local and cloud LLMs.", img: "https://cdn.sanity.io/images/pf6wp37f/production/32f2e0268a9fe542d8047c8531c289762ab4dc01-1712x896.png", repo: "https://github.com/tsertic/haiku-ai-streamer-script" },
+            { name: "Pokémon AI Debate", tech: ["Express.js", "React", "AI", "Node.js"], desc: "An orchestration of LLMs debating which Pokémon reigns supreme.", img: "https://cdn.sanity.io/images/pf6wp37f/production/cc01144c22251187e40bc42bb3408413a6c8c141-1200x645.png", repo: "https://github.com/tsertic/pokemon-ai-debate" },
+            { name: "The Vixa Website", tech: ["Next.js", "Sanity", "TailwindCSS"], desc: "Modern vacation rental platform with seamless UX and fast SEO.", img: "https://cdn.sanity.io/images/pf6wp37f/production/dd745de3166bd404a304ced44431b3807438e951-1200x603.png", repo: "https://github.com/tsertic/TheViksaWebsite" },
+            { name: "LLaVA Image Analyzer", tech: ["React", "AI - Ollama"], desc: "Local AI-powered image recognition interface using multimodal models.", img: "https://cdn.sanity.io/images/pf6wp37f/production/23234234d818f39a265c9a56d425f4aa569c1c1b-1344x832.png", repo: "https://github.com/tsertic/llava-image-analyzer-react" },
+            { name: "Portfolio Scraper", tech: ["Python", "AI", "BeautifulSoup"], desc: "Automated brochure generator that summarizes company portfolios into PDFs.", img: "https://cdn.sanity.io/images/pf6wp37f/production/9411063eaa22123470ae960babab885a23b36764-1200x500.png", repo: "https://github.com/tsertic/Portfolio-Scraper-Brochure-Generator" }
+        ];
+
+        // Render Projects
+        const grid = document.getElementById('projectGrid');
+        const tagContainer = document.getElementById('tagFilters');
+        const searchInput = document.getElementById('projectSearch');
+        const counter = document.getElementById('counter');
+        const cursor = document.getElementById('cursor');
+        const bgShape = document.getElementById('bgShape');
+
+        let activeTag = 'all';
+
+        function render() {
+            const query = searchInput.value.toLowerCase();
+            const filtered = projects.filter(p => {
+                const matchesSearch = p.name.toLowerCase().includes(query) || p.tech.some(t => t.toLowerCase().includes(query));
+                const matchesTag = activeTag === 'all' || p.tech.includes(activeTag);
+                return matchesSearch && matchesTag;
+            });
+
+            grid.innerHTML = filtered.map(p => `
+                <div class="terminal-card">
+                    <div class="terminal-header">
+                        <div class="dot" style="background:#ff5f56"></div>
+                        <div class="dot" style="background:#ffbd2e"></div>
+                        <div class="dot" style="background:#27c93f"></div>
+                        <span style="font-size:0.7rem; margin-left:auto; opacity:0.5; font-family:monospace">v1.0.4</span>
+                    </div>
+                    <img src="${p.img}" class="project-img" alt="${p.name}">
+                    <div class="project-body">
+                        <h3 class="project-title">${p.name}</h3>
+                        <p class="project-desc">${p.desc}</p>
+                        <div class="tech-tags">${p.tech.map(t => `<span class="tech-tag">${t}</span>`).join('')}</div>
+                        <div class="project-links">
+                            <a href="${p.repo}" target="_blank">View Source</a>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+            counter.innerText = `Showing ${filtered.length} of ${projects.length} projects`;
+        }
+
+        // Init Tags
+        const allTags = [...new Set(projects.flatMap(p => p.tech))];
+        allTags.forEach(tag => {
+            const btn = document.createElement('button');
+            btn.className = 'tag-pill';
+            btn.innerText = tag;
+            btn.onclick = () => {
+                document.querySelectorAll('.tag-pill').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                activeTag = tag;
+                render();
+            };
+            tagContainer.appendChild(btn);
+        });
+
+        document.querySelector('[data-tag="all"]').onclick = (e) => {
+            document.querySelectorAll('.tag-pill').forEach(b => b.classList.remove('active'));
+            e.target.classList.add('active');
+            activeTag = 'all';
+            render();
+        };
+
+        searchInput.oninput = render;
+
+        // Visual Polish
+        document.addEventListener('mousemove', e => {
+            cursor.style.transform = `translate(${e.clientX - 10}px, ${e.clientY - 10}px)`;
+        });
+
+        window.addEventListener('scroll', () => {
+            const rot = window.scrollY * 0.05;
+            bgShape.style.transform = `rotate(${rot}deg) translateY(${window.scrollY * 0.1}px)`;
+        });
+
+        render();
+    </script>
+</body>
+</html>
