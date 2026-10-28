@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tomislav Sertic | Professional Software Developer</title>
+    <link href="https://fonts.googleapis.com/css2?family=Saira+Extra+Condensed:wght@300;500;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-light: #f4f1ea;
+            --bg-dark: #1a1a1a;
+            --accent: #a89f91;
+            --text-main: #2d2d2d;
+            --text-muted: #5e5e5e;
+            --glass: rgba(255, 255, 255, 0.4);
+            --border: rgba(0, 0, 0, 0.1);
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; cursor: none; }
+        body {
+            font-family: 'Saira Extra Condensed', sans-serif;
+            background-color: var(--bg-light);
+            color: var(--text-main);
+            line-height: 1.2;
+            overflow-x: hidden;
+        }
+        .container { max-width: 900px; margin: 0 auto; position: relative; background: var(--bg-light); border-left: 1px solid var(--border); border-right: 1px solid var(--border); }
+        
+        /* Decorations */
+        .deco { position: fixed; opacity: 0.08; pointer-events: none; z-index: -1; }
+        .grain { position: fixed; inset: 0; background: url('assets/svg/noise-grain-texture.svg'); opacity: 0.05; pointer-events: none; z-index: 100; }
+        
+        /* Navigation */
+        nav { display: flex; justify-content: center; gap: 2rem; padding: 1.5rem; background: var(--bg-light); border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 50; }
+        nav a { text-decoration: none; color: var(--text-main); font-weight: 500; text-transform: uppercase; letter-spacing: 1px; font-size: 1.1rem; }
+        nav a:hover { color: var(--accent); }
+
+        /* Hero */
+        .hero { height: 100vh; background: var(--bg-dark); color: #fff; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; position: relative; overflow: hidden; }
+        .hero-portrait { width: 220px; height: 250px; background: #333; clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%); margin-bottom: 2rem; object-fit: cover; border: 2px solid var(--accent); }
+        .hero h1 { font-size: 8rem; line-height: 0.8; font-weight: 800; text-transform: uppercase; margin: 0; }
+        .hero h2 { font-size: 2rem; font-weight: 300; color: var(--accent); text-transform: uppercase; letter-spacing: 4px; }
+        .hero-tagline { margin-top: 1rem; max-width: 400px; font-size: 1.2rem; opacity: 0.8; }
+        .hero-ctas { margin-top: 2rem; display: flex; gap: 1rem; }
+        .btn { padding: 0.6rem 1.5rem; border: 1px solid #fff; color: #fff; text-decoration: none; text-transform: uppercase; letter-spacing: 1px; transition: 0.3s; background: transparent; font-family: inherit; font-size: 1rem; cursor: none; }
+        .btn:hover { background: #fff; color: var(--bg-dark); }
+        .scroll-cue { position: absolute; bottom: 2rem; font-size: 0.9rem; opacity: 0.5; text-transform: uppercase; }
+
+        /* Sections */
+        section { padding: 5rem 3rem; position: relative; }
+        .section-title { font-size: 3rem; text-transform: uppercase; border-bottom: 2px solid var(--text-main); margin-bottom: 2rem; display: inline-block; }
+        .divider { width: 100%; height: 60px; object-fit: cover; opacity: 0.2; }
+
+        /* About & Skills */
+        .about-grid { display: grid; gap: 2rem; }
+        .skills-cloud { display: flex; flex-wrap: wrap; gap: 10px; align-items: baseline; margin-top: 1rem; }
+        .skill-tag { color: var(--text-muted); text-transform: uppercase; }
+
+        /* Projects */
+        .filter-bar { margin-bottom: 2rem; display: flex; flex-direction: column; gap: 1rem; }
+        .filter-search { padding: 0.8rem; border: 1px solid var(--border); background: var(--glass); width: 100%; font-family: inherit; font-size: 1.1rem; outline: none; }
+        .filter-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+        .tag-btn { padding: 0.3rem 0.8rem; border: 1px solid var(--border); background: #fff; cursor: none; font-family: inherit; text-transform: uppercase; font-size: 0.8rem; }
+        .tag-btn.active { background: var(--bg-dark); color: #fff; }
+        .project-note { font-style: italic; font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1.5rem; border-left: 3px solid var(--accent); padding-left: 1rem; }
+        
+        .project-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+        .card { background: var(--glass); backdrop-filter: blur(10px); border: 1px solid var(--border); padding: 1.5rem; display: flex; flex-direction: column; transition: transform 0.3s; }
+        .card:hover { transform: translateY(-5px); border-color: var(--accent); }
+        .card-img { width: 100%; height: 180px; object-fit: cover; margin-bottom: 1rem; filter: sepia(0.3) contrast(1.1); }
+        .card h3 { font-size: 1.8rem; text-transform: uppercase; margin-bottom: 0.5rem; }
+        .card p { font-size: 1rem; color: var(--text-muted); margin-bottom: 1rem; flex-grow: 1; }
+        .card-tech { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 1rem; }
+        .tech-pill { font-size: 0.7rem; background: rgba(0,0,0,0.05); padding: 2px 6px; border-radius: 2px; }
+        .card-links { display: flex; gap: 1rem; }
+        .card-links a { font-size: 0.9rem; color: var(--text-main); font-weight: 800; text-decoration: none; text-transform: uppercase; }
+
+        /* Self-Gen Section */
+        .ai-banner { background: var(--accent); color: #fff; padding: 4rem 3rem; text-align: center; margin: 2rem 0; }
+        .ai-banner h2 { font-size: 2.5rem; text-transform: uppercase; margin-bottom: 1rem; }
+        .ai-banner p { font-size: 1.2rem; margin-bottom: 2rem; }
+
+        /* Contact */
+        .contact-content { text-align: center; }
+        .social-links { display: flex; justify-content: center; gap: 2rem; margin-top: 2rem; }
+        .social-links a { font-size: 1.5rem; color: var(--text-main); text-decoration: none; text-transform: uppercase; font-weight: 800; }
+
+        footer { padding: 3rem; text-align: center; border-top: 1px solid var(--border); font-size: 0.9rem; color: var(--text-muted); }
+
+        /* Custom Cursor */
+        #cursor { width: 20px; height: 20px; border: 1px solid var(--text-main); border-radius: 50%; position: fixed; pointer-events: none; z-index: 9999; transform: translate(-50%, -50%); transition: width 0.2s, height 0.2s; mix-blend-mode: difference; background: white; }
+
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 4rem; }
+            .project-grid { grid-template-columns: 1fr; }
+            .container { border: none; }
+            section { padding: 3rem 1.5rem; }
+        }
+    </style>
+<style id="safety-override">
+*[class*="fade"],*[class*="anim"],*[class*="hidden"],*[class*="reveal"],*[class*="slide"] {
+  opacity: 1 !important; transform: none !important;
+  visibility: visible !important; animation: none !important;
+}
+</style>
+</head>
+<body>
+    <div id="cursor"></div>
+    <div class="grain"></div>
+
+    <img src="../assets/svg/abstract-polygon-mesh.svg" class="deco" style="top: 10%; left: -100px; width: 400px;" data-speed="0.05">
+    <img src="../assets/svg/circuit-board-lines.svg" class="deco" style="bottom: 10%; right: -100px; width: 400px;" data-speed="-0.03">
+    <img src="../assets/svg/floating-dots-cluster.svg" class="deco" style="top: 50%; right: 5%; width: 200px;" data-speed="0.08">
+
+    <div class="container">
+        <nav>
+            <a href="#about">About</a>
+            <a href="#projects">Work</a>
+            <a href="#contact">Contact</a>
+        </nav>
+
+        <header class="hero">
+            <img src="../assets/images/portrait.webp" alt="Tomislav Sertic" class="hero-portrait" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
+            <div style="display:none; width:220px; height:250px; background:#333; clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%); margin-bottom: 2rem; justify-content:center; align-items:center; font-size:4rem; font-weight:800;">TS</div>
+            <h1>TOMISLAV</h1>
+            <h2>Sertic</h2>
+            <p class="hero-tagline">I build enterprise software solutions and occasionally finish side projects. Based in Zagreb, unfortunately.</p>
+            <div class="hero-ctas">
+                <a href="https://github.com/tsertic" class="btn">GitHub</a>
+                <a href="https://linkedin.com/in/tomislav-sertic" class="btn">LinkedIn</a>
+                <a href="mailto:tsertic5@gmail.com" class="btn">Email</a>
+            </div>
+            <div class="scroll-cue">Scroll Down or stay here, I'm just a header</div>
+        </header>
+
+        <section id="about">
+            <h2 class="section-title">The Bio</h2>
+            <div class="about-grid">
+                <div>
+                    <p style="font-size: 1.4rem; margin-bottom: 1.5rem;">
+                        I am a full-stack developer at Arctis d.o.o, where I spend my time making the Archibus IWMS platform do things it wasn't originally intended to do for clients like Saudi Aramco and the European Space Agency. I bridge the gap between legacy Java/SQL backends and modern React frontends.
+                    </p>
+                    <p style="font-size: 1.1rem; color: var(--text-muted);">
+                        When I'm not configuring Tomcat servers or optimizing SQL queries, I'm likely building Next.js sites for friends or trying to convince my dog, Eevee, that the mailman isn't a threat. I also have a daughter named Anja who is significantly more impressive than my codebase.
+                    </p>
+                </div>
+                <div>
+                    <h3 style="text-transform: uppercase; margin-bottom: 1rem;">Tools I semi-mastered:</h3>
+                    <div class="skills-cloud">
+                        <span class="skill-tag" style="font-size: 2.5rem; font-weight: 800;">TypeScript</span>
+                        <span class="skill-tag" style="font-size: 1.8rem;">React</span>
+                        <span class="skill-tag" style="font-size: 2.2rem; font-weight: 500;">SQL</span>
+                        <span class="skill-tag" style="font-size: 1.2rem;">Python</span>
+                        <span class="skill-tag" style="font-size: 2rem;">Next.js</span>
+                        <span class="skill-tag" style="font-size: 1.5rem;">Node.js</span>
+                        <span class="skill-tag" style="font-size: 1.9rem;">C#</span>
+                        <span class="skill-tag" style="font-size: 1.3rem;">Tailwind</span>
+                        <span class="skill-tag" style="font-size: 1.6rem;">Java</span>
+                        <span class="skill-tag" style="font-size: 1.1rem;">Figma</span>
+                        <span class="skill-tag" style="font-size: 1.4rem;">AI Integration</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <img src="../assets/svg/divider-wave-soft.svg" class="divider">
+
+        <section id="projects">
+            <h2 class="section-title">Side Quests</h2>
+            <div class="project-note">
+                Note: The following projects are side builds, experiments, and client websites. My enterprise work for international organizations is locked behind corporate NDAs and boring login screens.
+            </div>
+
+            <div class="filter-bar">
+                <input type="text" id="projectSearch" class="filter-search" placeholder="Search projects by name or tech stack...">
+                <div class="filter-tags" id="tagFilters">
+                    <button class="tag-btn active" data-tag="all">All</button>
+                    <!-- Tags will be injected here -->
+                </div>
+                <div id="projectCounter" style="font-size: 0.9rem; text-transform: uppercase; opacity: 0.6;">Showing 17 of 17 projects</div>
+            </div>
+
+            <div class="project-grid" id="projectGrid">
+                <!-- Project data injection -->
+            </div>
+        </section>
+
+        <section class="ai-banner">
+            <img src="../assets/svg/loading-spinner-code.svg" style="width: 50px; margin-bottom: 1rem; filter: invert(1);">
+            <h2>Built by a dev. Redesigned daily by AI.</h2>
+            <p>This portfolio is a victim of automation. Every 24 hours, an AI wakes up and changes the entire design. Today is October 28, 2026.</p>
+            <a href="history/" class="btn" style="border-color: #fff;">View the Archive →</a>
+        </section>
+
+        <section id="contact">
+            <div class="contact-content">
+                <h2 class="section-title">Let's be professional</h2>
+                <p style="font-size: 1.2rem;">I check my email approximately too often.</p>
+                <div class="social-links">
+                    <a href="mailto:tsertic5@gmail.com">Email</a>
+                    <a href="https://github.com/tsertic">GitHub</a>
+                    <a href="https://linkedin.com/in/tomislav-sertic">LinkedIn</a>
+                    <a href="https://instagram.com/tsertic5">IG</a>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <img src="../assets/svg/divider-dots-row.svg" style="width: 100px; opacity: 0.2; margin-bottom: 1rem;">
+            <p>&copy; 2026 Tomislav Sertic. No cookies were used in the making of this static file. 🧊</p>
+        </footer>
+    </div>
+
+    <script>
+        const projects = [
+            { name: "Pinky Delights Bakery", desc: "Interactive 3D bakery experience with Three.js.", tech: ["Typescript", "TailwindCSS", "Three.js", "Next.js"], img: "https://cdn.sanity.io/images/pf6wp37f/production/9c3a623fc9e77bab5c2b31ebb307e059916d3835-1000x536.png", repo: "https://github.com/tsertic/pinky-delights-bakery", live: null },
+            { name: "Directory Structure Scanner", desc: "Python tool to map and visualize folder hierarchies.", tech: ["Python", "Gradio"], img: "https://cdn.sanity.io/images/pf6wp37f/production/41b2577b2c7b14ba62b8f24747fce95eb2dca141-1200x542.png", repo: "https://github.com/tsertic/directory-structure-scanner", live: null },
+            { name: "The Vixa Website", desc: "Modern vacation rental platform with SEO focus.", tech: ["Typescript", "TailwindCSS", "Next.js", "Sanity"], img: "https://cdn.sanity.io/images/pf6wp37f/production/dd745de3166bd404a304ced44431b3807438e951-1200x603.png", repo: "https://github.com/tsertic/TheViksaWebsite", live: "https://www.the-vixa.com/hr" },
+            { name: "PokéPal AI", desc: "Interactive Pokémon chatbot with stats visualization.", tech: ["Python", "AI", "Gradio"], img: "https://cdn.sanity.io/images/pf6wp37f/production/4199641036ba4f5166cd6594b898ada6facaff31-1200x706.png", repo: "https://github.com/tsertic/pokeapi-gradio-ai-chatbot", live: null },
+            { name: "Pokémon AI Debate", desc: "GPT-4 and Claude arguing about digital monsters.", tech: ["Express.js", "React", "AI", "Node.js"], img: "https://cdn.sanity.io/images/pf6wp37f/production/cc01144c22251187e40bc42bb3408413a6c8c141-1200x645.png", repo: "https://github.com/tsertic/pokemon-ai-debate", live: null },
+            { name: "Braniteljska zadruga Viribus Unitis", desc: "Information hub for a Croatian veteran cooperative.", tech: ["Typescript", "Next.js", "Sanity", "TailwindCSS"], img: "https://cdn.sanity.io/images/pf6wp37f/production/78374d76f6c801577c98fb5d3507158140c42ee1-800x477.png", repo: "https://github.com/tsertic/website_viribus_unitis", live: "https://www.bzvu.hr/" },
+            { name: "LLaVA Image Analyzer", desc: "Local AI image recognition via Ollama.", tech: ["React", "Typescript", "AI - Ollama"], img: "https://cdn.sanity.io/images/pf6wp37f/production/23234234d818f39a265c9a56d425f4aa569c1c1b-1344x832.png", repo: "https://github.com/tsertic/llava-image-analyzer-react", live: null },
+            { name: "Portfolio Scraper", desc: "AI-powered company brochure generator.", tech: ["AI - ChatGpt", "Python"], img: "https://cdn.sanity.io/images/pf6wp37f/production/9411063eaa22123470ae960babab885a23b36764-1200x500.png", repo: "https://github.com/tsertic/Portfolio-Scraper-Brochure-Generator", live: null },
+            { name: "Haiku AI Streamer", desc: "Console script for automated poem generation.", tech: ["Node.js", "AI - Ollama"], img: "https://cdn.sanity.io/images/pf6wp37f/production/32f2e0268a9fe542d8047c8531c289762ab4dc01-1712x896.png", repo: "https://github.com/tsertic/haiku-ai-streamer-script", live: null },
+            { name: "Manage Landing Page", desc: "Clean corporate landing page implementation.", tech: ["Next.js", "Typescript", "TailwindCSS"], img: "https://cdn.sanity.io/images/pf6wp37f/production/54a81664cc61e85990647d4a292a38355e272475-1856x936.png", repo: "https://github.com/tsertic/manage_landing_page/tree/master", live: "https://manage-landing-page-seven-theta.vercel.app/" },
+            { name: "Hrvatska Esport Inicijativa", desc: "Official site for Croatian esports.", tech: ["Next.js", "SCSS", "Sanity"], img: "https://cdn.sanity.io/images/pf6wp37f/production/d7d8411c9ca5605e91516d8ca6da37f1a5a35d92-600x302.png", repo: "https://github.com/tsertic/hei_v2", live: "https://www.esportinicijativa.hr/" },
+            { name: "Where in the world", desc: "REST API country explorer with infinite scroll.", tech: ["Typescript", "Redux", "Next.js"], img: "https://cdn.sanity.io/images/pf6wp37f/production/a40662bb7d8a672a19db9c1c7669a395941abc84-600x301.png", repo: "https://github.com/tsertic/where_in_the_world", live: "https://where-in-the-world-drab.vercel.app/" },
+            { name: "Arctis d.o.o.", desc: "Corporate site for specialized software firm.", tech: ["Typescript", "SCSS", "Next.js", "Sanity"], img: "https://cdn.sanity.io/images/pf6wp37f/production/41259c66ca9f3472f31d65dfa58beedcdc4fd977-600x301.png", repo: "https://github.com/ArctisZagreb/arctis_webpage_nextjs", live: "https://www.arctis.hr/" },
+            { name: "BMI Calculator", desc: "Metric/Imperial health utility script.", tech: ["Next.js", "TailwindCSS"], img: "https://cdn.sanity.io/images/pf6wp37f/production/c6106cbfccc9d9145333876373dff6fd3d3872bf-600x323.png", repo: "https://github.com/tsertic/frontend_mentor_challenges/tree/main/bmi_calculator", live: "https://bmi-calculator-psi-ten.vercel.app/" },
+            { name: "Plesni Studio Ventus", desc: "Dance studio website with CMS integration.", tech: ["Next.js", "Sanity", "SCSS"], img: "https://cdn.sanity.io/images/pf6wp37f/production/22d037550976b8e15b051b183b2af6206f648030-600x377.png", repo: "https://github.com/TomislavSertic/plesni_studio_ventus", live: "https://www.plesni-studio-ventus.hr/" },
+            { name: "Bridge-SMS", desc: "Civil engineering project migration.", tech: ["Typescript", "SCSS", "Next.js"], img: "https://cdn.sanity.io/images/pf6wp37f/production/9fbb244bfcf2f8ee8893ad0f3ab41507ad7325ed-600x421.png", repo: "https://github.com/ArctisZagreb/Bridge-SMS", live: "https://bridge-sms.netlify.app/" },
+            { name: "My Portfolio Website", desc: "The meta-portfolio before this AI one.", tech: ["Next.js", "Sanity", "TailwindCSS"], img: "https://cdn.sanity.io/images/pf6wp37f/production/e55bb98f4c03a1910920081c3a37fa5b7feec56e-600x360.png", repo: "https://github.com/tsertic/ts_portfolio_2023", live: "https://www.tsertic.dev/" }
+        ];
+
+        const grid = document.getElementById('projectGrid');
+        const search = document.getElementById('projectSearch');
+        const tagContainer = document.getElementById('tagFilters');
+        const counter = document.getElementById('projectCounter');
+        let activeTag = 'all';
+
+        function render() {
+            const query = search.value.toLowerCase();
+            const filtered = projects.filter(p => {
+                const matchesSearch = p.name.toLowerCase().includes(query) || p.tech.some(t => t.toLowerCase().includes(query));
+                const matchesTag = activeTag === 'all' || p.tech.includes(activeTag);
+                return matchesSearch && matchesTag;
+            });
+
+            grid.innerHTML = filtered.map(p => `
+                <div class="card">
+                    <img src="${p.img}" class="card-img" alt="${p.name}">
+                    <h3>${p.name}</h3>
+                    <p>${p.desc}</p>
+                    <div class="card-tech">${p.tech.map(t => `<span class="tech-pill">${t}</span>`).join('')}</div>
+                    <div class="card-links">
+                        ${p.repo ? `<a href="${p.repo}" target="_blank">Source</a>` : ''}
+                        ${p.live ? `<a href="${p.live}" target="_blank">Live →</a>` : ''}
+                    </div>
+                </div>
+            `).join('');
+            counter.innerText = `Showing ${filtered.length} of ${projects.length} projects`;
+        }
+
+        const allTags = [...new Set(projects.flatMap(p => p.tech))].sort();
+        allTags.forEach(tag => {
+            const btn = document.createElement('button');
+            btn.className = 'tag-btn';
+            btn.innerText = tag;
+            btn.onclick = () => {
+                document.querySelectorAll('.tag-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                activeTag = tag;
+                render();
+            };
+            tagContainer.appendChild(btn);
+        });
+
+        document.querySelector('.tag-btn').onclick = (e) => {
+            document.querySelectorAll('.tag-btn').forEach(b => b.classList.remove('active'));
+            e.target.classList.add('active');
+            activeTag = 'all';
+            render();
+        };
+
+        search.oninput = render;
+        render();
+
+        // Interaction
+        const cursor = document.getElementById('cursor');
+        document.onmousemove = (e) => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+        };
+
+        window.onscroll = () => {
+            const y = window.scrollY;
+            document.querySelectorAll('.deco').forEach(d => {
+                const speed = parseFloat(d.dataset.speed);
+                d.style.transform = `translateY(${y * speed}px) rotate(${y * 0.05}deg)`;
+            });
+        };
+    </script>
+</body>
+</html>
