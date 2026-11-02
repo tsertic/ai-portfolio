@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tomislav Sertic | Software Developer</title>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --paper: #f9f7f2;
+            --ink: #1b2e11;
+            --accent-green: #4a5d23;
+            --accent-brown: #5d4037;
+            --grid-line: rgba(74, 93, 35, 0.1);
+            --border-radius: 4px;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: 'IBM Plex Sans', sans-serif; 
+            background-color: var(--paper); 
+            color: var(--ink); 
+            line-height: 1.6;
+            background-image: url('assets/svg/plus-cross-grid.svg');
+            background-size: 100px 100px;
+        }
+
+        /* --- NAVIGATION --- */
+        nav {
+            position: fixed; top: 0; width: 100%; z-index: 1000;
+            background: rgba(249, 247, 242, 0.9);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--ink);
+            padding: 0.8rem 2rem;
+            display: flex; justify-content: space-between; align-items: center;
+            text-transform: uppercase; letter-spacing: 2px; font-size: 0.75rem;
+        }
+        nav a { color: var(--ink); text-decoration: none; font-weight: 600; margin-left: 2rem; }
+        nav a:hover { color: var(--accent-green); }
+
+        /* --- LAYOUT --- */
+        .container { 
+            max-width: 1300px; margin: 0 auto; padding: 0 2rem;
+            display: grid; grid-template-columns: repeat(12, 1fr); gap: 2rem;
+        }
+
+        /* --- HERO --- */
+        #hero {
+            grid-column: span 12;
+            min-height: 90vh;
+            display: flex; flex-direction: column; justify-content: center;
+            position: relative; overflow: hidden;
+            margin-bottom: 4rem; padding-top: 60px;
+        }
+        .hero-bg {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background-image: url('assets/svg/topography-contour-lines.svg');
+            background-size: cover; opacity: 0.15; z-index: -1;
+        }
+        .hero-content {
+            display: flex; align-items: center; gap: 4rem;
+        }
+        .diamond-container {
+            width: 280px; height: 280px; transform: rotate(45deg);
+            overflow: hidden; border: 2px solid var(--accent-green);
+            flex-shrink: 0; position: relative;
+        }
+        .diamond-container img {
+            width: 142%; height: 142%; object-fit: cover;
+            transform: rotate(-45deg) scale(1.1);
+            position: absolute; top: -21%; left: -21%;
+        }
+        h1 { font-size: 2.2rem; text-transform: uppercase; font-weight: 600; margin-bottom: 0.5rem; }
+        .tagline { font-size: 1.1rem; color: var(--accent-brown); max-width: 500px; margin-bottom: 2rem; }
+        .hero-btns { display: flex; gap: 1rem; }
+        .btn {
+            padding: 0.8rem 1.8rem; text-decoration: none; border-radius: var(--border-radius);
+            text-transform: uppercase; font-size: 0.8rem; font-weight: 600; transition: 0.3s;
+        }
+        .btn-filled { background: var(--accent-green); color: white; border: 1px solid var(--accent-green); }
+        .btn-filled:hover { background: var(--ink); border-color: var(--ink); }
+        .btn-outline { border: 1px solid var(--ink); color: var(--ink); }
+        .btn-outline:hover { background: var(--ink); color: white; }
+
+        /* --- NEWSPAPER COLUMNS --- */
+        .section-header { 
+            grid-column: span 12; border-bottom: 3px double var(--ink); 
+            padding-bottom: 0.5rem; margin-bottom: 2rem;
+            display: flex; justify-content: space-between; align-items: flex-end;
+        }
+        .section-header h2 { text-transform: uppercase; font-size: 1.5rem; }
+        
+        .col-main { grid-column: span 8; border-right: 1px solid var(--grid-line); padding-right: 2rem; }
+        .col-side { grid-column: span 4; }
+
+        /* --- ABOUT & SKILLS --- */
+        .bio-text { font-size: 1.1rem; margin-bottom: 2rem; text-align: justify; }
+        .word-cloud { display: flex; flex-wrap: wrap; gap: 1rem; align-items: center; justify-content: center; }
+        .skill-tag { color: var(--accent-green); text-transform: lowercase; opacity: 0.8; transition: 0.3s; }
+        .skill-tag:hover { opacity: 1; transform: scale(1.1); }
+
+        /* --- PROJECTS --- */
+        #projects-grid { grid-column: span 12; }
+        .filter-bar { 
+            grid-column: span 12; background: white; padding: 1.5rem; border: 1px solid var(--ink);
+            margin-bottom: 3rem; display: flex; flex-wrap: wrap; gap: 1rem; align-items: center;
+        }
+        .filter-bar input { padding: 0.6rem; border: 1px solid #ccc; flex-grow: 1; min-width: 250px; font-family: inherit; }
+        .tag-pills { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+        .pill { 
+            padding: 0.3rem 0.8rem; border: 1px solid var(--accent-green); cursor: pointer;
+            font-size: 0.7rem; border-radius: 20px; transition: 0.2s;
+        }
+        .pill.active { background: var(--accent-green); color: white; }
+
+        .project-block { 
+            padding: 3rem 0; border-bottom: 1px solid var(--grid-line); 
+            display: grid; grid-template-columns: 1fr 1.5fr; gap: 3rem;
+        }
+        .project-image { width: 100%; border: 1px solid var(--ink); height: 300px; object-fit: cover; }
+        .project-content h3 { font-size: 1.4rem; margin-bottom: 0.5rem; color: var(--accent-brown); }
+        .project-meta { font-size: 0.8rem; color: #666; margin-bottom: 1rem; font-style: italic; }
+        .project-tags { display: flex; gap: 0.5rem; margin-bottom: 1rem; flex-wrap: wrap; }
+        .p-tag { font-size: 0.65rem; background: #eee; padding: 2px 6px; border-radius: 2px; }
+
+        /* --- AI REGEN --- */
+        .regen-banner {
+            grid-column: span 12; background: var(--accent-green); color: white;
+            padding: 3rem; text-align: center; margin: 4rem 0; position: relative; overflow: hidden;
+        }
+        .regen-banner img { position: absolute; top: -50px; left: -50px; opacity: 0.1; width: 300px; }
+        .regen-banner h2 { font-size: 1.8rem; margin-bottom: 1rem; position: relative; }
+        .regen-date { font-family: monospace; font-size: 1rem; margin-bottom: 1.5rem; display: block; }
+
+        /* --- CONTACT --- */
+        #contact { grid-column: span 12; padding: 5rem 0; text-align: center; border-top: 3px double var(--ink); }
+        .contact-links { display: flex; justify-content: center; gap: 3rem; margin-top: 2rem; }
+        .contact-links a { color: var(--ink); font-weight: 600; text-transform: uppercase; font-size: 0.9rem; }
+
+        footer { grid-column: span 12; padding: 2rem; border-top: 1px solid var(--grid-line); font-size: 0.7rem; text-align: center; opacity: 0.6; }
+
+        /* Decorative SVGs */
+        .decoration { position: absolute; pointer-events: none; opacity: 0.08; z-index: -1; }
+
+        @media (max-width: 900px) {
+            .col-main, .col-side { grid-column: span 12; }
+            .hero-content { flex-direction: column; text-align: center; }
+            .project-block { grid-template-columns: 1fr; gap: 1.5rem; }
+            .project-image { height: 200px; }
+        }
+    </style>
+<style id="safety-override">
+*[class*="fade"],*[class*="anim"],*[class*="hidden"],*[class*="reveal"],*[class*="slide"] {
+  opacity: 1 !important; transform: none !important;
+  visibility: visible !important; animation: none !important;
+}
+</style>
+</head>
+<body>
+
+    <nav>
+        <div>Tomislav Sertic / Blueprint 2026.11</div>
+        <div>
+            <a href="#about">The Engineer</a>
+            <a href="#projects">Work Log</a>
+            <a href="#contact">Inquiry</a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <!-- HERO -->
+        <section id="hero">
+            <div class="hero-bg"></div>
+            <img src="../assets/svg/circuit-board-lines.svg" class="decoration" style="width: 500px; right: -100px; top: 100px;">
+            <div class="hero-content">
+                <div class="diamond-container">
+                    <img src="../assets/images/portrait.webp" alt="Tomislav Sertic">
+                </div>
+                <div>
+                    <h1 id="title-name">Tomislav Sertic</h1>
+                    <p class="tagline">Full-Stack Software Architect specializing in enterprise-grade systems and legacy modernization. Currently engineering solutions at Arctis d.o.o.</p>
+                    <div class="hero-btns">
+                        <a href="https://linkedin.com/in/tomislav-sertic" class="btn btn-filled">Professional Profile</a>
+                        <a href="https://github.com/tsertic" class="btn btn-outline">Code Repository</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ABOUT & SKILLS -->
+        <div class="section-header" id="about">
+            <h2>01. Technical Specifications</h2>
+            <span>Status: Available for Strategic Consultation</span>
+        </div>
+
+        <div class="col-main">
+            <p class="bio-text">
+                Based in Zagreb, Croatia, I bridge the gap between legacy enterprise architectures and modern web technologies. At Arctis d.o.o., I customize and extend the Archibus IWMS platform for prestigious global entities including <strong>Saudi Aramco</strong>, the <strong>European Space Agency (ESA)</strong>, and the <strong>European Court of Justice</strong>. 
+                <br><br>
+                My professional day-to-day involves Java backend orchestration, SQL optimization, and the delicate art of integrating React into established enterprise frameworks. Beyond the corporate environment, I'm a father to Anja and a companion to Eevee, often finding clarity in a game of chess or a long hike.
+            </p>
+        </div>
+        <div class="col-side">
+            <div class="word-cloud" id="skills-cloud">
+                <!-- Skills injected by JS -->
+            </div>
+        </div>
+
+        <!-- PROJECTS -->
+        <div class="section-header" id="projects">
+            <h2>02. Component Gallery</h2>
+            <span>Total Log: <span id="project-count">0</span> Items</span>
+        </div>
+
+        <div class="filter-bar">
+            <input type="text" id="search-input" placeholder="Filter by project name or technology...">
+            <div class="tag-pills" id="tag-pills">
+                <span class="pill active" data-tag="all">All Specs</span>
+            </div>
+            <div style="width: 100%; font-size: 0.7rem; margin-top: 10px; opacity: 0.7;">
+                <i>Note: These entries represent independent explorations, AI experiments, and utility scripts. Professional enterprise portfolios are confidential.</i>
+            </div>
+        </div>
+
+        <div id="projects-grid">
+            <!-- Projects injected by JS -->
+        </div>
+
+        <!-- REGEN SECTION -->
+        <section class="regen-banner">
+            <img src="../assets/svg/spiral-fibonacci.svg" alt="Decoration">
+            <span class="regen-date">REV: 2026-11-02-T001</span>
+            <h2>Architectural Fluidity: This Interface Self-Corrects Daily.</h2>
+            <p style="max-width: 600px; margin: 0 auto 2rem;">Every 24 hours, an autonomous process redesigns this entire portfolio to ensure visual evolution. Built by hand, reimagined by intelligence.</p>
+            <a href="history/" class="btn btn-outline" style="border-color: white; color: white;">Browse the Archives →</a>
+        </section>
+
+        <!-- CONTACT -->
+        <section id="contact">
+            <img src="../assets/svg/infinity-loop-outline.svg" class="decoration" style="width: 300px; left: 50%; transform: translateX(-50%); top: 0;">
+            <h3>Transmit a Message</h3>
+            <p>I am available for high-level technical discourse and collaborative ventures.</p>
+            <div class="contact-links">
+                <a href="mailto:tsertic5@gmail.com">Email</a>
+                <a href="https://github.com/tsertic">GitHub</a>
+                <a href="https://linkedin.com/in/tomislav-sertic">LinkedIn</a>
+                <a href="https://www.tsertic.dev">Terminal</a>
+            </div>
+        </section>
+
+        <footer>
+            &copy; 2026 TOMISLAV SERTIC. ALL RIGHTS RESERVED. COORDINATES: 45.8150° N, 15.9819° E.
+        </footer>
+    </div>
+
+    <script>
+        const projectData = [
+    {
+      "name": "Pinky Delights Bakery",
+      "description": "Interactive 3D Web Experience. Features a manipulatable Three.js donut model integrated into a modern Next.js 15 environment.",
+      "image": "https://cdn.sanity.io/images/pf6wp37f/production/9c3a623fc9e77bab5c2b31ebb307e059916d3835-1000x536.png",
+      "tech": ["Typescript", "TailwindCSS", "Three.js", "Next.js"],
+      "live": null,
+      "repository": "https://github.com/tsertic/pinky-delights-bakery"
+    },
+    {
+      "name": "Directory Structure Scanner",
+      "description": "Python-based utility with a web UI for visualizing complex folder hierarchies. Generates documentation-ready tree representations.",
+      "image": "https://cdn.sanity.io/images/pf6wp37f/production/41b2577b2c7b14ba62b8f24747fce95eb2dca141-1200x542.png",
+      "tech": ["Python", "Gradio"],
+      "live": null,
+      "repository": "https://github.com/tsertic/directory-structure-scanner"
+    },
+    {
+      "name": "The Vixa Website",
+      "description": "A refined rental platform for luxury vacation homes, focusing on performance and seamless user experience.",
+      "image": "https://cdn.sanity.io/images/pf6wp37f/production/dd745de3166bd404a304ced44431b3807438e951-1200x603.png",
+      "tech": ["Typescript", "TailwindCSS", "Next.js", "Sanity"],
+      "live": "https://www.the-vixa.com/hr",
+      "repository": "https://github.com/tsertic/TheViksaWebsite"
+    },
+    {
+      "name": "haiku AI streamer script",
+      "description": "Node.js automation that streams AI-generated haikus. Supports OpenAI and local Ollama models with markdown formatting.",
+      "image": "https://cdn.sanity.io/images/pf6wp37f/production/32f2e0268a9fe542d8047c8531c289762ab4dc01-1712x896.png",
+      "tech": ["Node.js", "AI - Ollama", "AI - ChatGpt"],
+      "live": null,
+      "repository": "https://github.com/tsertic/haiku-ai-streamer-script"
+    },
+    {
+        "name": "Hrvatska Esport Inicijativa",
+        "description": "Official portal for the Croatian Esports association. Features a headless Sanity CMS for dynamic content management.",
+        "image": "https://cdn.sanity.io/images/pf6wp37f/production/d7d8411c9ca5605e91516d8ca6da37f1a5a35d92-600x302.png",
+        "tech": ["Next.js", "SCSS", "Sanity", "Javascript"],
+        "live": "https://www.esportinicijativa.hr/",
+        "repository": "https://github.com/tsertic/hei_v2"
+    },
+    {
+        "name": "PokéPal AI",
+        "description": "Advanced conversational assistant combining OpenAI LLMs with PokeAPI. Includes dynamic stat visualization via Matplotlib.",
+        "image": "https://cdn.sanity.io/images/pf6wp37f/production/4199641036ba4f5166cd6594b898ada6facaff31-1200x706.png",
+        "tech": ["Python", "AI", "Gradio"],
+        "live": null,
+        "repository": "https://github.com/tsertic/pokeapi-gradio-ai-chatbot"
+    },
+    {
+        "name": "Arctis d.o.o.",
+        "description": "Corporate presence for Arctis Ltd. Custom designed and built with a focus on professional aesthetics and fast delivery.",
+        "image": "https://cdn.sanity.io/images/pf6wp37f/production/41259c66ca9f3472f31d65dfa58beedcdc4fd977-600x301.png",
+        "tech": ["Typescript", "SCSS", "Next.js", "Sanity"],
+        "live": "https://www.arctis.hr/",
+        "repository": "https://github.com/ArctisZagreb/arctis_webpage_nextjs"
+    }
+];
+
+        const skills = ["JavaScript", "TypeScript", "C#", "Python", "React", "Next.js", "Tailwind CSS", "SCSS", "Node.js", "Express", ".NET Core", "SQL", "MongoDB", "AI Integration", "Figma", "REST API"];
+
+        const skillsCloud = document.getElementById('skills-cloud');
+        skills.forEach(skill => {
+            const span = document.createElement('span');
+            span.className = 'skill-tag';
+            span.textContent = skill;
+            span.style.fontSize = `${0.8 + Math.random() * 1.5}rem`;
+            skillsCloud.appendChild(span);
+        });
+
+        const grid = document.getElementById('projects-grid');
+        const filterInput = document.getElementById('search-input');
+        const tagPillsContainer = document.getElementById('tag-pills');
+        const countDisplay = document.getElementById('project-count');
+
+        function renderProjects(filter = '', tag = 'all') {
+            grid.innerHTML = '';
+            let count = 0;
+            projectData.forEach(p => {
+                const matchesSearch = p.name.toLowerCase().includes(filter.toLowerCase()) || p.tech.some(t => t.toLowerCase().includes(filter.toLowerCase()));
+                const matchesTag = tag === 'all' || p.tech.includes(tag);
+                
+                if (matchesSearch && matchesTag) {
+                    count++;
+                    const block = document.createElement('div');
+                    block.className = 'project-block';
+                    block.innerHTML = `
+                        <img src="${p.image}" class="project-image" alt="${p.name}">
+                        <div class="project-content">
+                            <h3>${p.name}</h3>
+                            <p class="project-meta">Engineering Log Entry</p>
+                            <p style="margin-bottom:1.5rem">${p.description}</p>
+                            <div class="project-tags">${p.tech.map(t => `<span class="p-tag">${t}</span>`).join('')}</div>
+                            <div>
+                                ${p.live ? `<a href="${p.live}" class="btn btn-outline" style="padding:0.4rem 1rem; font-size:0.6rem">Live System</a>` : ''}
+                                <a href="${p.repository}" class="btn btn-outline" style="padding:0.4rem 1rem; font-size:0.6rem">View Source</a>
+                            </div>
+                        </div>
+                    `;
+                    grid.appendChild(block);
+                }
+            });
+            countDisplay.textContent = count;
+        }
+
+        const allTechs = [...new Set(projectData.flatMap(p => p.tech))];
+        allTechs.forEach(tech => {
+            const p = document.createElement('span');
+            p.className = 'pill';
+            p.textContent = tech;
+            p.onclick = () => {
+                document.querySelectorAll('.pill').forEach(el => el.classList.remove('active'));
+                p.classList.add('active');
+                renderProjects(filterInput.value, tech);
+            };
+            tagPillsContainer.appendChild(p);
+        });
+
+        filterInput.oninput = (e) => {
+            const activeTag = document.querySelector('.pill.active').textContent;
+            renderProjects(e.target.value, activeTag === 'All Specs' ? 'all' : activeTag);
+        };
+
+        window.onscroll = () => {
+            const decos = document.querySelectorAll('.decoration');
+            decos.forEach((d, i) => {
+                d.style.transform = `translateY(${window.scrollY * (0.05 * (i+1))}px) rotate(${window.scrollY * 0.02}deg)`;
+            });
+        };
+
+        renderProjects();
+    </script>
+</body>
+</html>
