@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tomislav Sertic | Software Architect of Chaos</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@300;600;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --accent: #E2725B; /* Terracotta Mediterranean */
+            --bg: #121212;
+            --surface: #1e1e1e;
+            --text: #d1d1d1;
+            --muted: #666;
+            --glass: rgba(255, 255, 255, 0.03);
+            --border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            background-color: var(--bg); 
+            color: var(--text); 
+            font-family: 'Crimson Pro', serif; 
+            line-height: 1.6;
+            overflow-x: hidden;
+            background-image: url('assets/svg/noise-grain-texture.svg');
+        }
+
+        /* Diagonal Sliced Sections */
+        section { 
+            position: relative; 
+            padding: 10rem 10%; 
+            background: var(--bg);
+            z-index: 2;
+        }
+        .slice-top { clip-path: polygon(0 15%, 100% 0, 100% 100%, 0 100%); margin-top: -10vh; }
+        .slice-bottom { clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%); }
+
+        /* Typography */
+        h1, h2, h3 { color: #fff; text-transform: lowercase; font-weight: 900; letter-spacing: -2px; }
+        p { max-width: 600px; font-size: 1.2rem; }
+        .accent-text { color: var(--accent); }
+
+        /* Navigation */
+        nav { 
+            position: sticky; top: 0; width: 100%; z-index: 100; 
+            padding: 1.5rem 10%; background: rgba(18,18,18,0.9);
+            border-bottom: var(--border); display: flex; justify-content: space-between;
+        }
+        nav a { color: var(--text); text-decoration: none; font-weight: 600; margin-left: 2rem; transition: 0.3s; }
+        nav a:hover { color: var(--accent); }
+
+        /* Hero */
+        .hero { 
+            height: 80vh; display: flex; align-items: center; justify-content: space-between;
+            background-image: url('assets/svg/dot-grid-pattern.svg'); background-size: 30px;
+        }
+        .hero-content h1 { font-size: clamp(3rem, 8vw, 6rem); line-height: 0.9; }
+        .portrait-container { 
+            position: relative; width: 350px; height: 450px; 
+            filter: contrast(150%) grayscale(100%) brightness(80%);
+            /* Halftone effect approximation using CSS mask/gradient */
+            mask-image: radial-gradient(circle, black 1px, transparent 1.5px);
+            mask-size: 4px 4px;
+        }
+        .portrait-container img { width: 100%; height: 100%; object-fit: cover; border-radius: 12px; }
+        .hero-btns { margin-top: 2rem; display: flex; gap: 1rem; }
+
+        /* Brutalist Buttons */
+        .btn { 
+            padding: 1rem 2rem; border: 2px solid var(--accent); background: var(--accent);
+            color: #000; font-weight: 900; text-decoration: none; display: inline-block;
+            box-shadow: 6px 6px 0px #000; transition: 0.2s;
+        }
+        .btn:hover { transform: translate(-2px, -2px); box-shadow: 8px 8px 0px #000; }
+        .btn-outline { background: transparent; color: var(--accent); }
+
+        /* Tags */
+        .pill { 
+            padding: 0.4rem 1rem; border-radius: 20px; border: var(--border);
+            font-size: 0.8rem; display: inline-block; margin: 0.3rem; background: var(--glass);
+            cursor: pointer; transition: 0.3s;
+        }
+        .pill.active { background: var(--accent); color: #000; border-color: var(--accent); }
+
+        /* Projects Grid */
+        .filter-bar { margin-bottom: 3rem; background: var(--glass); padding: 2rem; border-radius: 12px; }
+        #search { 
+            background: transparent; border: none; border-bottom: 2px solid var(--muted);
+            color: #fff; width: 100%; padding: 0.5rem; font-family: inherit; font-size: 1.5rem; margin-bottom: 1rem;
+        }
+        #search:focus { outline: none; border-color: var(--accent); }
+        .projects-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 2rem; }
+        .card { 
+            background: var(--glass); backdrop-filter: blur(10px); border: var(--border);
+            border-radius: 12px; padding: 1.5rem; transition: 0.4s; height: 100%; display: flex; flex-direction: column;
+        }
+        .card:hover { transform: translateY(-10px); border-color: var(--accent); }
+        .card img { width: 100%; height: 200px; object-fit: cover; border-radius: 8px; margin-bottom: 1rem; filter: grayscale(100%); }
+        .card:hover img { filter: grayscale(0%) sepia(20%) saturate(150%) hue-rotate(-20deg); }
+        .card-tech { margin-top: auto; padding-top: 1.5rem; }
+
+        /* Decoration Elements */
+        .deco { position: absolute; z-index: 1; opacity: 0.12; pointer-events: none; pointer-events: none; filter: sepia(1); }
+        .divider-line { border: none; border-top: 2px dashed var(--muted); margin: 4rem 0; opacity: 0.3; }
+
+        /* Self-Generating Section */
+        .ai-banner { 
+            background: var(--accent); color: #000; padding: 4rem 10%;
+            display: flex; flex-direction: column; align-items: center; text-align: center;
+        }
+        .ai-banner h2 { color: #000; font-size: 3rem; margin-bottom: 1rem; }
+
+        /* Contact */
+        .big-email { font-size: clamp(2rem, 10vw, 8rem); font-weight: 900; line-height: 1; margin: 4rem 0; display: block; word-break: break-all; text-decoration: none; color: var(--text); }
+        .big-email:hover { color: var(--accent); }
+
+        footer { padding: 4rem 10%; border-top: 5px solid #fff; background: #000; color: #fff; }
+
+        @media (max-width: 768px) {
+            .hero { flex-direction: column; height: auto; padding-top: 4rem; text-align: center; }
+            .portrait-container { width: 280px; height: 350px; margin-top: 3rem; }
+            section { padding: 5rem 5%; }
+            .slice-top, .slice-bottom { clip-path: none; margin-top: 0; }
+        }
+    </style>
+<style id="safety-override">
+*[class*="fade"],*[class*="anim"],*[class*="hidden"],*[class*="reveal"],*[class*="slide"] {
+  opacity: 1 !important; transform: none !important;
+  visibility: visible !important; animation: none !important;
+}
+</style>
+</head>
+<body>
+
+    <nav>
+        <div class="logo">TS/2026</div>
+        <div class="links">
+            <a href="#about">Philosophy</a>
+            <a href="#projects">Artifacts</a>
+            <a href="#contact">Confront</a>
+        </div>
+    </nav>
+
+    <!-- Floating Decorations -->
+    <img src="../assets/svg/blob-organic-coral.svg" class="deco" style="top: 10%; left: -5%; width: 500px;" id="deco1">
+    <img src="../assets/svg/spiral-fibonacci.svg" class="deco" style="top: 40%; right: -5%; width: 400px;" id="deco2">
+    <img src="../assets/svg/circuit-board-lines.svg" class="deco" style="bottom: 10%; left: 10%; width: 300px;" id="deco3">
+    <img src="../assets/svg/infinity-loop-outline.svg" class="deco" style="top: 70%; left: 40%; width: 200px;" id="deco4">
+
+    <section class="hero slice-bottom">
+        <div class="hero-content">
+            <p class="accent-text">Based in Zagreb. Operating globally.</p>
+            <h1>Software is a <br>necessary <span class="accent-text">evil.</span></h1>
+            <p>I build enterprise systems for the European Space Agency and Saudi Aramco by day, and break the rules of the web by night. I don't build "apps," I solve architectural puzzles.</p>
+            <div class="hero-btns">
+                <a href="#contact" class="btn">Hire the Brain</a>
+                <a href="https://github.com/tsertic" class="btn btn-outline">Expose the Source</a>
+            </div>
+        </div>
+        <div class="portrait-container">
+            <img src="../assets/images/portrait.webp" alt="Tomislav Sertic" onerror="this.style.display='none'">
+            <div style="font-size: 10rem; position: absolute; top: 20%; left: 20%; z-index: -1; opacity: 0.2;">TS</div>
+        </div>
+    </section>
+
+    <section id="about" class="slice-top slice-bottom" style="background: #151515;">
+        <div style="display: flex; flex-wrap: wrap; gap: 4rem;">
+            <div style="flex: 1; min-width: 300px;">
+                <h2 class="accent-text">The Cynic's Bio</h2>
+                <p style="margin-top: 2rem;">
+                    Most developers are obsessed with the "new." I’m obsessed with what works. I spend my life bridging the gap between legacy IWMS giants like Archibus and modern React frontends. 
+                </p>
+                <p style="margin-top: 1rem;">
+                    Whether it's optimizing SQL queries that have existed longer than my career or configuring Tomcat servers for the European Court of Justice, I find beauty in the complexity. When I'm not orchestrating enterprise data, I'm probably losing at chess, hiking with my dog Eevee, or explaining to my daughter Anja why code is basically magic.
+                </p>
+            </div>
+            <div style="flex: 1; min-width: 300px;">
+                <h2 class="accent-text">Weaponry</h2>
+                <div style="margin-top: 2rem;" id="skills-container">
+                    <!-- Skills will be repeated from data -->
+                    <span class="pill">TypeScript</span><span class="pill">Python</span><span class="pill">C#</span><span class="pill">JavaScript</span>
+                    <span class="pill">React</span><span class="pill">Next.js</span><span class="pill">Node.js</span><span class="pill">SQL</span>
+                    <span class="pill">Archibus</span><span class="pill">Java</span><span class="pill">Tailwind</span><span class="pill">AI Integration</span>
+                </div>
+                <div class="divider-line"></div>
+                <p style="font-size: 0.9rem; color: var(--muted);">
+                    I don't just "know" these. I've used them to save international organizations from data-induced meltdowns.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects">
+        <h2 style="font-size: 4rem;">Side <span class="accent-text">Distractions</span></h2>
+        <p style="margin-bottom: 2rem; font-style: italic;">Note: My professional work is confidential enterprise software for ESA, Aramco, and THT. These are the experiments I run when I'm bored.</p>
+        
+        <div class="filter-bar">
+            <input type="text" id="search" placeholder="Type to filter artifacts (name or tech)...">
+            <div id="tag-filters">
+                <span class="pill active" data-tag="all">All</span>
+            </div>
+            <p id="counter" style="margin-top: 1rem; font-size: 0.9rem; color: var(--muted);"></p>
+        </div>
+
+        <div class="projects-grid" id="project-list">
+            <!-- Projects injected here -->
+        </div>
+    </section>
+
+    <section class="ai-banner">
+        <p>CONTRARIAN DESIGN EXPERIMENT 061</p>
+        <h2>Built by hand. <span style="text-decoration: underline;">Redesigned</span> by AI.</h2>
+        <p>This portfolio is not static. Every 24 hours, an LLM wakes up, looks at my data, and chooses a new aesthetic path. Today is 2026-11-11.</p>
+        <a href="history/" class="btn" style="margin-top: 2rem; background: #000; color: #fff; border-color: #000;">Inspect the Archive →</a>
+    </section>
+
+    <section id="contact" style="text-align: center;">
+        <h2 class="accent-text">Stop lurking.</h2>
+        <a href="mailto:tsertic5@gmail.com" class="big-email">tsertic5@gmail.com</a>
+        <div style="display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap;">
+            <a href="https://linkedin.com/in/tomislav-sertic" class="btn btn-outline">LinkedIn</a>
+            <a href="https://github.com/tsertic" class="btn btn-outline">GitHub</a>
+            <a href="https://instagram.com/tsertic5" class="btn btn-outline">Instagram</a>
+        </div>
+    </section>
+
+    <footer class="slice-top">
+        <div style="display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 2rem;">
+            <div>
+                <h3 style="font-size: 2rem;">Tomislav Sertic</h3>
+                <p>Full-Stack Software Developer | Zagreb, Croatia</p>
+            </div>
+            <div style="text-align: right;">
+                <p>© 2026 — NO RIGHTS RESERVED. STEAL THIS DESIGN.</p>
+                <p style="font-size: 0.8rem; color: var(--muted);">MADE WITH REPRESSED CREATIVITY AND AI SPICE.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const projectData = [{"name":"Manage Landing Page","tech":["Next.js","Typescript","TailwindCSS"],"image":"https://cdn.sanity.io/images/pf6wp37f/production/54a81664cc61e85990647d4a292a38355e272475-1856x936.png","desc":"High-performance landing page for a fictional SaaS. Optimized for speed and vanity.","live":"https://manage-landing-page-seven-theta.vercel.app/"},{"name":"Hrvatska Esport Inicijativa","tech":["Next.js","SCSS","Sanity"],"image":"https://cdn.sanity.io/images/pf6wp37f/production/d7d8411c9ca5605e91516d8ca6da37f1a5a35d92-600x302.png","desc":"The digital home for Croatian esports. Headless CMS architecture for fast updates.","live":"https://www.esportinicijativa.hr/"},{"name":"Pinky Delights Bakery","tech":["Three.js","Next.js","TailwindCSS"],"image":"https://cdn.sanity.io/images/pf6wp37f/production/9c3a623fc9e77bab5c2b31ebb307e059916d3835-1000x536.png","desc":"Interactive 3D donut rendering on the web. Overkill for a bakery? Absolutely.","live":null},{"name":"Where in the world","tech":["Typescript","Redux","Next.js"],"image":"https://cdn.sanity.io/images/pf6wp37f/production/a40662bb7d8a672a19db9c1c7669a395941abc84-600x301.png","desc":"REST API integration exploring global data with infinite scroll and dark mode.","live":"https://where-in-the-world-drab.vercel.app/"},{"name":"haiku AI streamer","tech":["Node.js","AI - Ollama","AI - ChatGpt"],"image":"https://cdn.sanity.io/images/pf6wp37f/production/32f2e0268a9fe542d8047c8531c289762ab4dc01-1712x896.png","desc":"Automated poetry generation using local and cloud LLMs. Pure digital soul.","live":null},{"name":"The Vixa Website","tech":["Typescript","TailwindCSS","Next.js","Sanity"],"image":"https://cdn.sanity.io/images/pf6wp37f/production/dd745de3166bd404a304ced44431b3807438e951-1200x603.png","desc":"Bespoke vacation rental platform. Fast, scalable, and visually superior.","live":"https://www.the-vixa.com/hr"},{"name":"Plesni Studio Ventus","tech":["Next.js","Sanity","SCSS"],"image":"https://cdn.sanity.io/images/pf6wp37f/production/22d037550976b8e15b051b183b2af6206f648030-600x377.png","desc":"Dance studio hub for Zagreb. Managed content for classes and instructors.","live":"https://www.plesni-studio-ventus.hr/"},{"name":"Arctis d.o.o.","tech":["Typescript","SCSS","Next.js","Sanity"],"image":"https://cdn.sanity.io/images/pf6wp37f/production/41259c66ca9f3472f31d65dfa58beedcdc4fd977-600x301.png","desc":"Company website for my primary employer. Modernized stack with Sanity integration.","live":"https://www.arctis.hr/"},{"name":"PokéPal AI","tech":["Python","AI","Gradio"],"image":"https://cdn.sanity.io/images/pf6wp37f/production/4199641036ba4f5166cd6594b898ada6facaff31-1200x706.png","desc":"Conversational Pokémon expert with dynamic stat visualization and LLM logic.","live":null}];
+
+        const grid = document.getElementById('project-list');
+        const search = document.getElementById('search');
+        const tagBox = document.getElementById('tag-filters');
+        const counter = document.getElementById('counter');
+
+        function render(filterTag = 'all', query = '') {
+            grid.innerHTML = '';
+            let count = 0;
+            const q = query.toLowerCase();
+
+            projectData.forEach(p => {
+                const matchesTag = filterTag === 'all' || p.tech.includes(filterTag);
+                const matchesQuery = p.name.toLowerCase().includes(q) || p.tech.some(t => t.toLowerCase().includes(q));
+                
+                if (matchesTag && matchesQuery) {
+                    count++;
+                    const card = document.createElement('div');
+                    card.className = 'card';
+                    card.innerHTML = `
+                        <img src="${p.image}" alt="${p.name}">
+                        <h3>${p.name}</h3>
+                        <p style="font-size:0.9rem; color:var(--muted); margin:0.5rem 0;">${p.desc}</p>
+                        <div class="card-tech">${p.tech.map(t => `<span class="pill" style="font-size:0.6rem;">${t}</span>`).join('')}</div>
+                        <div style="margin-top:1rem;">
+                            ${p.live ? `<a href="${p.live}" target="_blank" style="color:var(--accent); font-weight:900; text-decoration:none; margin-right:1rem;">Live ↗</a>` : ''}
+                            <a href="#" style="color:var(--text); text-decoration:none; font-size:0.8rem;">Source ↗</a>
+                        </div>
+                    `;
+                    grid.appendChild(card);
+                }
+            });
+            counter.innerText = `Exposing ${count} of ${projectData.length} artifacts`;
+        }
+
+        // Init tags
+        const allTech = [...new Set(projectData.flatMap(p => p.tech))];
+        allTech.forEach(t => {
+            const span = document.createElement('span');
+            span.className = 'pill';
+            span.innerText = t;
+            span.onclick = () => {
+                document.querySelectorAll('#tag-filters .pill').forEach(el => el.classList.remove('active'));
+                span.classList.add('active');
+                render(t, search.value);
+            };
+            tagBox.appendChild(span);
+        });
+
+        search.oninput = (e) => {
+            const activeTag = document.querySelector('#tag-filters .pill.active').innerText.toLowerCase();
+            render(activeTag === 'all' ? 'all' : activeTag, e.target.value);
+        };
+
+        // Drift Animation
+        let lastY = 0;
+        function drift() {
+            const y = window.scrollY;
+            const diff = y - lastY;
+            document.getElementById('deco1').style.transform = `translateY(${y * 0.1}px) rotate(${y * 0.02}deg)`;
+            document.getElementById('deco2').style.transform = `translateY(${y * -0.05}px) rotate(${y * -0.01}deg)`;
+            document.getElementById('deco3').style.transform = `translateX(${y * 0.05}px)`;
+            document.getElementById('deco4').style.transform = `rotate(${y * 0.1}deg)`;
+            requestAnimationFrame(drift);
+        }
+
+        render();
+        drift();
+    </script>
+</body>
+</html>
