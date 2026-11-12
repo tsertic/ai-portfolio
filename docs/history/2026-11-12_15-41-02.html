@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tomislav Sertic | Software Architect & Explorer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --forest-dark: #0d140d;
+            --forest-light: #e8ede8;
+            --neon-green: #b7ff00;
+            --earth-brown: #4a3728;
+            --accent-glow: rgba(183, 255, 0, 0.3);
+            --radius: 24px;
+            --transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: 'Space Grotesk', sans-serif; 
+            background: var(--forest-dark); 
+            color: var(--forest-light); 
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Grain Overlay */
+        body::before {
+            content: "";
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: url('assets/svg/noise-grain-texture.svg');
+            opacity: 0.08; pointer-events: none; z-index: 9999;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed; top: 0; width: 100%; padding: 1.5rem 3rem;
+            display: flex; justify-content: space-between; align-items: center;
+            z-index: 1000; transition: transform 0.4s ease;
+            background: rgba(13, 20, 13, 0.8); backdrop-filter: blur(10px);
+        }
+        nav.nav-hidden { transform: translateY(-100%); }
+        .logo { font-weight: 700; font-size: 1.5rem; letter-spacing: -1px; color: var(--neon-green); }
+
+        /* Hero Section */
+        #hero {
+            height: 110vh; position: relative; overflow: hidden;
+            background: radial-gradient(circle at 50% 50%, #1a2a1a 0%, var(--forest-dark) 70%);
+        }
+        .hero-scatter { position: absolute; }
+        .ts-monogram {
+            font-size: 15rem; font-weight: 700; opacity: 0.05;
+            left: 50%; top: 50%; transform: translate(-50%, -50%);
+        }
+        .hero-name { top: 20%; left: 10%; font-size: 5rem; line-height: 0.9; z-index: 2; }
+        .hero-title { bottom: 25%; right: 10%; text-align: right; font-size: 2rem; color: var(--neon-green); }
+        .hero-tagline { top: 45%; right: 15%; max-width: 300px; font-weight: 300; }
+        .hero-btns { bottom: 15%; left: 10%; display: flex; gap: 1rem; }
+
+        .btn {
+            background: var(--neon-green); color: var(--forest-dark);
+            padding: 1rem 2rem; border-radius: var(--radius);
+            text-decoration: none; font-weight: 700; border: none;
+            cursor: pointer; transition: var(--transition); display: inline-block;
+        }
+        .btn:hover { transform: scale(1.05) translateY(-5px); box-shadow: 0 10px 20px var(--accent-glow); }
+
+        /* Sections Styling */
+        section { padding: 8rem 10%; position: relative; }
+        .inverted { background: var(--forest-light); color: var(--forest-dark); }
+        .divider { width: 100%; height: 2px; background: rgba(183, 255, 0, 0.2); margin: 2rem 0; }
+        h2 { font-size: 3.5rem; margin-bottom: 3rem; letter-spacing: -2px; }
+
+        /* About & Timeline */
+        .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; }
+        .timeline { border-left: 2px solid var(--earth-brown); padding-left: 2rem; }
+        .timeline-item { position: relative; margin-bottom: 2rem; }
+        .timeline-item::before {
+            content: ""; position: absolute; left: calc(-2rem - 6px); top: 8px;
+            width: 10px; height: 10px; background: var(--neon-green); border-radius: 50%;
+        }
+
+        /* Project Cards */
+        .filter-container { margin-bottom: 3rem; display: flex; flex-wrap: wrap; gap: 1rem; align-items: center; }
+        .search-input { 
+            padding: 0.8rem 1.5rem; border-radius: var(--radius); border: 2px solid var(--earth-brown);
+            background: transparent; color: inherit; width: 300px;
+        }
+        .tag-pill {
+            padding: 0.5rem 1.2rem; border-radius: var(--radius); border: 1px solid var(--earth-brown);
+            background: transparent; cursor: pointer; color: inherit; transition: var(--transition);
+        }
+        .tag-pill.active { background: var(--neon-green); color: var(--forest-dark); border-color: var(--neon-green); }
+        
+        .project-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 2rem; }
+        .project-card { 
+            background: rgba(255,255,255,0.03); border-radius: var(--radius); overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.1); transition: var(--transition);
+            display: flex; flex-direction: column;
+        }
+        .project-card:hover { transform: translateY(-10px) rotate(1deg); border-color: var(--neon-green); box-shadow: 0 20px 40px rgba(0,0,0,0.4); }
+        .project-img { width: 100%; height: 200px; object-fit: cover; }
+        .project-content { padding: 2rem; flex-grow: 1; display: flex; flex-direction: column; }
+        .project-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 1rem 0; }
+        .tag { font-size: 0.75rem; opacity: 0.7; background: rgba(183, 255, 0, 0.1); padding: 2px 8px; border-radius: 4px; }
+        .project-links { margin-top: auto; display: flex; gap: 1rem; }
+        .project-links a { color: var(--neon-green); text-decoration: none; font-weight: 500; font-size: 0.9rem; }
+        .project-links a:hover { text-decoration: underline; }
+
+        /* Self Gen Section */
+        #self-gen { 
+            background: linear-gradient(45deg, var(--earth-brown), #2a1f17);
+            color: var(--forest-light); text-align: center; border-radius: var(--radius);
+            margin: 4rem 10%; padding: 4rem; border: 4px solid var(--neon-green);
+        }
+        .gen-date { font-family: monospace; font-size: 1.2rem; display: block; margin-top: 1rem; opacity: 0.8; }
+
+        /* Contact & Footer */
+        .contact-links { text-align: center; display: flex; justify-content: center; gap: 3rem; flex-wrap: wrap; }
+        .contact-link { font-size: 1.5rem; color: var(--forest-light); text-decoration: none; transition: var(--transition); }
+        .contact-link:hover { color: var(--neon-green); transform: scale(1.1); }
+
+        footer { 
+            background: #000; padding: 4rem 10%; border-top: 10px solid var(--earth-brown);
+            display: flex; justify-content: space-between; align-items: flex-end;
+            text-transform: uppercase; font-weight: 900; font-size: 2rem;
+        }
+
+        /* Decorations */
+        .decor { position: absolute; z-index: -1; pointer-events: none; opacity: 0.1; }
+
+        @media (max-width: 768px) {
+            .hero-name { font-size: 3rem; }
+            .about-grid { grid-template-columns: 1fr; }
+            section { padding: 4rem 5%; }
+            .hero-scatter { position: relative; top: auto; left: auto; right: auto; margin-bottom: 2rem; }
+            #hero { height: auto; padding-top: 8rem; display: flex; flex-direction: column; }
+        }
+    </style>
+<style id="safety-override">
+*[class*="fade"],*[class*="anim"],*[class*="hidden"],*[class*="reveal"],*[class*="slide"] {
+  opacity: 1 !important; transform: none !important;
+  visibility: visible !important; animation: none !important;
+}
+</style>
+</head>
+<body>
+
+    <nav id="main-nav">
+        <div class="logo">TS_DEV.EXE</div>
+        <div style="display: flex; gap: 2rem;">
+            <a href="#about" style="color: inherit; text-decoration: none;">ABOUT</a>
+            <a href="#projects" style="color: inherit; text-decoration: none;">WORK</a>
+            <a href="#contact" style="color: inherit; text-decoration: none;">TALK</a>
+        </div>
+    </nav>
+
+    <section id="hero">
+        <div class="decor" style="top: 10%; right: 5%; width: 400px;"><img src="../assets/svg/binary-stream-vertical.svg" width="100%"></div>
+        <div class="decor" style="bottom: 5%; left: 5%; width: 300px;"><img src="../assets/svg/circuit-board-lines.svg" width="100%"></div>
+        <div class="hero-scatter ts-monogram">TS</div>
+        <h1 class="hero-scatter hero-name">TOMISLAV<br>SERTIC</h1>
+        <h2 class="hero-scatter hero-title">FULL-STACK<br>ARCHITECT</h2>
+        <p class="hero-scatter hero-tagline">I build digital fortresses for enterprise giants and sleek experiences for everyone else. Based in Zagreb, coding for the world.</p>
+        <div class="hero-scatter hero-btns">
+            <a href="#projects" class="btn">VIEW MISSIONS</a>
+            <a href="mailto:tsertic5@gmail.com" class="btn" style="background: transparent; border: 2px solid var(--neon-green); color: var(--neon-green);">GET IN TOUCH</a>
+        </div>
+    </section>
+
+    <section id="about" class="inverted">
+        <div class="decor" style="top: 10%; right: 0; opacity: 0.05;"><img src="../assets/svg/mesh-blob-layered.svg" width="500"></div>
+        <h2>THE INTEL</h2>
+        <div class="about-grid">
+            <div>
+                <p style="font-size: 1.5rem; margin-bottom: 2rem;">I'm a solution-finder who lives at the intersection of legacy stability and modern innovation!</p>
+                <p>Currently, I'm deep in the trenches at <strong>Arctis d.o.o.</strong>, where I orchestrate complex Archibus IWMS solutions for heavy hitters like <strong>Saudi Aramco</strong> and the <strong>European Space Agency</strong>. I specialize in bridging the gap—integrating React into enterprise legacy systems and optimizing SQL databases until they scream with speed.</p>
+                <p style="margin-top: 1rem;">When I'm not configuring Tomcat servers or writing tech docs, you'll find me building high-performance Next.js sites or exploring AI integration. And yes, my mixed-breed dog <strong>Eevee</strong> and my daughter <strong>Anja</strong> keep my human side just as busy as my dev side!</p>
+            </div>
+            <div>
+                <h3 style="margin-bottom: 1.5rem; text-transform: uppercase;">Evolution Log</h3>
+                <div class="timeline">
+                    <div class="timeline-item"><strong>Core Power:</strong> JavaScript, TypeScript, C#, Python</div>
+                    <div class="timeline-item"><strong>Interface Ops:</strong> React, Next.js, Tailwind, SCSS</div>
+                    <div class="timeline-item"><strong>Deep Server:</strong> Node.js, .NET Core, ASP.NET</div>
+                    <div class="timeline-item"><strong>Data Vaults:</strong> SQL, MongoDB, Sanity, Firestore</div>
+                    <div class="timeline-item"><strong>Design Lab:</strong> Figma, Adobe Creative Suite</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects">
+        <div class="decor" style="top: -50px; left: 0; width: 100%; opacity: 0.2;"><img src="../assets/svg/divider-zigzag.svg" width="100%"></div>
+        <div style="margin-bottom: 3rem;">
+            <h2>SIDE MISSIONS</h2>
+            <p style="color: var(--neon-green); font-style: italic;">Note: My daily grind involves enterprise software for global organizations. The following artifacts are side projects, client sites, and AI experiments built for fun and impact.</p>
+        </div>
+
+        <div class="filter-container">
+            <input type="text" id="projectSearch" class="search-input" placeholder="Search mission name or tech...">
+            <div id="tagFilters" style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+                <button class="tag-pill active" data-tag="all">All Systems</button>
+            </div>
+            <span id="projectCounter" style="margin-left: auto; opacity: 0.6;"></span>
+        </div>
+
+        <div class="project-grid" id="projectGrid">
+            <!-- Projects injected by script -->
+        </div>
+    </section>
+
+    <section id="self-gen">
+        <h3>STILL IN BETA? NO, STILL EVOLVING.</h3>
+        <p style="font-size: 1.4rem; margin-top: 1rem;">Every single day, an AI architect wakes up and completely redesigns this entire portfolio from scratch. No two visits are ever the same.</p>
+        <span class="gen-date">TIMESTAMP: 2026-11-12</span>
+        <a href="history/" class="btn" style="margin-top: 2rem;">RECALL PAST VERSIONS →</a>
+    </section>
+
+    <section id="contact">
+        <h2>LET'S CONNECT</h2>
+        <div class="contact-links">
+            <a href="https://github.com/tsertic" class="contact-link">GITHUB</a>
+            <a href="https://linkedin.com/in/tomislav-sertic" class="contact-link">LINKEDIN</a>
+            <a href="mailto:tsertic5@gmail.com" class="contact-link">EMAIL</a>
+            <a href="https://instagram.com/tsertic5" class="contact-link">INSTAGRAM</a>
+        </div>
+    </section>
+
+    <footer>
+        <div>SERTIC<br>PORTFOLIO</div>
+        <div style="font-size: 1rem; text-align: right;">BUILT WITH SPEED<br>&copy; 2026 ZAGREB, CRO</div>
+    </footer>
+
+    <script>
+        const projects = [
+            { name: "Manage Landing Page", tech: ["Next.js", "Typescript", "TailwindCSS"], img: "https://cdn.sanity.io/images/pf6wp37f/production/54a81664cc61e85990647d4a292a38355e272475-1856x936.png", live: "https://manage-landing-page-seven-theta.vercel.app/", repo: "https://github.com/tsertic/manage_landing_page/tree/master" },
+            { name: "Hrvatska Esport Inicijativa", tech: ["Next.js", "SCSS", "Sanity", "Javascript"], img: "https://cdn.sanity.io/images/pf6wp37f/production/d7d8411c9ca5605e91516d8ca6da37f1a5a35d92-600x302.png", live: "https://www.esportinicijativa.hr/", repo: "https://github.com/tsertic/hei_v2" },
+            { name: "Pinky Delights Bakery", tech: ["Typescript", "Three.js", "Next.js"], img: "https://cdn.sanity.io/images/pf6wp37f/production/9c3a623fc9e77bab5c2b31ebb307e059916d3835-1000x536.png", live: null, repo: "https://github.com/tsertic/pinky-delights-bakery" },
+            { name: "The Vixa Website", tech: ["Typescript", "TailwindCSS", "Next.js", "Sanity"], img: "https://cdn.sanity.io/images/pf6wp37f/production/dd745de3166bd404a304ced44431b3807438e951-1200x603.png", live: "https://www.the-vixa.com/hr", repo: "https://github.com/tsertic/TheViksaWebsite" },
+            { name: "Pokémon AI Debate", tech: ["Express.js", "React", "AI", "Node.js"], img: "https://cdn.sanity.io/images/pf6wp37f/production/cc01144c22251187e40bc42bb3408413a6c8c141-1200x645.png", live: null, repo: "https://github.com/tsertic/pokemon-ai-debate" },
+            { name: "haiku AI streamer script", tech: ["Node.js", "AI", "OpenAI"], img: "https://cdn.sanity.io/images/pf6wp37f/production/32f2e0268a9fe542d8047c8531c289762ab4dc01-1712x896.png", live: null, repo: "https://github.com/tsertic/haiku-ai-streamer-script" },
+            { name: "Directory Structure Scanner", tech: ["Python", "Gradio"], img: "https://cdn.sanity.io/images/pf6wp37f/production/41b2577b2c7b14ba62b8f24747fce95eb2dca141-1200x542.png", live: null, repo: "https://github.com/tsertic/directory-structure-scanner" }
+        ];
+
+        // Project Grid Initialization
+        const grid = document.getElementById('projectGrid');
+        const tagContainer = document.getElementById('tagFilters');
+        const allTags = new Set();
+
+        projects.forEach(p => {
+            const card = document.createElement('div');
+            card.className = 'project-card';
+            card.dataset.name = p.name.toLowerCase();
+            card.dataset.tech = p.tech.join(',').toLowerCase();
+            card.innerHTML = `
+                <img src="${p.img}" class="project-img" alt="${p.name}">
+                <div class="project-content">
+                    <h3>${p.name}</h3>
+                    <div class="project-tags">${p.tech.map(t => `<span class="tag">${t}</span>`).join('')}</div>
+                    <div class="project-links">
+                        ${p.live ? `<a href="${p.live}" target="_blank">LIVE</a>` : ''}
+                        <a href="${p.repo}" target="_blank">SOURCE</a>
+                    </div>
+                </div>
+            `;
+            grid.appendChild(card);
+            p.tech.forEach(t => allTags.add(t));
+        });
+
+        allTags.forEach(tag => {
+            const btn = document.createElement('button');
+            btn.className = 'tag-pill';
+            btn.textContent = tag;
+            btn.dataset.tag = tag.toLowerCase();
+            tagContainer.appendChild(btn);
+        });
+
+        // Filtering Logic
+        const search = document.getElementById('projectSearch');
+        const pills = document.querySelectorAll('.tag-pill');
+        let activeTag = 'all';
+
+        function filterProjects() {
+            const term = search.value.toLowerCase();
+            const cards = document.querySelectorAll('.project-card');
+            let visibleCount = 0;
+
+            cards.forEach(card => {
+                const matchesSearch = card.dataset.name.includes(term) || card.dataset.tech.includes(term);
+                const matchesTag = activeTag === 'all' || card.dataset.tech.includes(activeTag);
+                const isVisible = matchesSearch && matchesTag;
+                card.style.display = isVisible ? 'flex' : 'none';
+                if(isVisible) visibleCount++;
+            });
+            document.getElementById('projectCounter').textContent = `Showing ${visibleCount} of ${projects.length}`;
+        }
+
+        search.addEventListener('input', filterProjects);
+        tagContainer.addEventListener('click', (e) => {
+            if(e.target.classList.contains('tag-pill')) {
+                pills.forEach(p => p.classList.remove('active'));
+                e.target.classList.add('active');
+                activeTag = e.target.dataset.tag;
+                filterProjects();
+            }
+        });
+        filterProjects();
+
+        // Nav Hide/Show
+        let lastScroll = 0;
+        window.addEventListener('scroll', () => {
+            const currentScroll = window.pageYOffset;
+            const nav = document.getElementById('main-nav');
+            if (currentScroll > lastScroll && currentScroll > 100) nav.classList.add('nav-hidden');
+            else nav.classList.remove('nav-hidden');
+            lastScroll = currentScroll;
+            
+            // Subtle Drift Animation for decorations
+            document.querySelectorAll('.decor').forEach((d, i) => {
+                d.style.transform = `translateY(${currentScroll * (0.05 * (i + 1))}px) rotate(${currentScroll * 0.02}deg)`;
+            });
+        });
+    </script>
+</body>
+</html></html>
