@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tomislav Sertic | Dev Portfolio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #fffcf2;
+            --primary: #ff007a;
+            --secondary: #00d4ff;
+            --accent: #ffcc00;
+            --text: #1a1a1a;
+            --border: #222;
+            --panel: #ffffff;
+            --scanline: rgba(255, 0, 122, 0.05);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Outfit', sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.5;
+            overflow-x: hidden;
+            counter-reset: section-counter;
+        }
+
+        /* Side Navigation */
+        .side-nav {
+            position: fixed;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            z-index: 100;
+        }
+        .side-nav a {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--border);
+            border: 2px solid var(--border);
+            transition: 0.2s;
+        }
+        .side-nav a:hover, .side-nav a.active {
+            background: var(--primary);
+            transform: scale(1.3);
+        }
+
+        /* Global Noise & Decoration */
+        .noise-bg {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image: url('assets/svg/dot-grid-pattern.svg');
+            background-size: 30px;
+            opacity: 0.07;
+            z-index: -2;
+            pointer-events: none;
+        }
+        .floating-svg {
+            position: absolute;
+            z-index: -1;
+            opacity: 0.12;
+            pointer-events: none;
+        }
+
+        /* Hero & Scanline */
+        .hero {
+            height: 90vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            background: var(--accent);
+            border-bottom: 4px solid var(--border);
+            padding: 20px;
+            overflow: hidden;
+        }
+        .hero::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(var(--scanline) 50%, transparent 50%);
+            background-size: 100% 4px;
+            z-index: 5;
+            pointer-events: none;
+        }
+        .hero-content {
+            background: var(--panel);
+            padding: 40px;
+            border: 4px solid var(--border);
+            box-shadow: 12px 12px 0 var(--border);
+            max-width: 800px;
+            width: 100%;
+            position: relative;
+            z-index: 10;
+        }
+        .halftone-portrait {
+            width: 150px;
+            height: 150px;
+            background: url('assets/images/portrait.webp'), #eee;
+            background-size: cover;
+            border: 4px solid var(--border);
+            margin-bottom: 20px;
+            filter: contrast(150%) grayscale(1);
+            position: relative;
+        }
+        .halftone-portrait::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background-image: radial-gradient(var(--border) 1px, transparent 1px);
+            background-size: 3px 3px;
+            opacity: 0.4;
+        }
+
+        h1 { font-size: 2.5rem; font-weight: 900; text-transform: uppercase; margin-bottom: 10px; }
+        .tagline { font-size: 1.2rem; color: var(--primary); font-weight: 700; margin-bottom: 20px; }
+
+        /* Buttons */
+        .btn-group { display: flex; gap: 15px; flex-wrap: wrap; }
+        .brutalist-btn {
+            padding: 12px 24px;
+            background: var(--secondary);
+            border: 3px solid var(--border);
+            box-shadow: 4px 4px 0 var(--border);
+            text-decoration: none;
+            color: var(--border);
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .brutalist-btn:active { transform: translate(2px, 2px); box-shadow: 2px 2px 0 var(--border); }
+        .btn-alt { background: var(--primary); color: white; }
+
+        /* Sections */
+        section {
+            max-width: 1100px;
+            margin: 80px auto;
+            padding: 40px 20px;
+            position: relative;
+        }
+        section::before {
+            counter-increment: section-counter;
+            content: "0" counter(section-counter) ".";
+            position: absolute;
+            left: -50px;
+            top: 0;
+            font-size: 4rem;
+            font-weight: 900;
+            opacity: 0.1;
+        }
+
+        .section-header {
+            border-bottom: 2px solid var(--border);
+            margin-bottom: 40px;
+            padding-bottom: 10px;
+        }
+
+        /* Skills Ticker */
+        .ticker-wrap {
+            overflow: hidden;
+            background: var(--border);
+            color: white;
+            padding: 15px 0;
+            margin: 40px 0;
+            white-space: nowrap;
+        }
+        .ticker {
+            display: inline-block;
+            animation: ticker 30s linear infinite;
+        }
+        .ticker span {
+            font-size: 1.5rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            padding: 0 40px;
+        }
+        @keyframes ticker {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        /* Projects */
+        .filter-bar {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 40px;
+            background: var(--panel);
+            padding: 20px;
+            border: 2px solid var(--border);
+        }
+        .filter-input {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid var(--border);
+            font-family: inherit;
+            margin-bottom: 10px;
+        }
+        .filter-tag {
+            padding: 5px 12px;
+            border: 2px solid var(--border);
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 0.8rem;
+            background: white;
+        }
+        .filter-tag.active { background: var(--accent); }
+
+        .project-list { display: flex; flex-direction: column; gap: 60px; }
+        .project-item {
+            display: grid;
+            grid-template-columns: 1fr 1.5fr;
+            gap: 30px;
+            padding-bottom: 40px;
+            border-bottom: 1px solid #ddd;
+        }
+        .project-img {
+            width: 100%;
+            border: 3px solid var(--border);
+            box-shadow: 8px 8px 0 var(--border);
+        }
+        .project-info h3 { font-size: 1.8rem; margin-bottom: 10px; }
+        .tech-tags { display: flex; gap: 8px; flex-wrap: wrap; margin: 15px 0; }
+        .tech-tag {
+            font-size: 0.7rem;
+            background: #eee;
+            padding: 2px 8px;
+            border: 1px solid var(--border);
+            font-weight: 700;
+        }
+
+        /* Daily Section */
+        .daily-banner {
+            background: var(--primary);
+            color: white;
+            padding: 60px 20px;
+            text-align: center;
+            border-top: 4px solid var(--border);
+            border-bottom: 4px solid var(--border);
+        }
+        .daily-banner h2 { font-size: 2.5rem; margin-bottom: 20px; line-height: 1.1; }
+
+        /* Socials */
+        .social-row { display: flex; gap: 20px; margin-top: 20px; }
+        .social-icon { width: 40px; height: 40px; }
+
+        /* Footer */
+        footer {
+            background: var(--border);
+            color: #888;
+            padding: 60px 20px;
+            text-align: center;
+        }
+
+        @media (max-width: 768px) {
+            .project-item { grid-template-columns: 1fr; }
+            section::before { left: 0; top: -40px; font-size: 2.5rem; }
+            h1 { font-size: 2rem; }
+            .side-nav { display: none; }
+        }
+    </style>
+<style id="safety-override">
+*[class*="fade"],*[class*="anim"],*[class*="hidden"],*[class*="reveal"],*[class*="slide"] {
+  opacity: 1 !important; transform: none !important;
+  visibility: visible !important; animation: none !important;
+}
+</style>
+</head>
+<body>
+
+    <div class="noise-bg"></div>
+    <nav class="side-nav">
+        <a href="#hero" class="active"></a>
+        <a href="#about"></a>
+        <a href="#projects"></a>
+        <a href="#contact"></a>
+    </nav>
+
+    <!-- Floating Decorations -->
+    <img src="../assets/svg/grid-lines-perspective.svg" class="floating-svg" style="bottom: 0; left: 0; width: 100%; opacity: 0.05;" id="bg-grid">
+    <img src="../assets/svg/circuit-board-lines.svg" class="floating-svg" style="top: 10%; right: 5%; width: 300px;" id="bg-circuit">
+    <img src="../assets/svg/gradient-orb-violet.svg" class="floating-svg" style="top: 20%; left: -100px; width: 400px;">
+    <img src="../assets/svg/abstract-polygon-mesh.svg" class="floating-svg" style="top: 50%; right: -50px; width: 250px;" id="bg-mesh">
+
+    <header class="hero" id="hero">
+        <div class="hero-content">
+            <div class="halftone-portrait"></div>
+            <h1>Tomislav Sertic</h1>
+            <p class="tagline">The street-smart solution to your complex software headaches.</p>
+            <p style="margin-bottom: 25px; max-width: 500px;">Based in Zagreb. Building enterprise-grade logic for the world's biggest players, and clean web experiences for everyone else.</p>
+            <div class="btn-group">
+                <a href="mailto:tsertic5@gmail.com" class="brutalist-btn">Drop a Line</a>
+                <a href="https://github.com/tsertic" class="brutalist-btn btn-alt">GitHub</a>
+                <a href="https://linkedin.com/in/tomislav-sertic" class="brutalist-btn">LinkedIn</a>
+            </div>
+        </div>
+    </header>
+
+    <div class="ticker-wrap">
+        <div class="ticker">
+            <span>JavaScript</span><span>TypeScript</span><span>React</span><span>Next.js</span><span>Node.js</span><span>SQL</span><span>Python</span><span>C#</span><span>Java</span><span>Archibus</span><span>AI Integration</span><span>Tailwind CSS</span>
+            <span>JavaScript</span><span>TypeScript</span><span>React</span><span>Next.js</span><span>Node.js</span><span>SQL</span><span>Python</span><span>C#</span><span>Java</span><span>Archibus</span><span>AI Integration</span><span>Tailwind CSS</span>
+        </div>
+    </div>
+
+    <section id="about">
+        <div class="section-header">
+            <h2>The Lowdown</h2>
+        </div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px;">
+            <div>
+                <p><strong>Look, I don't just "write code." I solve puzzles.</strong></p><br>
+                <p>By day, I'm deep in the guts of Archibus IWMS for Arctis d.o.o. We're talking big-league stuff: Saudi Aramco, the European Space Agency, and the European Court of Justice. I handle everything from SQL optimization to hacking React into legacy Java systems. If it’s enterprise, complex, and mission-critical, I’ve probably touched it.</p>
+                <br>
+                <p>When I'm off the corporate clock, I’m building modern Next.js sites or experimenting with AI streamers. I live for the challenge of making things run faster and look better.</p>
+            </div>
+            <div style="background: var(--panel); border: 2px solid var(--border); padding: 20px; box-shadow: 6px 6px 0 var(--border);">
+                <p style="font-weight: 700; margin-bottom: 10px; color: var(--primary);">REAL TALK:</p>
+                <ul style="list-style: none;">
+                    <li style="margin-bottom: 8px;">↳ Master of bridging "legacy" and "modern."</li>
+                    <li style="margin-bottom: 8px;">↳ SQL query speed-demon.</li>
+                    <li style="margin-bottom: 8px;">↳ Full-lifecycle developer: Req → Deploy.</li>
+                    <li style="margin-bottom: 8px;">↳ Proud dad to Anja and a dog named Eevee.</li>
+                </ul>
+                <img src="../assets/svg/bug-ladybug-code.svg" style="width: 40px; margin-top: 20px;">
+            </div>
+        </div>
+    </section>
+
+    <section id="projects">
+        <div class="section-header">
+            <h2>Side Hustles & Lab Work</h2>
+            <p style="font-style: italic; margin-top: 10px; color: #666;">Note: My enterprise work for Saudi Aramco and ESA stays behind closed doors. This is the stuff I build for friends, clients, and curiosity.</p>
+        </div>
+
+        <div class="filter-bar">
+            <input type="text" id="projectSearch" class="filter-input" placeholder="Search by name or tech stack...">
+            <div id="tagFilters" style="display: flex; flex-wrap: wrap; gap: 5px;">
+                <button class="filter-tag active" onclick="filterByTag('All', this)">All</button>
+            </div>
+            <p id="projectCounter" style="width: 100%; font-weight: 700; margin-top: 10px;"></p>
+        </div>
+
+        <div class="project-list" id="projectContainer">
+            <!-- Project content generated by raw data -->
+        </div>
+    </section>
+
+    <div class="daily-banner">
+        <img src="../assets/svg/loading-spinner-code.svg" style="width: 60px; margin-bottom: 20px;">
+        <h2>Built by a dev. <br>Redesigned daily by AI.</h2>
+        <p style="margin-bottom: 30px; font-weight: 700;">No two days look the same. This portfolio regenerates every 24 hours.</p>
+        <p style="margin-bottom: 30px; opacity: 0.8;">Generation Date: 2026-11-15</p>
+        <a href="history/" class="brutalist-btn btn-alt">Browse the Archive →</a>
+    </div>
+
+    <section id="contact">
+        <div class="section-header">
+            <h2>Let's Talk Shop</h2>
+        </div>
+        <p>Got a project? A problem? A chess challenge? Hit me up.</p>
+        <div class="social-row">
+            <a href="mailto:tsertic5@gmail.com"><img src="../assets/svg/status-indicator-ring.svg" class="social-icon" title="Email"></a>
+            <a href="https://github.com/tsertic"><img src="../assets/svg/github-icon.svg" class="social-icon" title="GitHub" onerror="this.src='../assets/svg/code-angle-brackets.svg'"></a>
+            <a href="https://linkedin.com/in/tomislav-sertic"><img src="../assets/svg/linkedin-icon.svg" class="social-icon" title="LinkedIn" onerror="this.src='../assets/svg/network-nodes-graph.svg'"></a>
+            <a href="https://instagram.com/tsertic5"><img src="../assets/svg/instagram-icon.svg" class="social-icon" title="Instagram" onerror="this.src='../assets/svg/camera-lens.svg'"></a>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 Tomislav Sertic. Zagreb, Croatia.</p>
+        <img src="../assets/svg/divider-zigzag.svg" style="width: 100px; margin-top: 20px; filter: invert(1);">
+    </footer>
+
+    <script>
+        const projects = [
+            { name: "Manage Landing Page", desc: "Clean landing page for a management brand. Fully responsive.", tech: ["Next.js", "Typescript", "TailwindCSS"], img: "https://cdn.sanity.io/images/pf6wp37f/production/54a81664cc61e85990647d4a292a38355e272475-1856x936.png", link: "https://manage-landing-page-seven-theta.vercel.app/" },
+            { name: "Hrvatska Esport Inicijativa", desc: "Official hub for the Croatian esports association.", tech: ["Next.js", "SCSS", "Sanity", "Javascript"], img: "https://cdn.sanity.io/images/pf6wp37f/production/d7d8411c9ca5605e91516d8ca6da37f1a5a35d92-600x302.png", link: "https://www.esportinicijativa.hr/" },
+            { name: "Pinky Delights Bakery", desc: "Interactive 3D donut shopping experience.", tech: ["Typescript", "TailwindCSS", "Three.js", "Next.js"], img: "https://cdn.sanity.io/images/pf6wp37f/production/9c3a623fc9e77bab5c2b31ebb307e059916d3835-1000x536.png", link: "#" },
+            { name: "Where in the world", desc: "Infinite scroll country database via REST API.", tech: ["Typescript", "Redux", "Next.js", "TailwindCSS"], img: "https://cdn.sanity.io/images/pf6wp37f/production/a40662bb7d8a672a19db9c1c7669a395941abc84-600x301.png", link: "https://where-in-the-world-drab.vercel.app/" },
+            { name: "haiku AI streamer script", desc: "Node script generating poems via OpenAI & Ollama.", tech: ["Node.js", "AI", "Python"], img: "https://cdn.sanity.io/images/pf6wp37f/production/32f2e0268a9fe542d8047c8531c289762ab4dc01-1712x896.png", link: "#" },
+            { name: "Viribus Unitis", desc: "Website for Croatian war veterans' cooperative.", tech: ["Typescript", "Next.js", "Sanity", "TailwindCSS"], img: "https://cdn.sanity.io/images/pf6wp37f/production/78374d76f6c801577c98fb5d3507158140c42ee1-800x477.png", link: "https://www.bzvu.hr/" },
+            { name: "The Vixa", desc: "Modern vacation rental platform with sleek UI.", tech: ["Typescript", "TailwindCSS", "Next.js", "Sanity"], img: "https://cdn.sanity.io/images/pf6wp37f/production/dd745de3166bd404a304ced44431b3807438e951-1200x603.png", link: "https://www.the-vixa.com/hr" },
+            { name: "Plesni Studio Ventus", desc: "Dance studio site with CMS-driven classes and news.", tech: ["Next.js", "Sanity", "SCSS"], img: "https://cdn.sanity.io/images/pf6wp37f/production/22d037550976b8e15b051b183b2af6206f648030-600x377.png", link: "https://www.plesni-studio-ventus.hr/" },
+            { name: "Arctis d.o.o.", desc: "Corporate site redesign for international software provider.", tech: ["Typescript", "SCSS", "Next.js", "Sanity"], img: "https://cdn.sanity.io/images/pf6wp37f/production/41259c66ca9f3472f31d65dfa58beedcdc4fd977-600x301.png", link: "https://www.arctis.hr/" },
+            { name: "PokéPal AI", desc: "Intelligent Pokémon chatbot with dynamic stat vis.", tech: ["Python", "AI", "Gradio"], img: "https://cdn.sanity.io/images/pf6wp37f/production/4199641036ba4f5166cd6594b898ada6facaff31-1200x706.png", link: "#" }
+        ];
+
+        const container = document.getElementById('projectContainer');
+        const searchInput = document.getElementById('projectSearch');
+        const tagContainer = document.getElementById('tagFilters');
+        const counterEl = document.getElementById('projectCounter');
+
+        function renderProjects(filtered) {
+            container.innerHTML = filtered.map(p => `
+                <div class="project-item">
+                    <img src="${p.img}" class="project-img" alt="${p.name}">
+                    <div class="project-info">
+                        <h3>${p.name}</h3>
+                        <p>${p.desc}</p>
+                        <div class="tech-tags">${p.tech.map(t => `<span class="tech-tag">${t}</span>`).join('')}</div>
+                        <a href="${p.link}" class="brutalist-btn btn-alt" style="display:inline-block; font-size: 0.8rem; padding: 8px 16px;">View Live</a>
+                    </div>
+                </div>
+            `).join('');
+            counterEl.innerText = `Showing ${filtered.length} of ${projects.length} projects`;
+        }
+
+        function filterProjects() {
+            const query = searchInput.value.toLowerCase();
+            const activeTag = document.querySelector('.filter-tag.active').innerText;
+            const filtered = projects.filter(p => {
+                const matchesSearch = p.name.toLowerCase().includes(query) || p.tech.some(t => t.toLowerCase().includes(query));
+                const matchesTag = activeTag === 'All' || p.tech.includes(activeTag);
+                return matchesSearch && matchesTag;
+            });
+            renderProjects(filtered);
+        }
+
+        function filterByTag(tag, el) {
+            document.querySelectorAll('.filter-tag').forEach(b => b.classList.remove('active'));
+            el.classList.add('active');
+            filterProjects();
+        }
+
+        // Initialize tags
+        const allTags = [...new Set(projects.flatMap(p => p.tech))];
+        allTags.forEach(tag => {
+            const btn = document.createElement('button');
+            btn.className = 'filter-tag';
+            btn.innerText = tag;
+            btn.onclick = (e) => filterByTag(tag, e.target);
+            tagContainer.appendChild(btn);
+        });
+
+        searchInput.oninput = filterProjects;
+        renderProjects(projects);
+
+        // Scroll interactions
+        window.onscroll = () => {
+            const sections = document.querySelectorAll('section, header');
+            const navLinks = document.querySelectorAll('.side-nav a');
+            let current = "";
+            sections.forEach(s => { if (pageYOffset >= (s.offsetTop - 300)) current = s.getAttribute('id'); });
+            navLinks.forEach(a => {
+                a.classList.remove('active');
+                if (a.getAttribute('href').includes(current)) a.classList.add('active');
+            });
+
+            const scrollY = window.scrollY;
+            document.getElementById('bg-circuit').style.transform = `translateY(${scrollY * 0.1}px) rotate(${scrollY * 0.02}deg)`;
+            document.getElementById('bg-mesh').style.transform = `translateY(-${scrollY * 0.05}px)`;
+            document.getElementById('bg-grid').style.backgroundPositionY = `${scrollY * 0.2}px`;
+        };
+    </script>
+</body>
+</html>
