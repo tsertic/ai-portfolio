@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sertic // Dev Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0a0a0a;
+            --surface: #121212;
+            --accent: #ff0000;
+            --text: #e0e0e0;
+            --text-dim: #888;
+            --mono: 'JetBrains Mono', monospace;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background-color: var(--bg);
+            background-image: url('assets/backgrounds/Black-and-white-halftone-pattern-texture-background.svg');
+            background-attachment: fixed;
+            color: var(--text);
+            font-family: var(--mono);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .grayscale { filter: grayscale(100%); }
+        .red-text { color: var(--accent); }
+        
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0; width: 100%;
+            padding: 1.5rem 2rem;
+            background: rgba(10,10,10,0.9);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            transition: transform 0.4s ease;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #222;
+        }
+        nav.nav-hidden { transform: translateY(-100%); }
+        nav a { color: var(--text); text-decoration: none; font-size: 0.9rem; margin-left: 2rem; }
+        nav a:hover { color: var(--accent); }
+
+        /* Layout */
+        section { padding: 6rem 2rem; position: relative; max-width: 1200px; margin: 0 auto; }
+        .divider { height: 100px; background: linear-gradient(to bottom, transparent, var(--bg)); pointer-events: none; }
+
+        /* Hero */
+        .hero {
+            height: 90vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: radial-gradient(circle at center, #1a0000 0%, transparent 70%);
+        }
+        .portrait {
+            width: 200px; height: 200px;
+            clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+            object-fit: cover;
+            margin-bottom: 2rem;
+            border: 2px solid var(--accent);
+        }
+        .hero h1 { font-size: 2.5rem; margin-bottom: 0.5rem; text-transform: uppercase; }
+        .hero p { font-size: 1.1rem; color: var(--text-dim); max-width: 600px; margin-bottom: 2rem; }
+        .btn-group { display: flex; gap: 1rem; }
+        .btn {
+            padding: 0.8rem 1.5rem;
+            border: 1px solid var(--accent);
+            cursor: pointer;
+            text-decoration: none;
+            font-family: var(--mono);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        .btn-primary { background: var(--accent); color: #fff; }
+        .btn-secondary { background: transparent; color: var(--accent); }
+        .btn:hover { transform: scale(1.05); box-shadow: 0 0 15px var(--accent); }
+
+        /* About & Skills */
+        .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
+        .word-cloud { display: flex; flex-wrap: wrap; gap: 1rem; align-items: baseline; }
+        .skill-xs { font-size: 0.7rem; color: #444; }
+        .skill-sm { font-size: 1rem; color: #777; }
+        .skill-md { font-size: 1.4rem; color: #aaa; }
+        .skill-lg { font-size: 1.8rem; color: var(--text); font-weight: bold; }
+        .skill-xl { font-size: 2.2rem; color: var(--accent); font-weight: bold; }
+
+        /* Projects */
+        .filter-bar { margin-bottom: 3rem; background: var(--surface); padding: 1.5rem; border-radius: 4px; border: 1px solid #222; }
+        .search-input { 
+            width: 100%; background: #000; border: 1px solid #333; padding: 0.8rem; 
+            color: var(--text); font-family: var(--mono); margin-bottom: 1rem;
+        }
+        .tag-pills { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+        .tag-pill { 
+            padding: 0.3rem 0.8rem; border: 1px solid #333; font-size: 0.8rem; cursor: pointer; 
+            background: #000; color: #777;
+        }
+        .tag-pill.active { border-color: var(--accent); color: var(--accent); }
+
+        .project-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 3rem; }
+        .project-card {
+            background: var(--surface);
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid #222;
+            transition: transform 0.3s ease;
+            position: relative;
+        }
+        /* Stacked paper effect */
+        .project-card::before, .project-card::after {
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: #111; z-index: -1; border-radius: 12px; border: 1px solid #222;
+            transition: transform 0.3s ease;
+        }
+        .project-card:hover::before { transform: rotate(2deg) translate(5px, 5px); }
+        .project-card:hover::after { transform: rotate(-2deg) translate(-5px, -5px); }
+        
+        .project-img { width: 100%; height: 180px; object-fit: cover; border-bottom: 1px solid #222; filter: grayscale(1); transition: 0.3s; }
+        .project-card:hover .project-img { filter: grayscale(0); }
+        .project-content { padding: 1.5rem; }
+        .project-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 1rem; }
+        .project-tag { font-size: 0.7rem; background: #000; padding: 0.2rem 0.5rem; color: var(--accent); }
+
+        /* Daily Regenerate Section */
+        .ai-banner {
+            background: var(--accent); color: #000; padding: 4rem 2rem; text-align: center;
+            clip-path: polygon(0 15%, 100% 0, 100% 85%, 0 100%); margin: 4rem 0;
+        }
+        .ai-banner h2 { font-size: 2rem; margin-bottom: 1rem; font-weight: 800; }
+        .ai-banner a { color: #000; font-weight: bold; text-decoration: underline; }
+
+        /* Footer */
+        footer { padding: 2rem; text-align: center; border-top: 1px solid #222; color: var(--text-dim); font-size: 0.8rem; }
+
+        /* Decoration */
+        .floating-svg { position: absolute; z-index: -1; opacity: 0.1; pointer-events: none; }
+
+        @media (max-width: 768px) {
+            .about-grid { grid-template-columns: 1fr; }
+            .hero h1 { font-size: 1.8rem; }
+        }
+    </style>
+<style id="safety-override">
+*[class*="fade"],*[class*="anim"],*[class*="hidden"],*[class*="reveal"],*[class*="slide"] {
+  opacity: 1 !important; transform: none !important;
+  visibility: visible !important; animation: none !important;
+}
+</style>
+</head>
+<body>
+
+    <nav id="navbar">
+        <div style="font-weight: bold; color: var(--accent);">TS_DEV</div>
+        <div>
+            <a href="#about">About</a>
+            <a href="#projects">Work</a>
+            <a href="#contact">Contact</a>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <img src="../assets/svg/binary-stream-vertical.svg" class="floating-svg" style="left: 5%; top: 10%; height: 80%;">
+        <img src="../assets/svg/circle-rings-concentric.svg" class="floating-svg" style="right: 5%; top: 20%; width: 300px;">
+        
+        <img src="../assets/images/portrait.webp" alt="Tomislav Sertic" class="portrait">
+        <h1>Tomislav Sertic</h1>
+        <p>I build enterprise-grade software for global giants and break things in my spare time just to see how they tick.</p>
+        <div class="btn-group">
+            <a href="mailto:tsertic5@gmail.com" class="btn btn-primary magnetic">Let's Talk</a>
+            <a href="https://github.com/tsertic" class="btn btn-secondary magnetic">GitHub</a>
+        </div>
+    </section>
+
+    <section id="about">
+        <div class="about-grid">
+            <div>
+                <h2 class="red-text" style="margin-bottom: 1.5rem;">The Brief</h2>
+                <p>Based in Zagreb, Croatia. By day, I'm deep in the Archibus ecosystem at <b>Arctis d.o.o.</b>, engineering solutions for the likes of <b>Saudi Aramco</b>, the <b>European Space Agency</b>, and the <b>European Court of Justice</b>. I'm the bridge between legacy enterprise systems and modern React frontends.</p>
+                <br>
+                <p>By night? I'm tinkering. Next.js, AI integrations, 3D donuts—if it involves a complex technical problem, I'm in. When the screen goes dark, you'll find me on a bike, a hiking trail, or hanging with my daughter Anja and my dog Eevee.</p>
+            </div>
+            <div>
+                <h2 class="red-text" style="margin-bottom: 1.5rem;">Toolkit</h2>
+                <div class="word-cloud">
+                    <span class="skill-xl">TypeScript</span>
+                    <span class="skill-lg">React</span>
+                    <span class="skill-md">Node.js</span>
+                    <span class="skill-sm">SQL</span>
+                    <span class="skill-xl">Next.js</span>
+                    <span class="skill-xs">Java</span>
+                    <span class="skill-md">Python</span>
+                    <span class="skill-lg">Tailwind</span>
+                    <span class="skill-sm">Express</span>
+                    <span class="skill-xl">C#</span>
+                    <span class="skill-md">MongoDB</span>
+                    <span class="skill-sm">Figma</span>
+                    <span class="skill-xs">Tomcat</span>
+                    <span class="skill-lg">REST APIs</span>
+                    <span class="skill-md">AI Integration</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <section id="projects">
+        <h2 class="red-text">The Lab</h2>
+        <p style="margin-bottom: 2rem; color: var(--text-dim);">While my day job handles international enterprise infrastructure, this is where the side-hustles, experiments, and "just because" builds live.</p>
+
+        <div class="filter-bar">
+            <input type="text" id="search" class="search-input" placeholder="Filter by name or technology...">
+            <div class="tag-pills" id="tags">
+                <div class="tag-pill active" data-tag="all">All</div>
+            </div>
+            <div id="counter" style="margin-top: 1rem; font-size: 0.8rem; color: var(--text-dim);">Showing 0 of 0 projects</div>
+        </div>
+
+        <div class="project-grid" id="projectGrid">
+            <!-- Projects injected by JS -->
+        </div>
+    </section>
+
+    <section class="ai-banner">
+        <img src="../assets/svg/terminal-prompt-typing.svg" style="width: 100px; margin-bottom: 1rem; opacity: 0.5;">
+        <h2>Every day, AI wakes up and redesigns this portfolio from scratch.</h2>
+        <p>No two days look the same. Version generated on <b>2026-11-16</b>.</p>
+        <br>
+        <a href="history/">Browse the archive →</a>
+    </section>
+
+    <section id="contact" style="text-align: center;">
+        <h2 class="red-text">Get In Touch</h2>
+        <p style="margin-bottom: 2rem;">Got a project? A problem? Or just want to talk shop?</p>
+        <div style="display: flex; justify-content: center; gap: 2rem; font-size: 1.2rem;">
+            <a href="mailto:tsertic5@gmail.com" class="red-text">Email</a>
+            <a href="https://linkedin.com/in/tomislav-sertic" style="color: var(--text);">LinkedIn</a>
+            <a href="https://instagram.com/tsertic5" style="color: var(--text);">Instagram</a>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 Tomislav Sertic // Built with code and a little bit of magic.</p>
+    </footer>
+
+    <script>
+        // Data from prompt
+        const projects = [
+            { name: "Manage Landing Page", tech: ["Next.js", "Typescript", "TailwindCSS"], img: "https://cdn.sanity.io/images/pf6wp37f/production/54a81664cc61e85990647d4a292a38355e272475-1856x936.png", url: "https://manage-landing-page-seven-theta.vercel.app/" },
+            { name: "Hrvatska Esport Inicijativa", tech: ["Next.js", "SCSS", "Sanity", "Javascript"], img: "https://cdn.sanity.io/images/pf6wp37f/production/d7d8411c9ca5605e91516d8ca6da37f1a5a35d92-600x302.png", url: "https://www.esportinicijativa.hr/" },
+            { name: "Pinky Delights Bakery", tech: ["Typescript", "TailwindCSS", "Three.js", "Next.js"], img: "https://cdn.sanity.io/images/pf6wp37f/production/9c3a623fc9e77bab5c2b31ebb307e059916d3835-1000x536.png", url: "#" },
+            { name: "Where in the world", tech: ["Typescript", "Redux", "Next.js", "TailwindCSS"], img: "https://cdn.sanity.io/images/pf6wp37f/production/a40662bb7d8a672a19db9c1c7669a395941abc84-600x301.png", url: "https://where-in-the-world-drab.vercel.app/" },
+            { name: "haiku AI streamer script", tech: ["Node.js", "AI", "Python"], img: "https://cdn.sanity.io/images/pf6wp37f/production/32f2e0268a9fe542d8047c8531c289762ab4dc01-1712x896.png", url: "https://github.com/tsertic/haiku-ai-streamer-script" },
+            { name: "Braniteljska zadruga Viribus Unitis", tech: ["Typescript", "Next.js", "Sanity", "TailwindCSS"], img: "https://cdn.sanity.io/images/pf6wp37f/production/78374d76f6c801577c98fb5d3507158140c42ee1-800x477.png", url: "https://www.bzvu.hr/" },
+            { name: "The Vixa Website", tech: ["Typescript", "TailwindCSS", "Next.js", "Sanity"], img: "https://cdn.sanity.io/images/pf6wp37f/production/dd745de3166bd404a304ced44431b3807438e951-1200x603.png", url: "https://www.the-vixa.com/hr" },
+            { name: "Plesni Studio Ventus", tech: ["Next.js", "Sanity", "SCSS"], img: "https://cdn.sanity.io/images/pf6wp37f/production/22d037550976b8e15b051b183b2af6206f648030-600x377.png", url: "https://www.plesni-studio-ventus.hr/" },
+            { name: "Directory Structure Scanner", tech: ["Python", "Gradio"], img: "https://cdn.sanity.io/images/pf6wp37f/production/41b2577b2c7b14ba62b8f24747fce95eb2dca141-1200x542.png", url: "https://github.com/tsertic/directory-structure-scanner" },
+            { name: "PokéPal AI", tech: ["Python", "AI", "Gradio"], img: "https://cdn.sanity.io/images/pf6wp37f/production/4199641036ba4f5166cd6594b898ada6facaff31-1200x706.png", url: "#" },
+            { name: "Pokémon AI Debate", tech: ["Express.js", "React", "AI", "Node.js"], img: "https://cdn.sanity.io/images/pf6wp37f/production/cc01144c22251187e40bc42bb3408413a6c8c141-1200x645.png", url: "#" }
+        ];
+
+        // Nav Scroll
+        let lastScroll = 0;
+        window.addEventListener('scroll', () => {
+            const currentScroll = window.pageYOffset;
+            const nav = document.getElementById('navbar');
+            if (currentScroll > lastScroll && currentScroll > 100) nav.classList.add('nav-hidden');
+            else nav.classList.remove('nav-hidden');
+            lastScroll = currentScroll;
+            // Drifting SVGs
+            document.querySelectorAll('.floating-svg').forEach(svg => {
+                svg.style.transform = `translateY(${currentScroll * 0.05}px) rotate(${currentScroll * 0.02}deg)`;
+            });
+        });
+
+        // Filter Logic
+        const grid = document.getElementById('projectGrid');
+        const search = document.getElementById('search');
+        const tagBox = document.getElementById('tags');
+        const counter = document.getElementById('counter');
+        let activeTag = 'all';
+
+        // Render projects
+        function render() {
+            grid.innerHTML = '';
+            let count = 0;
+            const query = search.value.toLowerCase();
+            
+            projects.forEach(p => {
+                const matchTag = activeTag === 'all' || p.tech.includes(activeTag);
+                const matchSearch = p.name.toLowerCase().includes(query) || p.tech.some(t => t.toLowerCase().includes(query));
+                
+                if (matchTag && matchSearch) {
+                    count++;
+                    const card = document.createElement('div');
+                    card.className = 'project-card';
+                    card.innerHTML = `
+                        <img src="${p.img}" class="project-img">
+                        <div class="project-content">
+                            <h3>${p.name}</h3>
+                            <div class="project-tags">${p.tech.map(t => `<span class="project-tag">${t}</span>`).join('')}</div>
+                            <a href="${p.url}" class="red-text" style="display:inline-block; margin-top:1rem; font-size:0.8rem;">View Project →</a>
+                        </div>
+                    `;
+                    grid.appendChild(card);
+                }
+            });
+            counter.innerText = `Showing ${count} of ${projects.length} projects`;
+        }
+
+        // Tags
+        const allTech = [...new Set(projects.flatMap(p => p.tech))];
+        allTech.forEach(t => {
+            const pill = document.createElement('div');
+            pill.className = 'tag-pill';
+            pill.innerText = t;
+            pill.onclick = () => {
+                document.querySelectorAll('.tag-pill').forEach(el => el.classList.remove('active'));
+                pill.classList.add('active');
+                activeTag = t;
+                render();
+            };
+            tagBox.appendChild(pill);
+        });
+
+        document.querySelector('[data-tag="all"]').onclick = (e) => {
+            document.querySelectorAll('.tag-pill').forEach(el => el.classList.remove('active'));
+            e.target.classList.add('active');
+            activeTag = 'all';
+            render();
+        };
+
+        search.oninput = render;
+        render();
+
+        // Magnetic Cursor Effect
+        document.querySelectorAll('.magnetic').forEach(btn => {
+            btn.addEventListener('mousemove', (e) => {
+                const rect = btn.getBoundingClientRect();
+                const x = e.clientX - rect.left - rect.width / 2;
+                const y = e.clientY - rect.top - rect.height / 2;
+                btn.style.transform = `translate(${x * 0.3}px, ${y * 0.3}px) scale(1.05)`;
+            });
+            btn.addEventListener('mouseleave', () => btn.style.transform = '');
+        });
+    </script>
+</body>
+</html>
