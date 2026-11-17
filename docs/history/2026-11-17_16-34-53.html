@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tomislav Sertic | Software Architecture & Development</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --orange: #ff7e5f;
+            --purple: #6a11cb;
+            --bg: #0a0a12;
+            --text: #f0f0f5;
+            --muted: #a0a0b0;
+            --pill: 100px;
+            --gradient: linear-gradient(-45deg, #ff7e5f, #feb47b, #86a8e7, #6a11cb);
+        }
+
+        * { margin: 0; padding: 0; box-box: border-box; }
+        body { 
+            background: var(--bg); 
+            color: var(--text); 
+            font-family: 'Space Grotesk', sans-serif; 
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        .drift { position: absolute; z-index: -1; opacity: 0.12; pointer-events: none; }
+
+        /* Animated Background */
+        .hero { 
+            position: relative;
+            padding: 4rem 10% 8rem;
+            background: var(--bg);
+            overflow: hidden;
+        }
+        .hero-gradient {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: var(--gradient);
+            background-size: 400% 400%;
+            animation: aurora 15s ease infinite;
+            opacity: 0.15;
+            z-index: -2;
+        }
+        @keyframes aurora { 0%{background-position:0% 50%} 50%{background-position:100% 50%} 100%{background-position:0% 50%} }
+
+        /* Navigation */
+        nav { display: flex; gap: 2rem; margin-bottom: 6rem; font-weight: 600; text-transform: uppercase; letter-spacing: 2px; font-size: 0.8rem; }
+        nav a { color: var(--text); text-decoration: none; transition: 0.3s; }
+        nav a:hover { color: var(--orange); }
+
+        /* Hero Content */
+        .hero-content { display: grid; grid-template-columns: 1fr 2fr; gap: 4rem; align-items: start; }
+        .monogram { 
+            width: 180px; height: 180px; border-radius: 50%; 
+            background: var(--gradient); display: flex; align-items: center; justify-content: center;
+            font-size: 4rem; font-weight: 700; color: var(--bg);
+            box-shadow: 0 0 50px rgba(255, 126, 95, 0.3);
+        }
+        h1 { font-size: clamp(4rem, 12vw, 9rem); line-height: 0.9; text-transform: uppercase; margin: 1rem 0; }
+        .subtitle { font-size: 1.5rem; color: var(--orange); font-weight: 300; max-width: 600px; margin-bottom: 3rem; }
+        .cta-group { display: flex; gap: 1rem; flex-wrap: wrap; }
+        .btn { 
+            padding: 1rem 2.5rem; border-radius: var(--pill); border: none; 
+            font-weight: 700; cursor: pointer; transition: 0.4s; text-decoration: none;
+            display: inline-flex; align-items: center; gap: 0.5rem;
+            background: var(--text); color: var(--bg);
+        }
+        .btn:hover { transform: scale(1.05) translateY(-5px); box-shadow: 0 10px 30px rgba(0,0,0,0.5); background: var(--orange); }
+
+        /* Magazine Grid Layout */
+        .section { padding: 8rem 10%; display: grid; grid-template-columns: repeat(12, 1fr); gap: 2rem; }
+        .about-text { grid-column: 1 / 8; font-size: 1.2rem; }
+        .about-sidebar { grid-column: 9 / 13; }
+        
+        .skills-container { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 2rem; }
+        .skill-tag { 
+            padding: 0.5rem 1.5rem; background: rgba(255,255,255,0.05); 
+            border: 1px solid rgba(255,255,255,0.1); border-radius: var(--pill); 
+            font-size: 0.85rem; transition: 0.3s;
+        }
+        .skill-tag:hover { border-color: var(--orange); background: rgba(255, 126, 95, 0.1); }
+
+        /* Project Filter */
+        .filter-bar { grid-column: 1 / 13; margin-bottom: 4rem; background: rgba(255,255,255,0.03); padding: 2rem; border-radius: 2rem; }
+        #search { 
+            width: 100%; background: transparent; border: none; border-bottom: 2px solid rgba(255,255,255,0.1);
+            color: white; font-size: 1.5rem; padding: 1rem 0; margin-bottom: 2rem; outline: none;
+        }
+        #search:focus { border-color: var(--orange); }
+        .tag-filters { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+        .filter-btn { 
+            background: transparent; border: 1px solid rgba(255,255,255,0.2); color: white;
+            padding: 0.4rem 1.2rem; border-radius: var(--pill); cursor: pointer; font-size: 0.8rem;
+        }
+        .filter-btn.active { background: var(--orange); border-color: var(--orange); color: var(--bg); }
+
+        /* Project Cards - Terminal Style */
+        .projects-grid { grid-column: 1 / 13; display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 3rem; }
+        .terminal-card { 
+            background: #1a1a2e; border-radius: 12px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1);
+            transition: 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .terminal-card:hover { transform: translateY(-15px) scale(1.02); box-shadow: 0 20px 40px rgba(0,0,0,0.4); border-color: var(--orange); }
+        .terminal-header { background: #2a2a40; padding: 0.75rem 1rem; display: flex; gap: 6px; }
+        .dot { width: 10px; height: 10px; border-radius: 50%; }
+        .red { background: #ff5f56; } .yellow { background: #ffbd2e; } .green { background: #27c93f; }
+        .card-img { width: 100%; height: 200px; object-fit: cover; filter: grayscale(40%) contrast(110%); transition: 0.5s; }
+        .terminal-card:hover .card-img { filter: grayscale(0%); }
+        .card-body { padding: 1.5rem; }
+        .card-tech { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1rem; }
+        .tech-pill { font-size: 0.7rem; color: var(--orange); font-weight: 700; text-transform: uppercase; }
+
+        /* AI Regeneration Section */
+        .ai-banner { 
+            grid-column: 1 / 13; background: var(--gradient); color: var(--bg); padding: 4rem; 
+            border-radius: 2rem; margin: 4rem 0; position: relative; overflow: hidden;
+        }
+        .ai-banner h2 { font-size: 3rem; margin-bottom: 1rem; line-height: 1; }
+        .archive-btn { background: var(--bg); color: white; margin-top: 2rem; }
+
+        /* Contact Section */
+        .contact-split { display: grid; grid-template-columns: 1fr 1fr; grid-column: 1 / 13; gap: 4rem; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 4rem; }
+        .contact-links a { display: block; font-size: 2.5rem; color: white; text-decoration: none; margin-bottom: 1rem; transition: 0.3s; }
+        .contact-links a:hover { color: var(--orange); transform: translateX(20px); }
+
+        footer { text-align: center; padding: 4rem; opacity: 0.5; font-size: 0.8rem; letter-spacing: 2px; }
+
+        @media (max-width: 900px) {
+            .section, .hero-content, .contact-split { grid-template-columns: 1fr; display: block; }
+            .about-text, .about-sidebar { width: 100%; margin-bottom: 3rem; }
+            h1 { font-size: 15vw; }
+        }
+    </style>
+<style id="safety-override">
+*[class*="fade"],*[class*="anim"],*[class*="hidden"],*[class*="reveal"],*[class*="slide"] {
+  opacity: 1 !important; transform: none !important;
+  visibility: visible !important; animation: none !important;
+}
+</style>
+</head>
+<body>
+
+    <img src="../assets/svg/blob-organic-purple.svg" class="drift" style="top: 10%; right: -5%; width: 600px;">
+    <img src="../assets/svg/grid-lines-perspective.svg" class="drift" style="bottom: 0; left: 0; width: 100%; opacity: 0.05;">
+    <img src="../assets/svg/topography-contour-lines.svg" class="drift" style="top: 40%; left: -10%; width: 500px;">
+
+    <header class="hero">
+        <div class="hero-gradient"></div>
+        <nav>
+            <a href="#about">Philosophy</a>
+            <a href="#work">Execution</a>
+            <a href="#contact">Alliance</a>
+        </nav>
+        <div class="hero-content">
+            <div class="monogram">TS</div>
+            <div>
+                <p style="text-transform: uppercase; letter-spacing: 4px; color: var(--orange);">System Architect</p>
+                <h1>TOMISLAV SERTIC</h1>
+                <p class="subtitle">Engineering high-performance enterprise solutions and modern digital experiences with surgical precision.</p>
+                <div class="cta-group">
+                    <a href="mailto:tsertic5@gmail.com" class="btn">Connect</a>
+                    <a href="https://github.com/tsertic" class="btn" style="background: transparent; color: white; border: 1px solid white;">GitHub</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section class="section" id="about">
+        <div class="about-text">
+            <h2 style="font-size: 3rem; margin-bottom: 2rem; color: var(--orange);">The Objective</h2>
+            <p>I operate at the intersection of legacy stability and modern innovation. As a Lead Developer at Arctis d.o.o., I architect solutions for global entities including <strong>Saudi Aramco</strong>, the <strong>European Space Agency (ESA)</strong>, and the <strong>European Court of Justice</strong>.</p>
+            <br>
+            <p>My professional focus is the Archibus IWMS platform, where I bridge Java backends with modern React interfaces and optimized SQL infrastructures. Beyond the enterprise, I build high-fidelity React/Next.js systems for a diverse clientele.</p>
+            <br>
+            <p style="font-style: italic; opacity: 0.8;">Off the clock: navigating Zagreb with my daughter Anja and Eevee, our mixed-breed scout.</p>
+        </div>
+        <div class="about-sidebar">
+            <h3 style="margin-bottom: 1rem; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 2px;">Core Proficiencies</h3>
+            <div class="skills-container">
+                <span class="skill-tag">TypeScript</span>
+                <span class="skill-tag">React / Next.js</span>
+                <span class="skill-tag">Java</span>
+                <span class="skill-tag">SQL Optimization</span>
+                <span class="skill-tag">.NET Core</span>
+                <span class="skill-tag">Python</span>
+                <span class="skill-tag">Node.js</span>
+                <span class="skill-tag">Archibus IWMS</span>
+                <span class="skill-tag">RESTful Design</span>
+                <span class="skill-tag">AI Integration</span>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="work">
+        <div style="grid-column: 1 / 13;">
+            <h2 style="font-size: 4rem;">SIDE LABS</h2>
+            <p style="margin-bottom: 3rem; color: var(--muted); max-width: 600px;">A repository of technical experiments, client websites, and utility scripts. My primary enterprise portfolio is confidential due to its scale with international organizations.</p>
+        </div>
+
+        <div class="filter-bar">
+            <input type="text" id="search" placeholder="Filter by project name or technology...">
+            <div id="counter" style="margin-bottom: 1rem; font-size: 0.8rem; font-weight: bold; color: var(--orange);">Showing 17 of 17 projects</div>
+            <div class="tag-filters" id="tag-filters">
+                <button class="filter-btn active" data-tag="all">All Systems</button>
+                <!-- Tags generated by JS -->
+            </div>
+        </div>
+
+        <div class="projects-grid" id="project-list">
+            <!-- Project cards will stay here for SEO/No-JS, but managed by JS -->
+            <article class="terminal-card" data-tech="next.js typescript tailwindcss frontend server">
+                <div class="terminal-header"><div class="dot red"></div><div class="dot yellow"></div><div class="dot green"></div></div>
+                <img src="https://cdn.sanity.io/images/pf6wp37f/production/54a81664cc61e85990647d4a292a38355e272475-1856x936.png" class="card-img" alt="Manage">
+                <div class="card-body">
+                    <h3>Manage Landing Page</h3>
+                    <p style="font-size: 0.9rem; margin-top: 0.5rem; opacity: 0.7;">High-performance responsive landing page for the 'Manage' corporate entity.</p>
+                    <div class="card-tech">
+                        <span class="tech-pill">Next.js</span><span class="tech-pill">Typescript</span><span class="tech-pill">TailwindCSS</span>
+                    </div>
+                </div>
+            </article>
+
+            <article class="terminal-card" data-tech="next.js scss sanity javascript fullstack">
+                <div class="terminal-header"><div class="dot red"></div><div class="dot yellow"></div><div class="dot green"></div></div>
+                <img src="https://cdn.sanity.io/images/pf6wp37f/production/d7d8411c9ca5605e91516d8ca6da37f1a5a35d92-600x302.png" class="card-img" alt="HEI">
+                <div class="card-body">
+                    <h3>Hrvatska Esport Inicijativa</h3>
+                    <p style="font-size: 0.9rem; margin-top: 0.5rem; opacity: 0.7;">Official portal for the Croatian Esports Initiative, featuring headless CMS integration.</p>
+                    <div class="card-tech">
+                        <span class="tech-pill">Next.js</span><span class="tech-pill">SCSS</span><span class="tech-pill">Sanity</span>
+                    </div>
+                </div>
+            </article>
+
+            <article class="terminal-card" data-tech="typescript tailwindcss three.js next.js frontend">
+                <div class="terminal-header"><div class="dot red"></div><div class="dot yellow"></div><div class="dot green"></div></div>
+                <img src="https://cdn.sanity.io/images/pf6wp37f/production/9c3a623fc9e77bab5c2b31ebb307e059916d3835-1000x536.png" class="card-img" alt="Pinky Delights">
+                <div class="card-body">
+                    <h3>Pinky Delights Bakery</h3>
+                    <p style="font-size: 0.9rem; margin-top: 0.5rem; opacity: 0.7;">Interactive 3D web experience utilizing Three.js for real-time model manipulation.</p>
+                    <div class="card-tech">
+                        <span class="tech-pill">Three.js</span><span class="tech-pill">Next.js</span><span class="tech-pill">TailwindCSS</span>
+                    </div>
+                </div>
+            </article>
+
+            <article class="terminal-card" data-tech="express.js react ai node.js typescript fullstack server rest api">
+                <div class="terminal-header"><div class="dot red"></div><div class="dot yellow"></div><div class="dot green"></div></div>
+                <img src="https://cdn.sanity.io/images/pf6wp37f/production/cc01144c22251187e40bc42bb3408413a6c8c141-1200x645.png" class="card-img" alt="AI Debate">
+                <div class="card-body">
+                    <h3>Pokémon AI Debate</h3>
+                    <p style="font-size: 0.9rem; margin-top: 0.5rem; opacity: 0.7;">Orchestrating interactions between GPT-4o and Claude in a competitive debate environment.</p>
+                    <div class="card-tech">
+                        <span class="tech-pill">AI</span><span class="tech-pill">React</span><span class="tech-pill">Node.js</span>
+                    </div>
+                </div>
+            </article>
+
+            <article class="terminal-card" data-tech="node.js ai script">
+                <div class="terminal-header"><div class="dot red"></div><div class="dot yellow"></div><div class="dot green"></div></div>
+                <img src="https://cdn.sanity.io/images/pf6wp37f/production/32f2e0268a9fe542d8047c8531c289762ab4dc01-1712x896.png" class="card-img" alt="Haiku Script">
+                <div class="card-body">
+                    <h3>Haiku AI Streamer</h3>
+                    <p style="font-size: 0.9rem; margin-top: 0.5rem; opacity: 0.7;">Node.js utility generating AI-driven poetry via local and cloud LLMs.</p>
+                    <div class="card-tech">
+                        <span class="tech-pill">Node.js</span><span class="tech-pill">AI</span><span class="tech-pill">Scripting</span>
+                    </div>
+                </div>
+            </article>
+
+            <article class="terminal-card" data-tech="typescript tailwindcss next.js sanity fullstack designed">
+                <div class="terminal-header"><div class="dot red"></div><div class="dot yellow"></div><div class="dot green"></div></div>
+                <img src="https://cdn.sanity.io/images/pf6wp37f/production/dd745de3166bd404a304ced44431b3807438e951-1200x603.png" class="card-img" alt="The Vixa">
+                <div class="card-body">
+                    <h3>The Vixa Website</h3>
+                    <p style="font-size: 0.9rem; margin-top: 0.5rem; opacity: 0.7;">Modern platform for luxury vacation rentals with optimized SEO and performance.</p>
+                    <div class="card-tech">
+                        <span class="tech-pill">Next.js</span><span class="tech-pill">Typescript</span><span class="tech-pill">Sanity</span>
+                    </div>
+                </div>
+            </article>
+
+            <article class="terminal-card" data-tech="python ai script">
+                <div class="terminal-header"><div class="dot red"></div><div class="dot yellow"></div><div class="dot green"></div></div>
+                <img src="https://cdn.sanity.io/images/pf6wp37f/production/9411063eaa22123470ae960babab885a23b36764-1200x500.png" class="card-img" alt="Scraper">
+                <div class="card-body">
+                    <h3>Brochure Generator</h3>
+                    <p style="font-size: 0.9rem; margin-top: 0.5rem; opacity: 0.7;">Python automation tool that scrapes, analyzes, and generates PDF portfolios using AI.</p>
+                    <div class="card-tech">
+                        <span class="tech-pill">Python</span><span class="tech-pill">AI</span><span class="tech-pill">Automation</span>
+                    </div>
+                </div>
+            </article>
+
+            <article class="terminal-card" data-tech="typescript scss next.js sanity fullstack">
+                <div class="terminal-header"><div class="dot red"></div><div class="dot yellow"></div><div class="dot green"></div></div>
+                <img src="https://cdn.sanity.io/images/pf6wp37f/production/41259c66ca9f3472f31d65dfa58beedcdc4fd977-600x301.png" class="card-img" alt="Arctis">
+                <div class="card-body">
+                    <h3>Arctis Corporate</h3>
+                    <p style="font-size: 0.9rem; margin-top: 0.5rem; opacity: 0.7;">The digital presence for Arctis Ltd., built for high-scale enterprise trust.</p>
+                    <div class="card-tech">
+                        <span class="tech-pill">Next.js</span><span class="tech-pill">Typescript</span><span class="tech-pill">Sanity</span>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </section>
+
+    <div class="section">
+        <div class="ai-banner">
+            <p style="font-weight: 700; text-transform: uppercase; letter-spacing: 2px;">Autonomous Design Protocol</p>
+            <h2>No two days look the same. This portfolio regenerates every 24 hours.</h2>
+            <p>Every morning, AI re-architects this interface from scratch. Today's iteration: <strong>2026-11-17</strong>.</p>
+            <a href="history/" class="btn archive-btn">View Archive History →</a>
+            <img src="../assets/svg/circuit-board-lines.svg" style="position: absolute; right: -50px; bottom: -50px; width: 300px; opacity: 0.2; transform: rotate(-20deg);">
+        </div>
+    </div>
+
+    <section class="section" id="contact">
+        <div class="contact-split">
+            <div>
+                <h2 style="font-size: 4rem; line-height: 1;">LET'S TALK ARCHITECTURE.</h2>
+                <p style="margin-top: 2rem; opacity: 0.6; max-width: 400px;">Currently accepting strategic side-projects and enterprise consultations.</p>
+            </div>
+            <div class="contact-links">
+                <a href="https://linkedin.com/in/tomislav-sertic">LinkedIn</a>
+                <a href="https://github.com/tsertic">GitHub</a>
+                <a href="mailto:tsertic5@gmail.com">Email</a>
+                <a href="https://instagram.com/tsertic5">Instagram</a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>CONCEIVED BY TOMISLAV SERTIC &bull; GENERATED BY INTELLIGENCE &bull; 2026-11-17 <span id="daily-emoji"></span></p>
+    </footer>
+
+    <script>
+        // Project Filtering Logic
+        const searchInput = document.getElementById('search');
+        const cards = document.querySelectorAll('.terminal-card');
+        const counter = document.getElementById('counter');
+        const tagContainer = document.getElementById('tag-filters');
+
+        // Extract all unique tags
+        let allTags = new Set();
+        cards.forEach(card => {
+            card.getAttribute('data-tech').split(' ').forEach(tag => allTags.add(tag));
+        });
+
+        allTags.forEach(tag => {
+            if(!tag) return;
+            const btn = document.createElement('button');
+            btn.className = 'filter-btn';
+            btn.textContent = tag.toUpperCase();
+            btn.onclick = () => filterByTag(tag, btn);
+            tagContainer.appendChild(btn);
+        });
+
+        function filterByTag(tag, btn) {
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            updateFilter(tag === 'all' ? '' : tag);
+        }
+
+        searchInput.oninput = (e) => updateFilter(e.target.value.toLowerCase());
+
+        function updateFilter(term) {
+            let visibleCount = 0;
+            cards.forEach(card => {
+                const text = card.innerText.toLowerCase() + card.getAttribute('data-tech');
+                const isMatch = text.includes(term);
+                card.style.display = isMatch ? 'block' : 'none';
+                if(isMatch) visibleCount++;
+            });
+            counter.innerText = `Showing ${visibleCount} of ${cards.length} projects`;
+        }
+
+        // Scroll Drift Effect
+        window.addEventListener('scroll', () => {
+            const y = window.scrollY;
+            document.querySelectorAll('.drift').forEach((el, i) => {
+                const speed = 0.05 * (i + 1);
+                el.style.transform = `translateY(${y * speed}px) rotate(${y * 0.01}deg)`;
+            });
+        });
+
+        // Daily Emoji
+        const emojis = ['❄️', '🧊', '🦊', '🌌', '🏔️', '🛰️', '⚡', '🏢'];
+        document.getElementById('daily-emoji').textContent = emojis[Math.floor(Math.random() * emojis.length)];
+
+        // Simple bounce-in animation on scroll using class
+        const observerOptions = { threshold: 0.1 };
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = "1";
+                    entry.target.style.transform = "translateY(0)";
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.section > div, .terminal-card').forEach(el => {
+            el.style.opacity = "0.5";
+            el.style.transform = "translateY(30px)";
+            el.style.transition = "all 0.8s cubic-bezier(0.2, 0.8, 0.2, 1)";
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
