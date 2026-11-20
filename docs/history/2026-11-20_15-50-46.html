@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tomislav Sertic | Software Developer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --ice-white: #f0faff;
+            --ice-blue: #d1e9ff;
+            --terracotta: #e07a5f;
+            --deep-blue: #1e293b;
+            --text-dark: #0f172a;
+            --radius: 22px;
+            --shadow-recessed: inset 6px 6px 12px #00000044, inset -4px -4px 10px #ffffff0a;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: 'Space Grotesk', sans-serif; 
+            background: var(--ice-white); 
+            color: var(--text-dark); 
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3 { 
+            text-transform: uppercase; 
+            letter-spacing: -1px;
+            background: linear-gradient(135deg, #2563eb, var(--terracotta));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .bg-watermark {
+            position: fixed; top: 10%; left: 5%; font-size: 25vw; font-weight: 900;
+            color: rgba(0,0,0,0.03); z-index: -2; pointer-events: none; line-height: 1;
+        }
+
+        .bg-drift {
+            position: fixed; width: 600px; opacity: 0.08; z-index: -1; pointer-events: none;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh; display: flex; align-items: center; justify-content: center;
+            padding: 2rem; position: relative;
+        }
+        .hero-card {
+            background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(12px);
+            border: 1px solid white; border-radius: var(--radius);
+            padding: 3rem; max-width: 1100px; width: 100%;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.1);
+            display: grid; grid-template-columns: 1fr 1.5fr; gap: 3rem; align-items: center;
+        }
+        .portrait {
+            width: 100%; aspect-ratio: 1; 
+            background: var(--ice-blue);
+            clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+            object-fit: cover;
+        }
+        .massive-head { font-size: 5rem; line-height: 0.9; margin-bottom: 1rem; }
+        .nav-links { margin-top: 2rem; display: flex; gap: 1rem; flex-wrap: wrap; }
+        .btn {
+            padding: 0.8rem 1.5rem; border-radius: 50px; text-decoration: none;
+            font-weight: 700; transition: 0.3s; border: none; cursor: pointer;
+            display: inline-flex; align-items: center; gap: 8px;
+        }
+        .btn-primary { background: var(--terracotta); color: white; box-shadow: 0 10px 20px -5px var(--terracotta); }
+        .btn-primary:hover { transform: translateY(-3px) scale(1.05); }
+        .btn-outline { border: 2px solid var(--deep-blue); color: var(--deep-blue); }
+        .btn-outline:hover { background: var(--deep-blue); color: white; }
+
+        /* Timeline Story / Inverted Section */
+        .inverted-section {
+            background: var(--deep-blue); color: var(--ice-white);
+            padding: 6rem 2rem; border-radius: var(--radius); margin: 2rem;
+            position: relative;
+        }
+        .inverted-section h2 { background: linear-gradient(135deg, #60a5fa, #93c5fd); -webkit-background-clip: text; }
+        .timeline { border-left: 3px solid var(--terracotta); padding-left: 2rem; margin: 3rem 0; }
+        .timeline-item { margin-bottom: 3rem; position: relative; }
+        .timeline-item::before {
+            content: ''; position: absolute; left: -2.4rem; top: 5px;
+            width: 15px; height: 15px; background: var(--terracotta); border-radius: 50%;
+        }
+
+        .skills-grid { display: flex; flex-wrap: wrap; gap: 0.8rem; margin-top: 1.5rem; }
+        .skill-pill {
+            background: rgba(255,255,255,0.1); padding: 0.4rem 1.2rem;
+            border-radius: 50px; font-size: 0.9rem; border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        /* Projects Section */
+        .projects-wrap { padding: 4rem 2rem; max-width: 1400px; margin: 0 auto; }
+        .filter-bar {
+            margin-bottom: 3rem; display: flex; flex-direction: column; gap: 1.5rem;
+            background: white; padding: 2rem; border-radius: var(--radius); box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        }
+        .filter-top { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+        #search { padding: 0.8rem 1.5rem; border-radius: 50px; border: 1px solid #ddd; width: 100%; max-width: 400px; outline: none; }
+        .tag-filters { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+        .tag-pill {
+            padding: 0.5rem 1rem; border-radius: 50px; background: #f1f5f9; cursor: pointer;
+            font-size: 0.85rem; border: none; transition: 0.2s;
+        }
+        .tag-pill.active { background: var(--terracotta); color: white; }
+        
+        .projects-grid {
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 2rem;
+        }
+        .project-card {
+            background: #1a202c; border-radius: var(--radius); padding: 1.5rem;
+            color: white; box-shadow: var(--shadow-recessed); transition: 0.4s;
+            display: flex; flex-direction: column;
+        }
+        .project-card:hover { transform: translateY(-8px); }
+        .project-img { width: 100%; height: 200px; object-fit: cover; border-radius: 14px; margin-bottom: 1.5rem; }
+        .project-tech { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 1rem 0; }
+        .tech-tag { font-size: 0.75rem; opacity: 0.8; background: rgba(255,255,255,0.1); padding: 2px 8px; border-radius: 4px; }
+        .project-links { margin-top: auto; display: flex; gap: 1rem; }
+        .project-links a { color: var(--ice-blue); text-decoration: none; font-size: 0.9rem; font-weight: bold; }
+
+        /* AI Section */
+        .ai-status {
+            background: linear-gradient(135deg, var(--terracotta), #c2410c); color: white;
+            padding: 4rem 2rem; text-align: center; border-radius: var(--radius); margin: 4rem 2rem;
+        }
+        .ai-status h2 { color: white; -webkit-text-fill-color: white; margin-bottom: 1rem; font-size: 3rem; }
+
+        footer { text-align: center; padding: 2rem; opacity: 0.6; font-size: 0.9rem; }
+
+        @media (max-width: 768px) {
+            .hero-card { grid-template-columns: 1fr; text-align: center; padding: 2rem 1rem; }
+            .massive-head { font-size: 3rem; }
+            .nav-links { justify-content: center; }
+            .portrait { width: 60%; margin: 0 auto; }
+            .projects-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+<style id="safety-override">
+*[class*="fade"],*[class*="anim"],*[class*="hidden"],*[class*="reveal"],*[class*="slide"] {
+  opacity: 1 !important; transform: none !important;
+  visibility: visible !important; animation: none !important;
+}
+</style>
+</head>
+<body>
+
+    <div class="bg-watermark">SERTIC</div>
+    <img src="../assets/svg/topography-contour-lines.svg" class="bg-drift" style="top: 10%; right: -100px;">
+    <img src="../assets/svg/squiggle-abstract-lines.svg" class="bg-drift" style="bottom: 10%; left: -100px;">
+
+    <header class="hero">
+        <div class="hero-card">
+            <div>
+                <img src="../assets/images/portrait.webp" alt="Tomislav Sertic" class="portrait" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
+                <div style="display:none; width:100%; aspect-ratio:1; background:var(--terracotta); color:white; font-size:5rem; align-items:center; justify-content:center; clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);">TS</div>
+            </div>
+            <div>
+                <h1 class="massive-head">Tomislav<br>Sertic</h1>
+                <p style="font-size: 1.5rem; font-weight: 500; color: var(--terracotta);">Full-Stack Software Developer</p>
+                <p style="margin: 1.5rem 0; font-size: 1.1rem; max-width: 500px;">
+                    I don't just write code; I architect solutions. Based in Zagreb, I bridge the gap between heavy enterprise legacy and sleek modern interfaces.
+                </p>
+                <div class="nav-links">
+                    <a href="#work" class="btn btn-primary">The Lab <img src="../assets/svg/arrow-diagonal-right.svg" width="18" style="filter: invert(1);"></a>
+                    <a href="#about" class="btn btn-outline">My Story</a>
+                    <a href="https://github.com/tsertic" target="_blank" class="btn btn-outline">Github</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section id="about" class="inverted-section">
+        <div style="max-width: 900px; margin: 0 auto;">
+            <h2 style="font-size: 3rem;">Straight Talk</h2>
+            <p style="font-size: 1.3rem; margin-top: 1.5rem;">
+                I'm a full-stack dev at Arctis d.o.o. where I spend my days wrestling with the Archibus IWMS platform. We're talking mission-critical stuff for players like Saudi Aramco and the European Space Agency. I handle the heavy Java backends, optimize complex SQL queries, and lately, I've been injecting React into enterprise monoliths to bring them into 2026.
+            </p>
+            
+            <div class="timeline">
+                <div class="timeline-item">
+                    <h3>Enterprise Hardened</h3>
+                    <p>Building for ESA, Saudi Aramco, and the European Court of Justice. From full-lifecycle deployment to server maintenance on Tomcat and SQL stacks.</p>
+                </div>
+                <div class="timeline-item">
+                    <h3>The Modern Edge</h3>
+                    <p>Outside the corporate walls, I'm building with Next.js, TypeScript, and AI. I build high-performance tools and slick client sites that actually convert.</p>
+                </div>
+                <div class="timeline-item">
+                    <h3>The Human Side</h3>
+                    <p>Zagreb born and bred. When the screen's off, I'm usually hanging out with my daughter Anja and my dog Eevee, or playing a quick game of chess.</p>
+                </div>
+            </div>
+
+            <h3 style="margin-top: 3rem; color: var(--ice-blue);">Arsenal</h3>
+            <div class="skills-grid">
+                <span class="skill-pill">JavaScript</span><span class="skill-pill">TypeScript</span><span class="skill-pill">C#</span><span class="skill-pill">Python</span>
+                <span class="skill-pill">React</span><span class="skill-pill">Next.js</span><span class="skill-pill">Tailwind CSS</span><span class="skill-pill">Node.js</span>
+                <span class="skill-pill">Express</span><span class="skill-pill">.NET Core</span><span class="skill-pill">SQL</span><span class="skill-pill">MongoDB</span>
+                <span class="skill-pill">AI Integration</span><span class="skill-pill">Figma</span>
+            </div>
+        </div>
+    </section>
+
+    <section id="work" class="projects-wrap">
+        <h2 style="font-size: 3.5rem; text-align: center; margin-bottom: 0.5rem;">Side Work & Experiments</h2>
+        <p style="text-align: center; margin-bottom: 3rem; opacity: 0.7; font-style: italic;">
+            My day job is enterprise-locked. These are my public-facing projects, client builds, and AI experiments.
+        </p>
+
+        <div class="filter-bar">
+            <div class="filter-top">
+                <input type="text" id="search" placeholder="Search by project name or tech...">
+                <div id="project-count" style="font-weight: 700; color: var(--terracotta);">Showing 17 of 17 projects</div>
+            </div>
+            <div class="tag-filters" id="tag-container">
+                <button class="tag-pill active">All</button>
+                <!-- Tags generated by JS -->
+            </div>
+        </div>
+
+        <div class="projects-grid" id="projects-container">
+            <!-- Projects from JSON data -->
+        </div>
+    </section>
+
+    <section class="ai-status">
+        <h2>Built by AI. Validated by Me.</h2>
+        <p style="font-size: 1.5rem; max-width: 700px; margin: 0 auto 2rem auto;">
+            This portfolio isn't static. Every single day, an AI engine wakes up and redesigns the entire UI from scratch. No two days look the same.
+        </p>
+        <div style="font-size: 1.2rem; font-weight: 700; margin-bottom: 2rem;">GENERATED: 2026-11-20</div>
+        <a href="history/" class="btn btn-outline" style="background: white; border-color: white; color: var(--terracotta);">Dive into the archives →</a>
+    </section>
+
+    <footer id="contact">
+        <p>tsertic5@gmail.com • <a href="https://linkedin.com/in/tomislav-sertic" style="color: inherit;">LinkedIn</a> • <a href="https://github.com/tsertic" style="color: inherit;">GitHub</a></p>
+        <p style="margin-top: 1rem;">© 2026 Tomislav Sertic. Built in Zagreb.</p>
+    </footer>
+
+    <script>
+        const projectData = [
+    {
+      "name": "Manage Landing Page",
+      "description": "Landing Page for imagine 'Manage' company. Responsive design.",
+      "image": "https://cdn.sanity.io/images/pf6wp37f/production/54a81664cc61e85990647d4a292a38355e272475-1856x936.png",
+      "tech": ["Next.js", "Typescript", "TailwindCSS"],
+      "live": "https://manage-landing-page-seven-theta.vercel.app/",
+      "repository": "https://github.com/tsertic/manage_landing_page/tree/master"
+    },
+    {
+      "name": "Hrvatska Esport Inicijativa",
+      "description": "Website for the Croatian esports initiative association. Next.js and Sanity CMS.",
+      "image": "https://cdn.sanity.io/images/pf6wp37f/production/d7d8411c9ca5605e91516d8ca6da37f1a5a35d92-600x302.png",
+      "tech": ["Next.js", "SCSS", "Sanity", "Javascript"],
+      "live": "https://www.esportinicijativa.hr/",
+      "repository": "https://github.com/tsertic/hei_v2"
+    },
+    {
+      "name": "Body Mass Index Calculator",
+      "description": "Calculate your BMI using metric or imperial units. Frontend Mentor challenge.",
+      "image": "https://cdn.sanity.io/images/pf6wp37f/production/c6106cbfccc9d9145333876373dff6fd3d3872bf-600x323.png",
+      "tech": ["Next.js", "TailwindCSS", "Typescript"],
+      "live": "https://bmi-calculator-psi-ten.vercel.app/",
+      "repository": "https://github.com/tsertic/frontend_mentor_challenges/tree/main/bmi_calculator"
+    },
+    {
+      "name": "Pinky Delights Bakery",
+      "description": "Interactive 3D Web Experience with rotating Three.js donut models.",
+      "image": "https://cdn.sanity.io/images/pf6wp37f/production/9c3a623fc9e77bab5c2b31ebb307e059916d3835-1000x536.png",
+      "tech": ["Typescript", "TailwindCSS", "Three.js", "Next.js"],
+      "live": null,
+      "repository": "https://github.com/tsertic/pinky-delights-bakery"
+    },
+    {
+      "name": "Where in the world",
+      "description": "REST API application for country data with dark/light mode toggle.",
+      "image": "https://cdn.sanity.io/images/pf6wp37f/production/a40662bb7d8a672a19db9c1c7669a395941abc84-600x301.png",
+      "tech": ["Typescript", "Redux", "Next.js", "TailwindCSS"],
+      "live": "https://where-in-the-world-drab.vercel.app/",
+      "repository": "https://github.com/tsertic/where_in_the_world"
+    },
+    {
+      "name": "haiku AI streamer script",
+      "description": "Node.js app generating AI haikus using OpenAI and local Ollama models.",
+      "image": "https://cdn.sanity.io/images/pf6wp37f/production/32f2e0268a9fe542d8047c8531c289762ab4dc01-1712x896.png",
+      "tech": ["Node.js", "AI - Ollama", "AI - ChatGpt"],
+      "live": null,
+      "repository": "https://github.com/tsertic/haiku-ai-streamer-script"
+    },
+    {
+      "name": "Braniteljska zadruga Viribus Unitis",
+      "description": "Information hub for war veterans association. Built with Next.js and Sanity.",
+      "image": "https://cdn.sanity.io/images/pf6wp37f/production/78374d76f6c801577c98fb5d3507158140c42ee1-800x477.png",
+      "tech": ["Typescript", "Next.js", "Sanity", "TailwindCSS"],
+      "live": "https://www.bzvu.hr/",
+      "repository": "https://github.com/tsertic/website_viribus_unitis"
+    },
+    {
+      "name": "The Vixa Website",
+      "description": "Modern rental platform for vacation homes. Focused on SEO and performance.",
+      "image": "https://cdn.sanity.io/images/pf6wp37f/production/dd745de3166bd404a304ced44431b3807438e951-1200x603.png",
+      "tech": ["Typescript", "TailwindCSS", "Next.js", "Sanity"],
+      "live": "https://www.the-vixa.com/hr",
+      "repository": "https://github.com/tsertic/TheViksaWebsite"
+    },
+    {
+      "name": "Plesni Studio Ventus",
+      "description": "Full-stack webpage for a Zagreb dance studio with dynamic scheduling.",
+      "image": "https://cdn.sanity.io/images/pf6wp37f/production/22d037550976b8e15b051b183b2af6206f648030-600x377.png",
+      "tech": ["Next.js", "Sanity", "SCSS"],
+      "live": "https://www.plesni-studio-ventus.hr/",
+      "repository": "https://github.com/TomislavSertic/plesni_studio_ventus"
+    },
+    {
+      "name": "Arctis d.o.o.",
+      "description": "Corporate website for Arctis Ltd. Custom designed and built with Next.js.",
+      "image": "https://cdn.sanity.io/images/pf6wp37f/production/41259c66ca9f3472f31d65dfa58beedcdc4fd977-600x301.png",
+      "tech": ["Typescript", "SCSS", "Next.js", "Sanity"],
+      "live": "https://www.arctis.hr/",
+      "repository": "https://github.com/ArctisZagreb/arctis_webpage_nextjs"
+    },
+    {
+      "name": "Directory Structure Scanner",
+      "description": "Python tool with web UI to visualize and document folder hierarchies.",
+      "image": "https://cdn.sanity.io/images/pf6wp37f/production/41b2577b2c7b14ba62b8f24747fce95eb2dca141-1200x542.png",
+      "tech": ["Python", "Gradio"],
+      "live": null,
+      "repository": "https://github.com/tsertic/directory-structure-scanner"
+    },
+    {
+      "name": "pokepal ai",
+      "description": "AI chatbot with dynamic Pokémon stat visualization using Matplotlib.",
+      "image": "https://cdn.sanity.io/images/pf6wp37f/production/4199641036ba4f5166cd6594b898ada6facaff31-1200x706.png",
+      "tech": ["Python", "AI", "Gradio"],
+      "live": null,
+      "repository": "https://github.com/tsertic/pokeapi-gradio-ai-chatbot"
+    },
+    {
+      "name": "Pokémon AI Debate",
+      "description": "AI models GPT-4o-mini and Claude debate which Pokémon is superior.",
+      "image": "https://cdn.sanity.io/images/pf6wp37f/production/cc01144c22251187e40bc42bb3408413a6c8c141-1200x645.png",
+      "tech": ["Express.js", "React", "AI", "Node.js"],
+      "live": null,
+      "repository": "https://github.com/tsertic/pokemon-ai-debate"
+    },
+    {
+      "name": "LLaVA Image Analyzer",
+      "description": "React app using multimodal AI to describe image content locally.",
+      "image": "https://cdn.sanity.io/images/pf6wp37f/production/23234234d818f39a265c9a56d425f4aa569c1c1b-1344x832.png",
+      "tech": ["React", "Typescript", "AI - Ollama"],
+      "live": null,
+      "repository": "https://github.com/tsertic/llava-image-analyzer-react"
+    }
+];
+
+        const container = document.getElementById('projects-container');
+        const tagContainer = document.getElementById('tag-container');
+        const searchInput = document.getElementById('search');
+        const countDisplay = document.getElementById('project-count');
+
+        // Initial render
+        function renderProjects(filterTag = 'All', query = '') {
+            container.innerHTML = '';
+            let visible = 0;
+            const allTech = new Set();
+
+            projectData.forEach(p => {
+                p.tech.forEach(t => allTech.add(t));
+                const matchesTag = filterTag === 'All' || p.tech.includes(filterTag);
+                const matchesQuery = p.name.toLowerCase().includes(query.toLowerCase()) || p.tech.some(t => t.toLowerCase().includes(query.toLowerCase()));
+
+                if (matchesTag && matchesQuery) {
+                    visible++;
+                    const card = document.createElement('div');
+                    card.className = 'project-card';
+                    card.innerHTML = `
+                        <img src="${p.image}" class="project-img" alt="${p.name}">
+                        <h3>${p.name}</h3>
+                        <p style="font-size:0.85rem; margin-top:0.5rem; opacity:0.8;">${p.description}</p>
+                        <div class="project-tech">${p.tech.map(t => `<span class="tech-tag">${t}</span>`).join('')}</div>
+                        <div class="project-links">
+                            ${p.live ? `<a href="${p.live}" target="_blank">Live Demo</a>` : ''}
+                            <a href="${p.repository}" target="_blank">Source Code</a>
+                        </div>
+                    `;
+                    container.appendChild(card);
+                }
+            });
+            countDisplay.innerText = `Showing ${visible} of ${projectData.length} projects`;
+            return allTech;
+        }
+
+        const uniqueTech = renderProjects();
+        [...uniqueTech].sort().forEach(tech => {
+            const btn = document.createElement('button');
+            btn.className = 'tag-pill';
+            btn.innerText = tech;
+            btn.onclick = () => {
+                document.querySelectorAll('.tag-pill').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                renderProjects(tech, searchInput.value);
+            };
+            tagContainer.appendChild(btn);
+        });
+
+        document.querySelector('.tag-pill').onclick = (e) => {
+            document.querySelectorAll('.tag-pill').forEach(b => b.classList.remove('active'));
+            e.target.classList.add('active');
+            renderProjects('All', searchInput.value);
+        };
+
+        searchInput.oninput = () => {
+            const activeTag = document.querySelector('.tag-pill.active').innerText;
+            renderProjects(activeTag, searchInput.value);
+        };
+
+        // Scroll Drift Animation
+        const driftElements = document.querySelectorAll('.bg-drift');
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            driftElements.forEach((el, i) => {
+                const speed = (i + 1) * 0.1;
+                el.style.transform = `translateY(${scrolled * speed}px) rotate(${scrolled * 0.05}deg)`;
+            });
+        });
+    </script>
+</body>
+</html>
